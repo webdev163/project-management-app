@@ -1,0 +1,21 @@
+@import "normalize.css/normalize.css";
+
+.container {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color .3s, border-bottom .3s;
+  &:hover {
+    color: #ffbb00;
+  }
+  &.active {
+    border-bottom: 1px solid #fff;
+    &:hover {
+      border-bottom: 1px solid #ffbb00;
+    }
+  }
+}

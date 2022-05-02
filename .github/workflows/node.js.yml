@@ -1,0 +1,20 @@
+name: Node.js CI
+on:
+  pull_request:
+    branches: [ develop ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build and Lint
+    steps:
+    - uses: actions/checkout@v2
+      name: Check out repository
+    - uses: actions/setup-node@v1
+      name: Set up Node.js
+      with:
+        node-version: 16
+    - run: |
+        npm ci
+        npm run build
+        npm run lint
+      name: Build and Lint
