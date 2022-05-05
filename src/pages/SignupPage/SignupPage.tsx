@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react';
 import { useAppDispatch } from '~/hooks/redux';
-import { signIn } from '~/store/reducers/authSlice';
+import { signUp } from '~/store/reducers/authSlice';
 
-const LoginPage: FC = () => {
+const SignupPage: FC = () => {
   const [name, setName] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch = useAppDispatch();
@@ -12,14 +13,19 @@ const LoginPage: FC = () => {
     setName(name);
   };
 
+  const updateLogin = (name: string) => {
+    setLogin(name);
+  };
+
   const updatePassword = (password: string) => {
     setPassword(password);
   };
 
   const onSubmit = () => {
     dispatch(
-      signIn({
-        login: name,
+      signUp({
+        name,
+        login,
         password,
       }),
     );
@@ -27,8 +33,9 @@ const LoginPage: FC = () => {
 
   return (
     <div>
-      <p>Войти:</p>
+      <p>Зарегистрироваться:</p>
       <input type="text" onChange={e => updateName(e.target.value)} />
+      <input type="text" onChange={e => updateLogin(e.target.value)} />
       <input type="password" onChange={e => updatePassword(e.target.value)} />
       <button type="submit" onClick={onSubmit}>
         Submit
@@ -37,4 +44,4 @@ const LoginPage: FC = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;

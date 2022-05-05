@@ -13,6 +13,9 @@ const Header: FC = () => {
         <NavLink to="/login" className={styles.link}>
           Login
         </NavLink>
+        <NavLink to="/signup" className={styles.link}>
+          Sign up
+        </NavLink>
         <NavLink to="/welcome" className={styles.link}>
           Welcome
         </NavLink>
