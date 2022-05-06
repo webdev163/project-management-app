@@ -3,13 +3,13 @@ import { useAppDispatch } from '~/hooks/redux';
 import { signIn } from '~/store/reducers/authSlice';
 
 const LoginPage: FC = () => {
-  const [name, setName] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch = useAppDispatch();
 
-  const updateName = (name: string) => {
-    setName(name);
+  const updateName = (login: string) => {
+    setLogin(login);
   };
 
   const updatePassword = (password: string) => {
@@ -19,7 +19,7 @@ const LoginPage: FC = () => {
   const onSubmit = () => {
     dispatch(
       signIn({
-        login: name,
+        login,
         password,
       }),
     );

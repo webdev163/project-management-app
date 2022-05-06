@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
-import { LoginResponse, LoginRequest, SignUpRequest, UserData } from '~/types/api';
-import { ENDPOINT_URL } from '~/utils/constants';
+import { AxiosError } from 'axios';
+import { LoginResponse, LoginRequest, SignUpRequest } from '~/types/api';
+import { _signIn, _signUp } from '~/services/auth';
 
 interface AuthState {
   isLogged: boolean;
@@ -23,11 +23,8 @@ export const signIn = createAsyncThunk(
   'auth/signIn',
   async ({ login, password }: LoginRequest, { rejectWithValue }) => {
     try {
-      const response = await axios.post<LoginResponse>(`${ENDPOINT_URL}/signin`, {
-        login,
-        password,
-      });
-      return response.data;
+      const response = await _signIn(login, password);
+      return response;
     } catch (e) {
       if (e instanceof Error) {
         const error = e as AxiosError;
@@ -41,12 +38,8 @@ export const signUp = createAsyncThunk(
   'auth/signUp',
   async ({ name, login, password }: SignUpRequest, { rejectWithValue }) => {
     try {
-      const response = await axios.post<UserData>(`${ENDPOINT_URL}/signup`, {
-        name,
-        login,
-        password,
-      });
-      return response.data;
+      const response = await _signUp(name, login, password);
+      return response;
     } catch (e) {
       if (e instanceof Error) {
         const error = e as AxiosError;

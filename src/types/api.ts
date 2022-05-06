@@ -18,3 +18,27 @@ export interface UserData {
   name: string;
   login: string;
 }
+
+export interface BoardData {
+  id: string;
+  title: string;
+  columns?: ColumnData[];
+}
+
+export interface ColumnData {
+  id: string;
+  title: string;
+  order: number;
+  tasks?: TaskData[];
+}
+
+export interface TaskData {
+  id: string;
+  title: string;
+  order: number;
+  description: string;
+  userId: string;
+  boardId: string;
+  columnId: string;
+  files?: unknown;
+}
