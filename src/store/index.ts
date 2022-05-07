@@ -1,10 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from './reducers/counterSlice';
+import dataAPI from '~/services/boardService';
+import boardReducer from './reducers/boardSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    boards: boardReducer,
+    [dataAPI.reducerPath]: dataAPI.reducer,
   },
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(dataAPI.middleware),
   devTools: process.env.NODE_ENV === 'development',
 });
 
