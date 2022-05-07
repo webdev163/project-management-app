@@ -1,13 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import dataAPI from '~/services/boardService';
 import boardReducer from './reducers/boardSlice';
+import authReducer from './reducers/authSlice';
 
 export const store = configureStore({
   reducer: {
     boards: boardReducer,
-    [dataAPI.reducerPath]: dataAPI.reducer,
+    auth: authReducer,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(dataAPI.middleware),
   devTools: process.env.NODE_ENV === 'development',
 });
 
