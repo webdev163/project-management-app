@@ -4,6 +4,7 @@ import App from '../App';
 import MainPage from '~/pages/MainPage';
 import WelcomePage from '~/pages/WelcomePage';
 import LoginPage from '~/pages/LoginPage';
+import SignupPage from '~/pages/SignupPage';
 
 const AppRouter: FC = () => {
   return (
@@ -11,6 +12,7 @@ const AppRouter: FC = () => {
       <Route path="/" element={<App />}>
         <Route index element={<MainPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignupPage />} />
         <Route path="welcome" element={<WelcomePage />} />
       </Route>
     </Routes>

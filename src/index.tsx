@@ -4,6 +4,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import AppRouter from './router/AppRouter';
+import { setupInterceptorsTo } from '~/utils/axiosInterceptors';
+import axios from 'axios';
+
+setupInterceptorsTo(axios);
 
 const container = document.getElementById('app') as HTMLElement;
 const root = createRoot(container);
