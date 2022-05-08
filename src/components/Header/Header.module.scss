@@ -1,8 +1,9 @@
 .wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   background-color: #447fff;
+  height: 85px;
 }
 
 .navbar {
@@ -11,6 +12,6 @@
 
 .link {
   color: #fff;
-  font-size: 22px;
+  font-size: 18px;
   margin: 15px;
 }
