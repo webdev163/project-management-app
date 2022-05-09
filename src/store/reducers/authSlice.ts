@@ -56,7 +56,23 @@ const setToken = (token: string) => {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    restoreToken: state => {
+      const token = localStorage.getItem('token') || '';
+      if (token) {
+        state.token = token;
+        state.isLogged = true;
+      }
+    },
+    logOut: state => {
+      localStorage.removeItem('token');
+      state.token = '';
+      state.isLogged = false;
+    },
+    resetRegistrationStatus: state => {
+      state.isRegistered = false;
+    },
+  },
   extraReducers: {
     [signIn.pending.type]: state => {
       state.isLoading = true;
@@ -88,5 +104,7 @@ export const authSlice = createSlice({
     },
   },
 });
+
+export const { restoreToken, logOut, resetRegistrationStatus } = authSlice.actions;
 
 export default authSlice.reducer;

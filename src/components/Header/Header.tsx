@@ -1,24 +1,29 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAppSelector } from '~/hooks/redux';
 
 import styles from './Header.module.scss';
 
 const Header: FC = () => {
+  const { isLogged } = useAppSelector(state => state.auth);
   return (
     <div className={styles.wrapper}>
       <div className={styles.navbar}>
-        <NavLink to="/" className={styles.link}>
-          Main
-        </NavLink>
-        <NavLink to="/login" className={styles.link}>
-          Login
-        </NavLink>
-        <NavLink to="/signup" className={styles.link}>
-          Sign up
-        </NavLink>
-        <NavLink to="/welcome" className={styles.link}>
-          Welcome
-        </NavLink>
+        {!isLogged && (
+          <>
+            <NavLink to="/login" className={styles.link}>
+              Войти
+            </NavLink>
+            <NavLink to="/signup" className={styles.link}>
+              Зарегистрироваться
+            </NavLink>
+          </>
+        )}
+        {isLogged && (
+          <NavLink to="/logout" className={styles.link}>
+            Выйти
+          </NavLink>
+        )}
       </div>
     </div>
   );
