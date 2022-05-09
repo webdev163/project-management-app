@@ -2,19 +2,22 @@ import React, { FC, useState } from 'react';
 import Modal from 'react-modal';
 import ModalWindowForm from '../ModalWindowForm/ModalWindowForm';
 import styles from '../Board/Board.module.scss';
-import { ModalWindowFormProps } from '~/interfaces/interfaces';
 import BoardTask from '../BoardTask';
 import BoardColumn from '../BoardColumn';
+import { ModalWindowFormProps } from '~/types/board';
+import { createColumn } from '~/services/columns';
+import { useAppDispatch, useAppSelector } from '~/hooks/redux';
+import { setCurrentBoard } from '~/store/reducers/currentBoardSlice';
+import { ColumnData } from '~/types/api';
+import { createTask } from '~/services/tasks';
 
 const BoardAddItem: FC<ModalWindowFormProps> = props => {
+  const { currentBoard } = useAppSelector(state => state.currentBoard);
+  const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newColumn, setNewColumn] = useState('');
-  const [newTask, setNewTask] = useState('');
 
   function handleOpenModal(): void {
     setIsModalOpen(true);
-    setNewColumn('');
-    setNewTask('');
   }
 
   function handleCloseModal(): void {
@@ -22,19 +25,40 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
   }
 
   const setData = (data: string): void => {
-    console.log(data);
     if (props.options.type === 'column') {
-      setNewColumn(data);
-      console.log('new column ', newColumn);
       // request create new column
+      createNewColumn(data);
     }
 
     if (props.options.type === 'task') {
-      setNewTask(data);
-      console.log('new task', newTask);
+      console.log(data);
       // request create new task
     }
   };
+
+  const createNewColumn = async (newColumnTitle: string): Promise<ColumnData> => {
+    const data = await createColumn(currentBoard.id, newColumnTitle, (currentBoard.columns?.length as number) + 1);
+    dispatch(
+      setCurrentBoard({
+        id: currentBoard.id,
+        title: currentBoard.title,
+        columns: [...(currentBoard.columns || []), data as ColumnData],
+      }),
+    );
+    return data as ColumnData;
+  };
+
+  // const createNewTask = async (newTaskTitle: string) => {
+  //   const data = await createTask(currentBoard.id, columnId, newTaskTitle, order, description, userId);
+  //   dispatch(
+  //     setCurrentBoard({
+  //       id: currentBoard.id,
+  //       title: currentBoard.title,
+  //       columns: [...(currentBoard.columns || []), data as ColumnData],
+  //     }),
+  //   );
+  //   return data;
+  // };
 
   return (
     <>
@@ -60,9 +84,8 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
         //   <textarea className={`${styles.taskTitle} ${styles.textarea}`}>{newTask}</textarea>
         // </div>
         <BoardTask key={''} id={''} title={newTask} order={0} description={''} userId={''} boardId={''} columnId={''} />
-      )}
-      {!isModalOpen && newColumn && <BoardColumn key={''} title={newColumn} id={''} />} */}
-      {(!isModalOpen || props.options.type !== 'task') && (
+      )} */}
+      {!isModalOpen && (
         <button className={styles.btn} onClick={handleOpenModal}>
           {props.options.btnTitle}
         </button>

@@ -6,7 +6,9 @@ import { TaskData } from '~/types/api';
 export const getAllTasks = async (boardId: string, columnId: string) => {
   try {
     const response = await axios.get<TaskData[]>(`${ENDPOINT_URL}/boards/${boardId}/columns/${columnId}/tasks`, {
-      headers: { Authorization: `Bearer ${getToken()}` },
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
     });
     return response.data;
   } catch (e) {

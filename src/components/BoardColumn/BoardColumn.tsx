@@ -1,31 +1,52 @@
-import React, { FC } from 'react';
-import { BoardColumnProps } from '~/interfaces/interfaces';
+import React, { FC, useEffect } from 'react';
 import BoardTask from '../BoardTask';
-import dataAPI from '~/services/boardService';
-import BoardAddTaskCard from '../BoardAddItem';
-import { handleFocus, taskOptions } from '~/utils/utils';
+import BoardAddItem from '../BoardAddItem';
+import { handleFocus } from '~/utils/utils';
 import styles from '../Board/Board.module.scss';
+import { BoardColumnProps } from '~/types/board';
+import { taskOptions } from '~/utils/constants';
+import { getAllTasks } from '~/services/tasks';
+import { TaskData } from '~/types/api';
+import { useAppDispatch, useAppSelector } from '~/hooks/redux';
+import { setColumnTaskData } from '~/store/reducers/currentBoardSlice';
 
-const BoardColumn: FC<BoardColumnProps> = ({ id, title }: BoardColumnProps) => {
-  const tasks = dataAPI.useGetTasksQuery({
-    columnId: id,
-    boardId: '0456c79b-38bf-4f66-9c51-1ccde5f154f9',
-  }).currentData;
+const BoardColumn: FC<BoardColumnProps> = props => {
+  const { currentBoard } = useAppSelector(state => state.currentBoard);
 
-  const handleDeleteColumn = () => {
+  const dispatch = useAppDispatch();
+
+  const getTasks = async (): Promise<void> => {
+    if (currentBoard) {
+      const data = await getAllTasks(currentBoard.id, props.columnId);
+      dispatch(
+        setColumnTaskData({
+          columnId: props.columnId,
+          tasks: data as TaskData[],
+        }),
+      );
+    }
+  };
+
+  const handleDeleteColumn = (): void => {
     // request delete column
   };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
 
   return (
     <div className={styles.boardItem}>
       <i className={styles.deleteBtn} onClick={handleDeleteColumn}>
         ×
       </i>
-      <textarea className={`${styles.textarea} ${styles.columnTitle}`} onFocus={handleFocus}>
-        {title}
-      </textarea>
-      {tasks &&
-        tasks.map(task => {
+      <textarea
+        className={`${styles.textarea} ${styles.columnTitle}`}
+        defaultValue={props.columnTitle}
+        onFocus={handleFocus}
+      ></textarea>
+      {props.columnTasks &&
+        props.columnTasks.map((task: TaskData) => {
           return (
             <BoardTask
               id={task.id}
@@ -39,7 +60,7 @@ const BoardColumn: FC<BoardColumnProps> = ({ id, title }: BoardColumnProps) => {
             />
           );
         })}
-      <BoardAddTaskCard options={taskOptions} />
+      <BoardAddItem options={taskOptions} />
     </div>
   );
 };
