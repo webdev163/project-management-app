@@ -1,5 +1,5 @@
 import React, { FC, useRef } from 'react';
-import { ModalWindowProps } from '~/interfaces/interfaces';
+import { ModalWindowProps } from '~/types/board';
 import styles from '../Board/Board.module.scss';
 
 const ModalWindowForm: FC<ModalWindowProps> = props => {
@@ -7,7 +7,6 @@ const ModalWindowForm: FC<ModalWindowProps> = props => {
 
   const handleSubmit = () => {
     if (cardInputRef.current?.value) {
-      // request create task
       props.setData.setData(cardInputRef.current?.value);
       props.handleCloseModal.handleCloseModal();
     }

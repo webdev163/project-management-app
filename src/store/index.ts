@@ -1,12 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import dataAPI from '~/services/boardService';
-import boardReducer from './reducers/boardSlice';
 import authReducer from './reducers/authSlice';
+import boardReducer from './reducers/boardSlice';
+import currentBoardReducer from './reducers/currentBoardSlice';
 
 export const store = configureStore({
   reducer: {
-    boards: boardReducer,
     auth: authReducer,
+    boards: boardReducer,
+    currentBoard: currentBoardReducer,
   },
   devTools: process.env.NODE_ENV === 'development',
 });
