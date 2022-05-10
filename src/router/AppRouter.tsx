@@ -4,10 +4,10 @@ import App from '../App';
 import MainPage from '~/pages/MainPage';
 import WelcomePage from '~/pages/WelcomePage';
 import LoginPage from '~/pages/LoginPage';
+import Board from '~/components/Board';
 import SignupPage from '~/pages/SignupPage';
 import Logout from '~/components/Logout';
 import { useAppSelector } from '~/hooks/redux';
-import Board from '~/components/Board';
 
 const AppRouter: FC = () => {
   const { isLogged } = useAppSelector(state => state.auth);
