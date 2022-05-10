@@ -16,7 +16,7 @@ const BoardColumn: FC<BoardColumnProps> = props => {
   const dispatch = useAppDispatch();
 
   const getTasks = async (): Promise<void> => {
-    if (currentBoard) {
+    if (currentBoard && props.columnId) {
       const data = await getAllTasks(currentBoard.id, props.columnId);
       dispatch(
         setColumnTaskData({

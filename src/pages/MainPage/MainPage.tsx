@@ -18,7 +18,7 @@ const MainPage: FC = () => {
   };
 
   const openBoard = (boardId: string): void => {
-    dispatch(setCurrentBoard(boards.find((board: BoardData) => board.id === boardId)));
+    dispatch(setCurrentBoard(boards.find(board => board.id === boardId) as BoardData));
   };
 
   useEffect(() => {

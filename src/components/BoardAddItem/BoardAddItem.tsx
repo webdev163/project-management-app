@@ -26,12 +26,10 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
 
   const setData = (data: string): void => {
     if (props.options.type === 'column') {
-      // request create new column
       createNewColumn(data);
     }
 
     if (props.options.type === 'task') {
-      console.log(data);
       // request create new task
     }
   };
@@ -50,13 +48,7 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
 
   // const createNewTask = async (newTaskTitle: string) => {
   //   const data = await createTask(currentBoard.id, columnId, newTaskTitle, order, description, userId);
-  //   dispatch(
-  //     setCurrentBoard({
-  //       id: currentBoard.id,
-  //       title: currentBoard.title,
-  //       columns: [...(currentBoard.columns || []), data as ColumnData],
-  //     }),
-  //   );
+  //   dispatch(());
   //   return data;
   // };
 
@@ -79,12 +71,6 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
           ×
         </i>
       </Modal>
-      {/* {!isModalOpen && newTask && (
-        // <div className={styles.tasksItem}>
-        //   <textarea className={`${styles.taskTitle} ${styles.textarea}`}>{newTask}</textarea>
-        // </div>
-        <BoardTask key={''} id={''} title={newTask} order={0} description={''} userId={''} boardId={''} columnId={''} />
-      )} */}
       {!isModalOpen && (
         <button className={styles.btn} onClick={handleOpenModal}>
           {props.options.btnTitle}

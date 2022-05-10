@@ -17,6 +17,7 @@ const AppRouter: FC = () => {
         <Route path="/" element={<App />}>
           <Route index element={<MainPage />} />
           <Route path="logout" element={<Logout />} />
+          <Route path="board" element={<Board />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       )}
