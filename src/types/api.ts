@@ -42,3 +42,8 @@ export interface TaskData {
   columnId: string;
   files?: unknown;
 }
+
+export interface UpdateColumnTasks {
+  columnId: string;
+  tasks: TaskData[];
+}

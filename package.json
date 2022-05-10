@@ -21,6 +21,7 @@
     "@types/node": "^17.0.29",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.13",
+    "@types/react-modal": "^3.13.1",
     "@types/react-redux": "^7.1.24",
     "@types/react-router-dom": "^5.3.3",
     "@types/webpack-env": "^1.16.3",
@@ -70,6 +71,7 @@
     "normalize.css": "^8.0.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-modal": "^3.15.1",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.2.2"
   },
