@@ -14,9 +14,6 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(restoreToken());
-    const decoded = getDecodedToken();
-    decoded && dispatch(setUserId(decoded.userId));
-    decoded && dispatch(setUserLogin(decoded.login));
   }, [dispatch]);
 
   useEffect(() => {
