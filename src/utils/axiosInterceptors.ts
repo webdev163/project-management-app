@@ -1,4 +1,6 @@
 import { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { store } from '~/store';
+import { logOut } from '~/store/reducers/authSlice';
 
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
   return config;
@@ -14,7 +16,7 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 
 const onResponseError = (error: AxiosError): Promise<AxiosError> => {
   if (error && error?.response?.status === 401) {
-    console.log('should log out');
+    store.dispatch(logOut());
   }
   return Promise.reject(error);
 };

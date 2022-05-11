@@ -26,7 +26,6 @@ const AppRouter: FC = () => {
           <Route index element={<WelcomePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
-          <Route path="board" element={<Board />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       )}

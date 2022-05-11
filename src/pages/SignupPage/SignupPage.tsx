@@ -1,23 +1,70 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
-import { signUp, signIn, resetRegistrationStatus } from '~/store/reducers/authSlice';
+import { signUp, signIn, resetRegistrationStatus, clearError } from '~/store/reducers/authSlice';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import Loader from '~/components/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useFormik } from 'formik';
+import { SignUpRequest } from '~/types/api';
+import { SignUpErrors } from '~/types/enums';
 
 import styles from './SignupPage.module.scss';
 
 const SignupPage: FC = () => {
-  const [name, setName] = useState('');
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-
   const dispatch = useAppDispatch();
-  const { isRegistered, isLoading } = useAppSelector(state => state.auth);
+  const { isRegistered, isLoading, error } = useAppSelector(state => state.auth);
   const navigate = useNavigate();
+
+  const validate = (values: SignUpRequest) => {
+    const errors = {} as SignUpRequest;
+    if (!values.name) {
+      errors.name = SignUpErrors.NAME_REQUIRED;
+    } else if (values.name.length < 2) {
+      errors.name = SignUpErrors.NAME_INVALID;
+    }
+    if (!values.login) {
+      errors.login = SignUpErrors.LOGIN_REQUIRED;
+    } else if (values.login.length < 4) {
+      errors.login = SignUpErrors.LOGIN_INVALID;
+    }
+    if (!values.password) {
+      errors.password = SignUpErrors.PASSWORD_REQUIRED;
+    }
+    return errors;
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      login: '',
+      password: '',
+    },
+    validate,
+    onSubmit: ({ name, login, password }) => {
+      dispatch(
+        signUp({
+          name,
+          login,
+          password,
+        }),
+      );
+    },
+  });
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      dispatch(clearError());
+    }
+  }, [dispatch, error]);
 
   useEffect(() => {
     if (isRegistered) {
+      const { login, password } = formik.values;
       dispatch(
         signIn({
           login,
@@ -26,29 +73,7 @@ const SignupPage: FC = () => {
       );
       dispatch(resetRegistrationStatus());
     }
-  }, [dispatch, isRegistered, login, password]);
-
-  const updateName = (name: string) => {
-    setName(name);
-  };
-
-  const updateLogin = (name: string) => {
-    setLogin(name);
-  };
-
-  const updatePassword = (password: string) => {
-    setPassword(password);
-  };
-
-  const onSubmit = () => {
-    dispatch(
-      signUp({
-        name,
-        login,
-        password,
-      }),
-    );
-  };
+  }, [dispatch, formik, isRegistered]);
 
   const moveBack = () => {
     navigate('/');
@@ -56,23 +81,48 @@ const SignupPage: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.form}>
+      <ToastContainer />
+      <form className={styles.form} onSubmit={formik.handleSubmit}>
         <label className={styles.label}>
           <span className={styles.labelText}>Имя:</span>
-          <input className={styles.input} type="text" onChange={e => updateName(e.target.value)} />
+          <input
+            className={styles.input}
+            id="name"
+            name="name"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.name}
+          />
+          {formik.errors.name ? <div className={styles.error}>{formik.errors.name}</div> : null}
         </label>
         <label className={styles.label}>
           <span className={styles.labelText}>Логин:</span>
-          <input className={styles.input} type="text" onChange={e => updateLogin(e.target.value)} />
+          <input
+            className={styles.input}
+            id="login"
+            name="login"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.login}
+          />
+          {formik.errors.login ? <div className={styles.error}>{formik.errors.login}</div> : null}
         </label>
         <label className={styles.label}>
           <span className={styles.labelText}>Пароль:</span>
-          <input className={styles.input} type="password" onChange={e => updatePassword(e.target.value)} />
+          <input
+            className={styles.input}
+            id="password"
+            name="password"
+            type="password"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+          />
+          {formik.errors.password ? <div className={styles.error}>{formik.errors.password}</div> : null}
         </label>
-        <Button variant="contained" type="submit" onClick={onSubmit} sx={{ marginTop: 2 }}>
+        <Button variant="contained" type="submit" sx={{ marginTop: 2 }}>
           Зарегистрироваться
         </Button>
-      </div>
+      </form>
       <div style={{ opacity: isLoading ? 1 : 0 }}>
         <Loader />
       </div>
