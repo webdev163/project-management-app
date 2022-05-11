@@ -7,6 +7,8 @@ interface AuthState {
   isLogged: boolean;
   isRegistered: boolean;
   token: string;
+  login: string;
+  userId: string;
   isLoading: boolean;
   error: string;
 }
@@ -15,6 +17,8 @@ const initialState: AuthState = {
   isLogged: false,
   isRegistered: false,
   token: '',
+  login: '',
+  userId: '',
   isLoading: false,
   error: '',
 };
@@ -64,6 +68,12 @@ export const authSlice = createSlice({
         state.isLogged = true;
       }
     },
+    setUserId: (state, action: PayloadAction<string>) => {
+      state.userId = action.payload;
+    },
+    setUserLogin: (state, action: PayloadAction<string>) => {
+      state.login = action.payload;
+    },
     logOut: state => {
       localStorage.removeItem('token');
       state.token = '';
@@ -71,6 +81,9 @@ export const authSlice = createSlice({
     },
     resetRegistrationStatus: state => {
       state.isRegistered = false;
+    },
+    clearError: state => {
+      state.error = '';
     },
   },
   extraReducers: {
@@ -105,6 +118,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { restoreToken, logOut, resetRegistrationStatus } = authSlice.actions;
+export const { restoreToken, logOut, resetRegistrationStatus, setUserId, setUserLogin, clearError } = authSlice.actions;
 
 export default authSlice.reducer;
