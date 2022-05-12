@@ -6,6 +6,7 @@ import { ColumnData, TaskData } from '~/types/api';
 import { columnOptions } from '~/utils/constants';
 import BoardAddItem from '../BoardAddItem';
 import BoardColumn from '../BoardColumn';
+
 import styles from './Board.module.scss';
 
 const Board: FC = () => {

@@ -10,6 +10,7 @@ import styles from './MainPage.module.scss';
 
 const MainPage: FC = () => {
   const { boards } = useAppSelector(state => state.boards);
+  const { isLogged } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
 
   const getBoards = async (): Promise<void> => {
@@ -27,19 +28,23 @@ const MainPage: FC = () => {
 
   return (
     <div className={styles.mainPage}>
-      <NavLink to="/board" className={`${styles.board} ${styles.boardDefaulted}`}>
-        <p>Создать доску</p>
-      </NavLink>
-      {boards &&
-        boards.map((board: BoardData) => {
-          return (
-            <div key={board.id} onClick={() => openBoard(board.id)}>
-              <NavLink to="board" className={styles.board}>
-                <p>{board.title}</p>
-              </NavLink>
-            </div>
-          );
-        })}
+      {isLogged && (
+        <>
+          <NavLink to="/board" className={`${styles.board} ${styles.boardDefaulted}`}>
+            <p>Создать доску</p>
+          </NavLink>
+          {boards &&
+            boards.map((board: BoardData) => {
+              return (
+                <div key={board.id} onClick={() => openBoard(board.id)}>
+                  <NavLink to="board" className={styles.board}>
+                    <p>{board.title}</p>
+                  </NavLink>
+                </div>
+              );
+            })}
+        </>
+      )}
     </div>
   );
 };

@@ -1,8 +1,9 @@
 .board {
   gap: 20px;
+  height: calc(100% - 85px);
   display: flex;
-  padding: 10px;
   background-color: rgb(200, 228, 245);
+  overflow: scroll;
 }
 
 .boardItem {
@@ -11,14 +12,16 @@
   flex-direction: column;
   max-width: 280px;
   width: 100%;
-  height: 100%;
+  min-height: 100px;
+  height: fit-content;
   padding: 5px 15px;
+  margin: 10px;
   background-color: rgb(157, 191, 212);
   border-radius: 5px;
 }
 
 .btn {
-  width: 250px;
+  min-width: 250px;
   height: 45px;
   border-radius: 5px;
   opacity: 1;

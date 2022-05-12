@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import Modal from 'react-modal';
 import ModalWindowForm from '../ModalWindowForm/ModalWindowForm';
-import styles from '../Board/Board.module.scss';
 import { ModalWindowFormProps } from '~/types/board';
 import { createColumn } from '~/services/columns';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
@@ -9,9 +8,11 @@ import { setCurrentBoard, setColumnTaskData } from '~/store/reducers/currentBoar
 import { ColumnData, TaskData } from '~/types/api';
 import { createTask, getAllTasks } from '~/services/tasks';
 
+import styles from '../Board/Board.module.scss';
+
 const BoardAddItem: FC<ModalWindowFormProps> = props => {
   const { currentBoard } = useAppSelector(state => state.currentBoard);
-  const { currentUser } = useAppSelector(state => state.currentUser);
+  const { userId } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -53,9 +54,10 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
         props.columnId,
         newTaskTitle,
         (existingTasks as TaskData[]).length + 1,
-        '',
-        currentUser,
+        'description',
+        userId,
       );
+      console.log(newTask);
       dispatch(
         setColumnTaskData({
           columnId: props.columnId,
