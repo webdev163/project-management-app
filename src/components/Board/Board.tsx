@@ -14,8 +14,14 @@ const Board: FC = () => {
 
   const getColumns = async (): Promise<void> => {
     if (currentBoard.id) {
-      const data = await getAllColumns(currentBoard.id);
-      dispatch(setCurrentBoard({ id: currentBoard.id, title: currentBoard.title, columns: data as ColumnData[] }));
+      const columns = await getAllColumns(currentBoard.id);
+      dispatch(
+        setCurrentBoard({
+          id: currentBoard.id,
+          title: currentBoard.title,
+          columns: columns as ColumnData[],
+        }),
+      );
     }
   };
 
@@ -37,7 +43,7 @@ const Board: FC = () => {
             />
           );
         })}
-      <BoardAddItem options={columnOptions} />
+      <BoardAddItem options={columnOptions} columnId={''} />
     </div>
   );
 };

@@ -20,9 +20,14 @@ const Header: FC = () => {
           </>
         )}
         {isLogged && (
-          <NavLink to="/logout" className={styles.link}>
-            Выйти
-          </NavLink>
+          <>
+            {/* <NavLink to="/mainPage" className={styles.link}>
+              Вернуться назад
+            </NavLink> */}
+            <NavLink to="/logout" className={styles.link}>
+              Выйти
+            </NavLink>
+          </>
         )}
       </div>
     </div>

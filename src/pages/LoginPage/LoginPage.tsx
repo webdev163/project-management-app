@@ -4,8 +4,10 @@ import { signIn } from '~/store/reducers/authSlice';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import Loader from '~/components/Loader';
-
 import styles from './LoginPage.module.scss';
+import { getAllUsers } from '~/services/users';
+import { UserData } from '~/types/api';
+import { setCurrentUser } from '~/store/reducers/currentUserSlice';
 
 const LoginPage: FC = () => {
   const [login, setLogin] = useState('');
@@ -23,13 +25,21 @@ const LoginPage: FC = () => {
     setPassword(password);
   };
 
-  const onSubmit = () => {
-    dispatch(
+  const onSubmit = async () => {
+    await dispatch(
       signIn({
         login,
         password,
       }),
     );
+    await setUser(login);
+  };
+
+  const setUser = async (login: string) => {
+    const allUsers = (await getAllUsers()) as UserData[];
+    if (allUsers) {
+      dispatch(setCurrentUser((allUsers as UserData[]).find((user: UserData) => user.login === login)?.id as string));
+    }
   };
 
   const moveBack = () => {

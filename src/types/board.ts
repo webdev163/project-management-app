@@ -27,6 +27,7 @@ export interface ModalWindowFormOptions {
 
 export interface ModalWindowFormProps {
   options: ModalWindowFormOptions;
+  columnId: string;
 }
 
 export interface SetDataType {
