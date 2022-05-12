@@ -11,6 +11,9 @@ import { LoginRequest } from '~/types/api';
 import { LoginErrors } from '~/types/enums';
 
 import styles from './LoginPage.module.scss';
+import { getAllUsers } from '~/services/users';
+import { UserData } from '~/types/api';
+import { setCurrentUser } from '~/store/reducers/currentUserSlice';
 
 const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -52,6 +55,23 @@ const LoginPage: FC = () => {
       dispatch(clearError());
     }
   }, [dispatch, error]);
+
+  // const onSubmit = async () => {
+  //   await dispatch(
+  //     signIn({
+  //       login,
+  //       password,
+  //     }),
+  //   );
+  //   await setUser(login);
+  // };
+
+  // const setUser = async (login: string) => {
+  //   const allUsers = (await getAllUsers()) as UserData[];
+  //   if (allUsers) {
+  //     dispatch(setCurrentUser((allUsers as UserData[]).find((user: UserData) => user.login === login)?.id as string));
+  //   }
+  // };
 
   const moveBack = () => {
     navigate('/');
