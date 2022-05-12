@@ -1,6 +1,6 @@
 export const handleUserKeyUp = (event: { code: string }): void => {
   if (event.code === 'Enter') {
-    console.log();
+    // add input on enter
   }
 };
 
