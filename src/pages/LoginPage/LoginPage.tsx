@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useFormik } from 'formik';
 import { LoginRequest } from '~/types/api';
-import { LoginErrors } from '~/types/enums';
+import { useTranslation } from 'react-i18next';
 
 import styles from './LoginPage.module.scss';
 
@@ -16,14 +16,17 @@ const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { isLoading, error } = useAppSelector(state => state.auth);
+  const { lang } = useAppSelector(state => state.locale);
+
+  const { t } = useTranslation();
 
   const validate = (values: LoginRequest) => {
     const errors = {} as LoginRequest;
     if (!values.login) {
-      errors.login = LoginErrors.LOGIN_REQUIRED;
+      errors.login = t('LOGIN.LOGIN_REQUIRED');
     }
     if (!values.password) {
-      errors.password = LoginErrors.PASSWORD_REQUIRED;
+      errors.password = t('LOGIN.PASSWORD_REQUIRED');
     }
     return errors;
   };
@@ -53,6 +56,11 @@ const LoginPage: FC = () => {
     }
   }, [dispatch, error]);
 
+  useEffect(() => {
+    formik.validateForm();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
+
   const moveBack = () => {
     navigate('/');
   };
@@ -62,7 +70,7 @@ const LoginPage: FC = () => {
       <ToastContainer />
       <form className={styles.form} onSubmit={formik.handleSubmit}>
         <label className={styles.label}>
-          <span className={styles.labelText}>Логин:</span>
+          <span className={styles.labelText}>{t('LOGIN.LOGIN_LABEL')}</span>
           <input
             className={styles.input}
             id="login"
@@ -74,7 +82,7 @@ const LoginPage: FC = () => {
           {formik.errors.login ? <div className={styles.error}>{formik.errors.login}</div> : null}
         </label>
         <label className={styles.label}>
-          <span className={styles.labelText}>Пароль:</span>
+          <span className={styles.labelText}>{t('LOGIN.PASSWORD_LABEL')}</span>
           <input
             className={styles.input}
             id="password"
@@ -86,14 +94,14 @@ const LoginPage: FC = () => {
           {formik.errors.password ? <div className={styles.error}>{formik.errors.password}</div> : null}
         </label>
         <Button variant="contained" type="submit" sx={{ width: 150, marginTop: 2 }}>
-          Войти
+          {t('LOGIN.BUTTON_LABEL')}
         </Button>
       </form>
       <div style={{ opacity: isLoading ? 1 : 0 }}>
         <Loader />
       </div>
       <Button variant="outlined" type="button" onClick={moveBack} sx={{ position: 'absolute', right: 25, top: 25 }}>
-        ← Назад
+        ← {t('LOGIN.BUTTON_BACK')}
       </Button>
     </div>
   );

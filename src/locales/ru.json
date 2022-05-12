@@ -1,0 +1,26 @@
+{
+  "LOGIN_LINK": "Войти",
+  "SIGNUP_LINK": "Зарегистрироваться",
+  "LOGOUT_LINK": "Выйти",
+  "LOGIN": {
+    "LOGIN_LABEL": "Логин:",
+    "PASSWORD_LABEL": "Пароль:",
+    "BUTTON_LABEL": "Войти",
+    "BUTTON_BACK": "Назад",
+    "LOGIN_REQUIRED": "обязательное поле",
+    "PASSWORD_REQUIRED": "обязательное поле"
+  },
+  "SIGNUP": {
+    "NAME_LABEL": "Имя:",
+    "LOGIN_LABEL": "Логин:",
+    "PASSWORD_LABEL": "Пароль:",
+    "BUTTON_LABEL": "Зарегистрироваться",
+    "BUTTON_BACK": "Назад",
+    "NAME_REQUIRED": "обязательное поле",
+    "NAME_INVALID": "должно быть от 2 символов и более",
+    "LOGIN_REQUIRED": "обязательное поле",
+    "LOGIN_INVALID": "должно быть от 4 символов и более",
+    "PASSWORD_REQUIRED": "обязательное поле",
+    "PASSWORD_INVALID": "должно быть от 6 символов и более"
+  }
+}
