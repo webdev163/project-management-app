@@ -14,20 +14,7 @@ import styles from '../Board/Board.module.scss';
 
 const BoardColumn: FC<BoardColumnProps> = props => {
   const { currentBoard } = useAppSelector(state => state.currentBoard);
-
   const dispatch = useAppDispatch();
-
-  const getTasks = async (): Promise<void> => {
-    if (currentBoard && props.columnId) {
-      const data = await getAllTasks(currentBoard.id, props.columnId);
-      dispatch(
-        setColumnTaskData({
-          columnId: props.columnId,
-          tasks: data as TaskData[],
-        }),
-      );
-    }
-  };
 
   const handleDeleteColumn = async (): Promise<void> => {
     await deleteColumn(currentBoard.id, props.columnId);
@@ -40,8 +27,19 @@ const BoardColumn: FC<BoardColumnProps> = props => {
   };
 
   useEffect(() => {
+    const getTasks = async (): Promise<void> => {
+      if (currentBoard.id && props.columnId) {
+        const data = await getAllTasks(currentBoard.id, props.columnId);
+        dispatch(
+          setColumnTaskData({
+            columnId: props.columnId,
+            tasks: data as TaskData[],
+          }),
+        );
+      }
+    };
     getTasks();
-  }, []);
+  }, [currentBoard.id, dispatch, props.columnId]);
 
   return (
     <div className={styles.boardItem}>

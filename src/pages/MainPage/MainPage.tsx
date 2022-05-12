@@ -13,38 +13,37 @@ const MainPage: FC = () => {
   const { isLogged } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
 
-  const getBoards = async (): Promise<void> => {
-    const data = await getAllBoards();
-    dispatch(setBoards(data as BoardData[]));
-  };
-
   const openBoard = (boardId: string): void => {
     dispatch(setCurrentBoard(boards.find(board => board.id === boardId) as BoardData));
   };
 
   useEffect(() => {
-    getBoards();
-  }, []);
+    if (isLogged) {
+      const getBoards = async (): Promise<void> => {
+        const data = await getAllBoards();
+        if (Array.isArray(data)) {
+          dispatch(setBoards(data as BoardData[]));
+        }
+      };
+      getBoards();
+    }
+  }, [dispatch, isLogged]);
 
   return (
     <div className={styles.mainPage}>
-      {isLogged && (
-        <>
-          <NavLink to="/board" className={`${styles.board} ${styles.boardDefaulted}`}>
-            <p>Создать доску</p>
-          </NavLink>
-          {boards &&
-            boards.map((board: BoardData) => {
-              return (
-                <div key={board.id} onClick={() => openBoard(board.id)}>
-                  <NavLink to="board" className={styles.board}>
-                    <p>{board.title}</p>
-                  </NavLink>
-                </div>
-              );
-            })}
-        </>
-      )}
+      <NavLink to="/board" className={`${styles.board} ${styles.boardDefaulted}`}>
+        <p>Создать доску</p>
+      </NavLink>
+      {Array.isArray(boards) &&
+        boards.map((board: BoardData) => {
+          return (
+            <div key={board.id} onClick={() => openBoard(board.id)}>
+              <NavLink to="board" className={styles.board}>
+                <p>{board.title}</p>
+              </NavLink>
+            </div>
+          );
+        })}
     </div>
   );
 };

@@ -32,9 +32,7 @@ export const currentBoardSlice = createSlice({
       const columnIndex = allColumns?.indexOf(
         allColumns.find(column => column.id === action.payload.columnId) as ColumnData,
       );
-      if (columnIndex) {
-        allColumns?.splice(columnIndex, 1);
-      }
+      allColumns?.splice(columnIndex as number, 1);
     },
   },
 });

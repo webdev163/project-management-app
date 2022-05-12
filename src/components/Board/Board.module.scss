@@ -1,9 +1,11 @@
+.boardContainer {
+  background-color: rgb(200, 228, 245);
+  height: calc(100% - 85px);
+}
+
 .board {
   gap: 20px;
-  height: calc(100% - 85px);
   display: flex;
-  background-color: rgb(200, 228, 245);
-  overflow: scroll;
 }
 
 .boardItem {

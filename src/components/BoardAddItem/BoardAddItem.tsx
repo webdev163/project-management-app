@@ -57,7 +57,6 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
         'description',
         userId,
       );
-      console.log(newTask);
       dispatch(
         setColumnTaskData({
           columnId: props.columnId,
