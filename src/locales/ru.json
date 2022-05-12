@@ -10,6 +10,9 @@
     "LOGIN_REQUIRED": "обязательное поле",
     "PASSWORD_REQUIRED": "обязательное поле"
   },
+  "LOGOUT": {
+    "MESSAGE": "Выходим..."
+  },
   "SIGNUP": {
     "NAME_LABEL": "Имя:",
     "LOGIN_LABEL": "Логин:",

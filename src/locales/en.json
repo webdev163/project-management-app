@@ -10,6 +10,9 @@
     "LOGIN_REQUIRED": "required field",
     "PASSWORD_REQUIRED": "required field"
   },
+  "LOGOUT": {
+    "MESSAGE": "Logging out..."
+  },
   "SIGNUP": {
     "NAME_LABEL": "Name:",
     "LOGIN_LABEL": "Login:",

@@ -57,7 +57,7 @@ const LoginPage: FC = () => {
   }, [dispatch, error]);
 
   useEffect(() => {
-    formik.validateForm();
+    formik.setErrors({});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
 

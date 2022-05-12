@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
 import { toggleLang } from '~/store/reducers/langSlice';
 import { useTranslation } from 'react-i18next';
+import '~/locales';
 
 import styles from './LangCheckbox.module.scss';
 
