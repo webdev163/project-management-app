@@ -10,27 +10,31 @@ import styles from './MainPage.module.scss';
 
 const MainPage: FC = () => {
   const { boards } = useAppSelector(state => state.boards);
+  const { isLogged } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
-
-  const getBoards = async (): Promise<void> => {
-    const data = await getAllBoards();
-    dispatch(setBoards(data as BoardData[]));
-  };
 
   const openBoard = (boardId: string): void => {
     dispatch(setCurrentBoard(boards.find(board => board.id === boardId) as BoardData));
   };
 
   useEffect(() => {
-    getBoards();
-  }, []);
+    if (isLogged) {
+      const getBoards = async (): Promise<void> => {
+        const data = await getAllBoards();
+        if (Array.isArray(data)) {
+          dispatch(setBoards(data as BoardData[]));
+        }
+      };
+      getBoards();
+    }
+  }, [dispatch, isLogged]);
 
   return (
     <div className={styles.mainPage}>
       <NavLink to="/board" className={`${styles.board} ${styles.boardDefaulted}`}>
         <p>Создать доску</p>
       </NavLink>
-      {boards &&
+      {Array.isArray(boards) &&
         boards.map((board: BoardData) => {
           return (
             <div key={board.id} onClick={() => openBoard(board.id)}>

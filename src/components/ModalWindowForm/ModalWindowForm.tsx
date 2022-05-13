@@ -1,5 +1,6 @@
 import React, { FC, useRef } from 'react';
 import { ModalWindowProps } from '~/types/board';
+
 import styles from '../Board/Board.module.scss';
 
 const ModalWindowForm: FC<ModalWindowProps> = props => {
