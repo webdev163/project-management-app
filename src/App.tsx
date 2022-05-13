@@ -5,6 +5,8 @@ import { restoreToken, setUserId, setUserLogin } from './store/reducers/authSlic
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { getDecodedToken } from '~/utils/getDecodedToken';
 import { DecodedTokenData } from './types/api';
+import { restoreLang } from './store/reducers/langSlice';
+import '~/locales';
 
 import './style/style.scss';
 
@@ -14,6 +16,7 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(restoreToken());
+    dispatch(restoreLang());
   }, [dispatch]);
 
   useEffect(() => {

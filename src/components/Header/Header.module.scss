@@ -4,11 +4,10 @@
 }
 
 .navbar {
+  padding: 30px;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  height: 100%;
-  padding: 0 30px;
+  justify-content: space-between;
 }
 
 .link {
