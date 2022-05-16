@@ -6,6 +6,7 @@ import WelcomePage from '~/pages/WelcomePage';
 import LoginPage from '~/pages/LoginPage';
 import Board from '~/components/Board';
 import SignupPage from '~/pages/SignupPage';
+import EditProfilePage from '~/pages/EditProfilePage';
 import Logout from '~/components/Logout';
 import { useAppSelector } from '~/hooks/redux';
 
@@ -17,6 +18,7 @@ const AppRouter: FC = () => {
         <Route path="/" element={<App />}>
           <Route index element={<MainPage />} />
           <Route path="logout" element={<Logout />} />
+          <Route path="profile" element={<EditProfilePage />} />
           <Route path="board" element={<Board />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

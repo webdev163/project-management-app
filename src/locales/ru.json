@@ -2,6 +2,10 @@
   "LOGIN_LINK": "Войти",
   "SIGNUP_LINK": "Зарегистрироваться",
   "LOGOUT_LINK": "Выйти",
+  "EDIT_PROFILE_LINK": "Редактировать профиль",
+  "BUTTON_BACK": "Назад",
+  "BUTTON_SAVE": "Сохранить",
+  "BUTTON_DELETE_USER": "Удалить профиль",
   "LOGIN": {
     "LOGIN_LABEL": "Логин:",
     "PASSWORD_LABEL": "Пароль:",
@@ -18,12 +22,21 @@
     "LOGIN_LABEL": "Логин:",
     "PASSWORD_LABEL": "Пароль:",
     "BUTTON_LABEL": "Зарегистрироваться",
-    "BUTTON_BACK": "Назад",
     "NAME_REQUIRED": "обязательное поле",
     "NAME_INVALID": "должно быть от 2 символов и более",
     "LOGIN_REQUIRED": "обязательное поле",
     "LOGIN_INVALID": "должно быть от 4 символов и более",
     "PASSWORD_REQUIRED": "обязательное поле",
     "PASSWORD_INVALID": "должно быть от 6 символов и более"
+  },
+  "MODAL": {
+    "CONFIRM_BUTTON": "Да",
+    "REJECT_BUTTON": "Нет"
+  },
+  "EDIT_PROFILE": {
+    "TITLE": "Редактировать профиль:",
+    "DONE": "Данные профиля успешно обновлены",
+    "DELETE_MSG": "Вы подтверждаете удаление пользователя? Это действие необратимо",
+    "USER_DELETED": "Пользователь успешно удален"
   }
 }
