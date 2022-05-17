@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import Loader from '~/components/Loader';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useFormik } from 'formik';
 import { LoginRequest } from '~/types/api';
 import { useTranslation } from 'react-i18next';
@@ -101,7 +100,7 @@ const LoginPage: FC = () => {
         <Loader />
       </div>
       <Button variant="outlined" type="button" onClick={moveBack} sx={{ position: 'absolute', right: 25, top: 25 }}>
-        ← {t('LOGIN.BUTTON_BACK')}
+        ← {t('BUTTON_BACK')}
       </Button>
     </div>
   );

@@ -1,6 +1,5 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
-import { signUp, signIn, resetRegistrationStatus, clearError } from '~/store/reducers/authSlice';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import Loader from '~/components/Loader';
@@ -8,14 +7,28 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import { SignUpRequest } from '~/types/api';
 import { useTranslation } from 'react-i18next';
+import ConfirmationModal from '~/components/ConfirmationModal';
+import { clearError, resetIsUpdated, updateUser, logOut, setIsDeleted } from '~/store/reducers/authSlice';
+import { deleteUser } from '~/services/users';
 
-import styles from './SignupPage.module.scss';
+import styles from './EditProfilePage.module.scss';
 
-const SignupPage: FC = () => {
+const EditProfilePage: FC = () => {
+  const [isModalActive, setIsModalActive] = useState(false);
+
   const dispatch = useAppDispatch();
-  const { isRegistered, isLoading, error } = useAppSelector(state => state.auth);
-  const { lang } = useAppSelector(state => state.locale);
   const navigate = useNavigate();
+  const { isLoading, error, userId, isUpdated } = useAppSelector(state => state.auth);
+  const { lang } = useAppSelector(state => state.locale);
+
+  const onModalClick = (response: boolean) => {
+    setIsModalActive(false);
+    if (response) {
+      deleteUser(userId);
+      dispatch(setIsDeleted());
+      dispatch(logOut());
+    }
+  };
 
   const { t } = useTranslation();
 
@@ -47,8 +60,10 @@ const SignupPage: FC = () => {
     },
     validate,
     onSubmit: ({ name, login, password }) => {
+      const id = userId;
       dispatch(
-        signUp({
+        updateUser({
+          id,
           name,
           login,
           password,
@@ -58,6 +73,16 @@ const SignupPage: FC = () => {
   });
 
   useEffect(() => {
+    isUpdated &&
+      toast.success(t('EDIT_PROFILE.DONE'), {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    return () => {
+      dispatch(resetIsUpdated());
+    };
+  }, [dispatch, isUpdated, t]);
+
+  useEffect(() => {
     if (error) {
       toast.error(error, {
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -65,19 +90,6 @@ const SignupPage: FC = () => {
       dispatch(clearError());
     }
   }, [dispatch, error]);
-
-  useEffect(() => {
-    if (isRegistered) {
-      const { login, password } = formik.values;
-      dispatch(
-        signIn({
-          login,
-          password,
-        }),
-      );
-      dispatch(resetRegistrationStatus());
-    }
-  }, [dispatch, formik, isRegistered]);
 
   useEffect(() => {
     formik.setErrors({});
@@ -92,6 +104,7 @@ const SignupPage: FC = () => {
     <div className={styles.wrapper}>
       <ToastContainer />
       <form className={styles.form} onSubmit={formik.handleSubmit}>
+        <p>{t('EDIT_PROFILE.TITLE')}</p>
         <label className={styles.label}>
           <span className={styles.labelText}>{t('SIGNUP.NAME_LABEL')}</span>
           <input
@@ -128,9 +141,24 @@ const SignupPage: FC = () => {
           />
           {formik.errors.password ? <div className={styles.error}>{formik.errors.password}</div> : null}
         </label>
-        <Button variant="contained" type="submit" sx={{ marginTop: 2 }}>
-          {t('SIGNUP.BUTTON_LABEL')}
-        </Button>
+        <div className={styles.btnWrapper}>
+          <Button
+            variant="contained"
+            sx={{
+              margin: 2,
+              backgroundColor: 'red',
+              ':hover': {
+                backgroundColor: '#e64e4e',
+              },
+            }}
+            onClick={() => setIsModalActive(true)}
+          >
+            {t('BUTTON_DELETE_USER')}
+          </Button>
+          <Button variant="contained" type="submit" sx={{ margin: 2 }}>
+            {t('BUTTON_SAVE')}
+          </Button>
+        </div>
       </form>
       <div style={{ opacity: isLoading ? 1 : 0 }}>
         <Loader />
@@ -138,8 +166,9 @@ const SignupPage: FC = () => {
       <Button variant="outlined" type="button" onClick={moveBack} sx={{ position: 'absolute', right: 25, top: 25 }}>
         ← {t('BUTTON_BACK')}
       </Button>
+      <ConfirmationModal text={t('EDIT_PROFILE.DELETE_MSG')} callback={onModalClick} isActive={isModalActive} />
     </div>
   );
 };
 
-export default SignupPage;
+export default EditProfilePage;
