@@ -13,6 +13,20 @@ export interface SignUpRequest {
   password: string;
 }
 
+export interface UpdateRequest {
+  id: string;
+  name: string;
+  login: string;
+  password: string;
+}
+
+export interface UpdateResponse {
+  id: string;
+  name: string;
+  login: string;
+  password: string;
+}
+
 export interface UserData {
   id: string;
   name: string;

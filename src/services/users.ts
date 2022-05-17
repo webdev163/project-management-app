@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { ENDPOINT_URL } from '~/utils/constants';
 import { getToken } from '~/utils/getToken';
-import { UserData } from '~/types/api';
+import { UserData, UpdateResponse } from '~/types/api';
 
 export const getAllUsers = async () => {
   try {
@@ -45,9 +45,9 @@ export const deleteUser = async (id: string) => {
   }
 };
 
-export const updateUser = async (id: string, name: string, login: string, password: string) => {
+export const _updateUser = async (id: string, name: string, login: string, password: string) => {
   try {
-    const response = await axios.put<UserData>(
+    const response = await axios.put<UpdateResponse>(
       `${ENDPOINT_URL}/users/${id}`,
       {
         name,
@@ -60,9 +60,6 @@ export const updateUser = async (id: string, name: string, login: string, passwo
     );
     return response.data;
   } catch (e) {
-    if (e instanceof Error) {
-      const error = e as AxiosError;
-      return error.response;
-    }
+    throw (e as AxiosError).response?.data;
   }
 };

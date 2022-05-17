@@ -1,4 +1,5 @@
 @import "normalize.css/normalize.css";
+@import "react-toastify/dist/ReactToastify.css";
 @import 'fonts';
 
 body {
@@ -26,8 +27,6 @@ body {
 .container {
   max-width: 1920px;
   margin: 0 auto;
-  width: 100vw;
-  height: 100vh;
 }
 
 a {
@@ -86,4 +85,14 @@ a {
   &:checked+.custom-checkbox:after {
     left: 50%;
   }
+}
+
+.overlay {
+    backdrop-filter: blur(1px);
+    background-color: rgba(0, 0, 0, .5);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
