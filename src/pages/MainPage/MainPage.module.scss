@@ -13,12 +13,13 @@
   justify-content: center;
   align-items: center;
   border-width: 1px;
-  border-color: rgb(58, 139, 135);
+  border-color: rgb(110, 110, 110);
   border-style: solid;
-  box-shadow: 0 0 12px 0 rgb(58, 139, 135);
-  background-color: rgb(58, 139, 135);
+  box-shadow: 0 0 12px 0 rgb(110, 110, 110);
+  background-color: rgb(110, 110, 110);
+  color: white;
   border-radius: 15px;
-  opacity: 0.6;
+  opacity: 0.8;
   transition: 0.3s;
   margin: 10px 0;
 }
@@ -39,6 +40,7 @@
   border-color: #f9f9f9;
   border-style: solid;
   box-shadow: 0 0 12px 0 #bcbcbc;
+  color: rgb(110, 110, 110)
 }
 
 .board:hover {
@@ -65,15 +67,24 @@
   margin-bottom: 4.5rem;
 }
 
-.deleteIcon {
+.deleteIcon:not(:hover) {
   cursor: pointer;
-  opacity: .7;  
-  transform: rotate(-1deg);
-  
+  opacity: .8;
+  transition: .2s;  
+  transform: rotate(0deg);   
 }
 
 .deleteIcon:hover {
-  opacity: 1;
-  transition: .4s;
+  cursor: pointer;
+  transition: .2s; 
+  opacity: 1;  
   transform: rotate(-45deg);
 }
+
+.deleteIcon:not(:hover) {
+  cursor: pointer;
+  opacity: .8;
+  transition: .2s;  
+  transform: rotate(0deg);   
+}
+
