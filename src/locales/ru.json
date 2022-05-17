@@ -34,7 +34,7 @@
     "CREATE_BOARD": "Создать доску",
     "COLUMNS_COUNT": "Колонок: ",
     "TASKS_COUNT": "Задач: "
-  }
+  },
   "MODAL": {
     "CONFIRM_BUTTON": "Да",
     "REJECT_BUTTON": "Нет"

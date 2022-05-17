@@ -34,7 +34,7 @@
     "CREATE_BOARD": "Create board",
     "COLUMNS_COUNT": "Columns: ",
     "TASKS_COUNT": "Tasks: "
-  }
+  },
 
   "MODAL": {
     "CONFIRM_BUTTON": "Yes",
