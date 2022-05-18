@@ -20,6 +20,9 @@ export const currentBoardSlice = createSlice({
     setCurrentBoard: (state, action: PayloadAction<BoardData>) => {
       state.currentBoard = action.payload;
     },
+    deleteCurrentBoard: (state, action: PayloadAction<BoardData>) => {
+      console.log('deleteBoard', state, action);
+    },
     setColumnTaskData(state, action: PayloadAction<UpdateColumnTasks>) {
       const column = state.currentBoard?.columns?.find(column => column.id === action.payload.columnId);
 
@@ -37,6 +40,6 @@ export const currentBoardSlice = createSlice({
   },
 });
 
-export const { setCurrentBoard, setColumnTaskData, setDeleteColumn } = currentBoardSlice.actions;
+export const { setCurrentBoard, deleteCurrentBoard, setColumnTaskData, setDeleteColumn } = currentBoardSlice.actions;
 
 export default currentBoardSlice.reducer;

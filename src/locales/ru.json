@@ -29,6 +29,12 @@
     "PASSWORD_REQUIRED": "обязательное поле",
     "PASSWORD_INVALID": "должно быть от 6 символов и более"
   },
+
+  "MAIN_ROUTE": {
+    "CREATE_BOARD": "Создать доску",
+    "COLUMNS_COUNT": "Колонок: ",
+    "TASKS_COUNT": "Задач: "
+  },
   "MODAL": {
     "CONFIRM_BUTTON": "Да",
     "REJECT_BUTTON": "Нет"
