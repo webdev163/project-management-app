@@ -2,11 +2,18 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
 .label-checkbox {
   color: #fff;
   margin-top: 3px;
   font-size: 18px;
+  background-color: #6875a2;
+  border-radius: 20px;
+  width: 50px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

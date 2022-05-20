@@ -3,6 +3,8 @@
   "SIGNUP_LINK": "Sign up",
   "LOGOUT_LINK": "Log out",
   "EDIT_PROFILE_LINK": "Edit profile",
+  "MAIN_PAGE_LINK": "To main page",
+  "WELCOME_PAGE_LINK": "To welcome page",
   "BUTTON_BACK": "Back",
   "BUTTON_SAVE": "Save",
   "BUTTON_DELETE_USER": "Delete user",

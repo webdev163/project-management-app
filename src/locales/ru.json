@@ -3,6 +3,8 @@
   "SIGNUP_LINK": "Зарегистрироваться",
   "LOGOUT_LINK": "Выйти",
   "EDIT_PROFILE_LINK": "Редактировать профиль",
+  "MAIN_PAGE_LINK": "На главную",
+  "WELCOME_PAGE_LINK": "О приложении",
   "BUTTON_BACK": "Назад",
   "BUTTON_SAVE": "Сохранить",
   "BUTTON_DELETE_USER": "Удалить профиль",

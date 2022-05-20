@@ -170,6 +170,7 @@ module.exports = {
     new ReactRefreshWebpackPlugin({ overlay: false }),
     new MiniCssExtractPlugin({
       filename: isProd ? 'css/style.[contenthash].css' : 'css/style.css',
+      chunkFilename: isProd ? 'css/[id].[contenthash].chunk.css' : 'css/[id].chunk.css',
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(isDev ? 'development' : 'production'),

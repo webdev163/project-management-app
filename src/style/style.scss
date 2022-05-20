@@ -6,6 +6,7 @@ body {
   font-family: 'Montserrat' !important;
   scrollbar-width: thin;
   scrollbar-color: #919191 #e4e4e4;
+  background-color: $background-color;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -57,7 +58,7 @@ a {
     margin-top: 3px;
     cursor: pointer;
     user-select: none;
-    background: #fac473;
+    background: darken($background-color, 15%);
     border-radius: 2em;
     padding: 2px;
     transition: all .4s ease;
@@ -80,7 +81,7 @@ a {
     }
   }
   &:checked+.custom-checkbox {
-    background: #b39eff;
+    background: lighten($base-color, 7%);
   }
   &:checked+.custom-checkbox:after {
     left: 50%;
@@ -95,4 +96,11 @@ a {
     right: 0;
     top: 0;
     bottom: 0;
+}
+
+.sticky {
+  position: sticky;
+  height: 85px;
+  top: 0;
+  background-color: #b0d0ff;
 }
