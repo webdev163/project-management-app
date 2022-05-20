@@ -3,6 +3,12 @@
   align-items: center;
   justify-content: flex-start;
   margin-left: 30px;
+  @media screen and (max-width: 800px) {
+    margin-top: 5px;
+  }
+  @media screen and (max-width: 500px) {
+    margin-left: 0;
+  }
 }
 
 .label-checkbox {

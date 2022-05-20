@@ -99,9 +99,11 @@ const LoginPage: FC = () => {
       <div style={{ opacity: isLoading ? 1 : 0 }}>
         <Loader />
       </div>
-      <Button variant="outlined" type="button" onClick={moveBack} sx={{ position: 'absolute', right: 25, top: 25 }}>
-        ← {t('BUTTON_BACK')}
-      </Button>
+      <div className={styles.back}>
+        <Button variant="outlined" type="button" onClick={moveBack}>
+          ← {t('BUTTON_BACK')}
+        </Button>
+      </div>
     </div>
   );
 };

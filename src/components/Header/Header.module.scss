@@ -1,13 +1,17 @@
 .wrapper {
   background-color: #9da8c7;
-  height: 120px;
+  height: 130px;
   transition: height 0.5s ease-in-out, background-color 0.5s ease-in-out;
   position: fixed;
   width: 100%;
+  max-width: 1920px;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  @media screen and (max-width: 800px) {
+    height: 150px;
+  }
 }
 
 .navbar {
@@ -15,4 +19,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  @media screen and (max-width: 800px) {
+    justify-content: center;
+  }
 }

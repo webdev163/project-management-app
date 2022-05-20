@@ -33,28 +33,28 @@ const Header: FC = () => {
         <div className={styles.navbar}>
           {!isLogged && (
             <>
-              <Button variant="contained" onClick={() => navigate('/login')} sx={{ marginLeft: 1, marginRight: 1 }}>
+              <Button variant="contained" onClick={() => navigate('/login')} sx={{ margin: 0.5 }}>
                 {t('LOGIN_LINK')}
               </Button>
-              <Button variant="contained" onClick={() => navigate('/signup')} sx={{ marginLeft: 1, marginRight: 1 }}>
+              <Button variant="contained" onClick={() => navigate('/signup')} sx={{ margin: 0.5 }}>
                 {t('SIGNUP_LINK')}
               </Button>
             </>
           )}
           {isLogged && (
             <>
-              <Button variant="contained" onClick={() => navigate('/logout')} sx={{ marginLeft: 1, marginRight: 1 }}>
+              <Button variant="contained" onClick={() => navigate('/logout')} sx={{ margin: 0.5 }}>
                 {t('LOGOUT_LINK')}
               </Button>
-              <Button variant="contained" onClick={() => navigate('/profile')} sx={{ marginLeft: 1, marginRight: 1 }}>
+              <Button variant="contained" onClick={() => navigate('/profile')} sx={{ margin: 0.5 }}>
                 {t('EDIT_PROFILE_LINK')}
               </Button>
               {pathname === '/welcome' ? (
-                <Button variant="contained" onClick={() => navigate('/')} sx={{ marginLeft: 1, marginRight: 1 }}>
+                <Button variant="contained" onClick={() => navigate('/')} sx={{ margin: 0.5 }}>
                   {t('MAIN_PAGE_LINK')}
                 </Button>
               ) : (
-                <Button variant="contained" onClick={() => navigate('/welcome')} sx={{ marginLeft: 1, marginRight: 1 }}>
+                <Button variant="contained" onClick={() => navigate('/welcome')} sx={{ margin: 0.5 }}>
                   {t('WELCOME_PAGE_LINK')}
                 </Button>
               )}
@@ -63,7 +63,7 @@ const Header: FC = () => {
           <LangCheckbox />
         </div>
       </div>
-      <div style={{ height: isSticky ? '65px' : '120px' }}></div>
+      <div style={{ height: isSticky ? '65px' : '130px' }}></div>
     </>
   );
 };
