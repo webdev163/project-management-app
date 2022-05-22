@@ -29,13 +29,11 @@
     "PASSWORD_REQUIRED": "required field",
     "PASSWORD_INVALID": "must be 6 characters or more"
   },
-
   "MAIN_ROUTE": {
     "CREATE_BOARD": "Create board",
     "COLUMNS_COUNT": "Columns: ",
     "TASKS_COUNT": "Tasks: "
   },
-
   "MODAL": {
     "CONFIRM_BUTTON": "Yes",
     "REJECT_BUTTON": "No"
@@ -45,6 +43,8 @@
     "DONE": "Profile data succefully updated",
     "DELETE_MSG": "Do you confirm user deletion? This action is irreversible",
     "USER_DELETED": "User successfully deleted"
-
+  },
+  "BOARD": {
+    
   }
 }

@@ -1,6 +1,6 @@
 .boardContainer {
   background-color: rgb(200, 228, 245);
-  height: calc(100% - 85px);
+  height: calc(100vh - 85px);
 }
 
 .board {
@@ -12,7 +12,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  max-width: 280px;
+  max-width: 275px;
   width: 100%;
   min-height: 100px;
   height: fit-content;
@@ -84,14 +84,14 @@
 }
 
 .textarea {
-  width: 240px;
+  max-width: 240px;
+  width: 100%;
   resize: none;
   border-radius: 3px;
   height: 20px;
   margin: 5px 0;
   min-height: 25px;
   max-height: 200px;
-  height: 25px;
   padding: 4px 8px;
   border: none;
   outline: none;
