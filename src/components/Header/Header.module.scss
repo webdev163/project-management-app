@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  z-index: 999;
   @media screen and (max-width: 800px) {
     height: 150px;
   }
