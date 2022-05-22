@@ -47,6 +47,11 @@
     "DONE": "Profile data succefully updated",
     "DELETE_MSG": "Do you confirm user deletion? This action is irreversible",
     "USER_DELETED": "User successfully deleted"
-
+  },
+  "WELCOME_PAGE": {
+    "SUBTITLE": "project management system",
+    "DESCR": "The application helps to achieve the set goals for an individual in a team or group of developers",
+    "DESCR_RS": "The application was completed as the final task of the course ",
+    "TEAM_TITLE": "Our team:"
   }
 }
