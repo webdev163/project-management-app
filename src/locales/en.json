@@ -25,5 +25,8 @@
     "LOGIN_INVALID": "must be 4 characters or more",
     "PASSWORD_REQUIRED": "required field",
     "PASSWORD_INVALID": "must be 6 characters or more"
+  },
+  "BOARD": {
+    
   }
 }
