@@ -33,7 +33,10 @@
   "MAIN_ROUTE": {
     "CREATE_BOARD": "Создать доску",
     "COLUMNS_COUNT": "Колонок: ",
-    "TASKS_COUNT": "Задач: "
+    "TASKS_COUNT": "Задач: ",
+    "DELETE_MESSAGE" : "Подтвердите удаление доски с задачами. Это действие необратимо",
+    "CONFIRM_BUTTON": "Да",
+    "REJECT_BUTTON": "Нет"
   },
   "MODAL": {
     "CONFIRM_BUTTON": "Да",
