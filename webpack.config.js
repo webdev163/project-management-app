@@ -116,7 +116,7 @@ module.exports = {
           {
             loader: 'sass-resources-loader',
             options: {
-              resources: 'D:/IT/reactTeamCopy/project-management-app/src/style/_variables.scss',
+              resources: path.resolve(__dirname, 'src/style/_variables.scss'),
             },
           },
         ],
