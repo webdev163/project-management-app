@@ -33,10 +33,12 @@ const MainPage: FC = () => {
     if (resp) {
       const boardId = pageState.boardOnDelete;
       const deleteResp = await deleteBoard(boardId);
-      if (deleteResp) dispatch(setBoards(boards.filter(board => board.id !== boardId)));
-      // else {
-      //   alert('Something went wrong')
-      // }
+      console.log('deleteResp >>>', deleteResp);
+      if (deleteResp?.status === 204 || deleteResp?.status === 200) {
+        dispatch(setBoards(boards.filter(board => board.id !== boardId)));
+      } else {
+        alert('Something went wrong');
+      }
     }
     setPageState({ state: false, boardOnDelete: '', isLoading: false });
   };
