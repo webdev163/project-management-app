@@ -5,12 +5,13 @@ import LangCheckbox from '../LangCheckbox';
 import { useTranslation } from 'react-i18next';
 import Button from '@mui/material/Button';
 import { useLocation } from 'react-router-dom';
+import { getGreeting } from '~/utils/getGreeting';
 import BoardCreateModal from '../BoardCreateModal';
 
 import styles from './Header.module.scss';
 
 const Header: FC = () => {
-  const { isLogged } = useAppSelector(state => state.auth);
+  const { isLogged, name } = useAppSelector(state => state.auth);
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -49,6 +50,7 @@ const Header: FC = () => {
           )}
           {isLogged && (
             <>
+              <p className={styles.greeting}>{`${getGreeting()}, ${name}`}</p>
               <Button variant="contained" onClick={() => navigate('/logout')} sx={{ margin: 0.5 }}>
                 {t('LOGOUT_LINK')}
               </Button>

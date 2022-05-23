@@ -13,11 +13,14 @@ import { useTranslation } from 'react-i18next';
 import ConfirmationModal from '~/components/ConfirmationModal';
 // import SearchForm from '~/components/SearchForm/SearchForm';
 import Footer from '~/components/Footer';
+import { clearError } from '~/store/reducers/authSlice';
+import { ToastContainer, toast } from 'react-toastify';
+
 import styles from './MainPage.module.scss';
 
 const MainPage: FC = () => {
   const { boards } = useAppSelector(state => state.boards);
-  const { isLogged } = useAppSelector(state => state.auth);
+  const { isLogged, error } = useAppSelector(state => state.auth);
   const [countArr, setCountArr] = useState<BoardData[]>([]);
   const [pageState, setPageState] = useState({
     state: false,
@@ -61,6 +64,15 @@ const MainPage: FC = () => {
       : 0;
     return { columns, tasksNumber };
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      dispatch(clearError());
+    }
+  }, [dispatch, error]);
 
   useEffect(() => {
     if (isLogged) {
@@ -128,6 +140,7 @@ const MainPage: FC = () => {
       <div className="footer-wrapper">
         <Footer />        
       </div>
+      <ToastContainer />
     </div>
   );
 };

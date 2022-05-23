@@ -20,7 +20,16 @@
   align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
+  width: 100%;
   @media screen and (max-width: 800px) {
     justify-content: center;
   }
+}
+
+.greeting {
+  margin-right: auto;
+  font-size: 20px;
+  background-color: #6875a2;
+  border-radius: 20px;
+  padding: 10px 20px;
 }
