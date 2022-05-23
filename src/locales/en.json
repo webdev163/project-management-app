@@ -5,6 +5,7 @@
   "EDIT_PROFILE_LINK": "Edit profile",
   "MAIN_PAGE_LINK": "To main page",
   "WELCOME_PAGE_LINK": "To welcome page",
+  "CREATE_BOARD_LINK": "Create board",
   "BUTTON_BACK": "Back",
   "BUTTON_SAVE": "Save",
   "BUTTON_DELETE_USER": "Delete user",
@@ -40,7 +41,9 @@
 
   "MODAL": {
     "CONFIRM_BUTTON": "Yes",
-    "REJECT_BUTTON": "No"
+    "REJECT_BUTTON": "No",
+    "CREATE_BOARD_BUTTON": "Create",
+    "CANCEL_BUTTON": "Cancel"
   },
   "EDIT_PROFILE": {
     "TITLE": "Edit profile:",
@@ -53,5 +56,9 @@
     "DESCR": "The application helps to achieve the set goals for an individual in a team or group of developers",
     "DESCR_RS": "The application was completed as the final task of the course ",
     "TEAM_TITLE": "Our team:"
+  },
+  "CREATE_BOARD": {
+    "TITLE": "Title:",
+    "DESCR": "Description:"
   }
 }
