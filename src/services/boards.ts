@@ -17,12 +17,13 @@ export const getAllBoards = async () => {
   }
 };
 
-export const createBoard = async (title: string) => {
+export const createBoard = async (title: string, description: string) => {
   try {
     const response = await axios.post<BoardData>(
       `${ENDPOINT_URL}/boards`,
       {
         title,
+        description,
       },
       {
         headers: { Authorization: `Bearer ${getToken()}` },
