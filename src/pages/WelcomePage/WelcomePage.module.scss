@@ -1,0 +1,130 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 15px;
+  min-height: 80vh;
+  color: $font-color;
+  @media screen and (max-width: 1800px) {
+    min-height: 40vh;
+    justify-content: space-around;
+  }
+  @media screen and (max-width: 1000px) {
+    min-height: 30vh;
+  }
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+  }
+}
+
+.info {
+  flex-basis: 40%;
+  @media screen and (max-width: 800px) {
+    order: 1;
+  }
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  @media screen and (max-width: 500px) {
+    font-size: 22px;
+  }
+}
+
+.subtitle {
+  font-size: 18px;
+  @media screen and (max-width: 500px) {
+    font-size: 16px;
+  }
+}
+
+.descr {
+  margin-top: 50px;
+  font-size: 20px;
+  max-width: 700px;
+  line-height: 1.5;
+  @media screen and (max-width: 500px) {
+    font-size: 16px;
+  }
+}
+
+.img-wrapper {
+  flex-basis: 55%;
+  @media screen and (max-width: 1650px) {
+    flex-basis: 45%;
+  }
+  @media screen and (max-width: 800px) {
+    max-width: 500px;
+  }
+}
+
+.rslogo-wrapper {
+  flex-basis: 40%;
+  @media screen and (max-width: 800px) {
+    max-width: 400px;
+  }
+}
+
+.filled {
+  background-color: #cfd5fe;
+}
+
+.team-info {
+  flex-basis: 25%;
+  @media screen and (max-width: 1650px) {
+    flex-basis: unset;
+  }
+  @media screen and (max-width: 800px) {
+    order: 1;
+  }
+}
+
+.team-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+  font-weight: 700;
+  @media screen and (max-width: 500px) {
+    text-align: center;
+  }
+}
+
+.team-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 450px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  @media screen and (max-width: 500px) {
+    justify-content: center;
+    min-width: unset;
+  }
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  @media screen and (max-width: 500px) {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.member {
+  font-size: 22px;
+  margin-left: 10px;
+  margin-right: 10px;
+  @media screen and (max-width: 500px) {
+    font-size: 16px;
+  }
+}
+
+.github {
+  &:hover {
+    filter: invert(87%) sepia(36%) saturate(5700%) hue-rotate(0deg) brightness(99%) contrast(111%);
+  }
+}

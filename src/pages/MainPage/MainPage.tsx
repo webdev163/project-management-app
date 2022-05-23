@@ -12,6 +12,7 @@ import BackspaceIcon from '@mui/icons-material/Backspace';
 import { useTranslation } from 'react-i18next';
 import ConfirmationModal from '~/components/ConfirmationModal';
 // import SearchForm from '~/components/SearchForm/SearchForm';
+import Footer from '~/components/Footer';
 import styles from './MainPage.module.scss';
 
 const MainPage: FC = () => {
@@ -119,9 +120,13 @@ const MainPage: FC = () => {
           </List>
         )}
       </div>
+
       <ConfirmationModal callback={onModalClick} text={t('MAIN_ROUTE.DELETE_MESSAGE')} isActive={pageState.state} />
       <div style={{ opacity: pageState.isLoading ? 1 : 0 }}>
         <Loader />
+      </div>
+      <div className="footer-wrapper">
+        <Footer />        
       </div>
     </div>
   );
