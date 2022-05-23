@@ -3,6 +3,8 @@
   "SIGNUP_LINK": "Sign up",
   "LOGOUT_LINK": "Log out",
   "EDIT_PROFILE_LINK": "Edit profile",
+  "MAIN_PAGE_LINK": "To main page",
+  "WELCOME_PAGE_LINK": "To welcome page",
   "BUTTON_BACK": "Back",
   "BUTTON_SAVE": "Save",
   "BUTTON_DELETE_USER": "Delete user",
@@ -50,5 +52,11 @@
     "BUTTON_ADD_A_COLUMN_PLACEHOLDER": "Enter column title...",
     "BUTTON_ADD_A_TASK": "Add a task",
     "BUTTON_ADD_A_TASK_PLACEHOLDER": "Enter task title..."
+  },
+  "WELCOME_PAGE": {
+    "SUBTITLE": "project management system",
+    "DESCR": "The application helps to achieve the set goals for an individual in a team or group of developers",
+    "DESCR_RS": "The application was completed as the final task of the course ",
+    "TEAM_TITLE": "Our team:"
   }
 }

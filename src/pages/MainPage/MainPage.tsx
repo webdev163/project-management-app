@@ -9,6 +9,8 @@ import { BoardData } from '~/types/api';
 import { List, ListItem } from '@mui/material';
 import BackspaceIcon from '@mui/icons-material/Backspace';
 import { useTranslation } from 'react-i18next';
+import Footer from '~/components/Footer';
+
 import styles from './MainPage.module.scss';
 
 const MainPage: FC = () => {
@@ -87,6 +89,9 @@ const MainPage: FC = () => {
             })}
           </List>
         )}
+      </div>
+      <div className="footer-wrapper">
+        <Footer />
       </div>
     </div>
   );

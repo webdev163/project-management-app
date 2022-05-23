@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import { LoginRequest } from '~/types/api';
 import { useTranslation } from 'react-i18next';
+import Footer from '~/components/Footer';
 
 import styles from './LoginPage.module.scss';
 
@@ -65,44 +66,51 @@ const LoginPage: FC = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <ToastContainer />
-      <form className={styles.form} onSubmit={formik.handleSubmit}>
-        <label className={styles.label}>
-          <span className={styles.labelText}>{t('LOGIN.LOGIN_LABEL')}</span>
-          <input
-            className={styles.input}
-            id="login"
-            name="login"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.login}
-          />
-          {formik.errors.login ? <div className={styles.error}>{formik.errors.login}</div> : null}
-        </label>
-        <label className={styles.label}>
-          <span className={styles.labelText}>{t('LOGIN.PASSWORD_LABEL')}</span>
-          <input
-            className={styles.input}
-            id="password"
-            name="password"
-            type="password"
-            onChange={formik.handleChange}
-            value={formik.values.password}
-          />
-          {formik.errors.password ? <div className={styles.error}>{formik.errors.password}</div> : null}
-        </label>
-        <Button variant="contained" type="submit" sx={{ width: 150, marginTop: 2 }}>
-          {t('LOGIN.BUTTON_LABEL')}
-        </Button>
-      </form>
-      <div style={{ opacity: isLoading ? 1 : 0 }}>
-        <Loader />
+    <>
+      <div className={styles.wrapper}>
+        <ToastContainer />
+        <form className={styles.form} onSubmit={formik.handleSubmit}>
+          <label className={styles.label}>
+            <span className={styles.labelText}>{t('LOGIN.LOGIN_LABEL')}</span>
+            <input
+              className={styles.input}
+              id="login"
+              name="login"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.login}
+            />
+            {formik.errors.login ? <div className={styles.error}>{formik.errors.login}</div> : null}
+          </label>
+          <label className={styles.label}>
+            <span className={styles.labelText}>{t('LOGIN.PASSWORD_LABEL')}</span>
+            <input
+              className={styles.input}
+              id="password"
+              name="password"
+              type="password"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+            />
+            {formik.errors.password ? <div className={styles.error}>{formik.errors.password}</div> : null}
+          </label>
+          <Button variant="contained" type="submit" sx={{ width: 150, marginTop: 2 }}>
+            {t('LOGIN.BUTTON_LABEL')}
+          </Button>
+        </form>
+        <div style={{ opacity: isLoading ? 1 : 0 }}>
+          <Loader />
+        </div>
+        <div className={styles.back}>
+          <Button variant="outlined" type="button" onClick={moveBack}>
+            ← {t('BUTTON_BACK')}
+          </Button>
+        </div>
       </div>
-      <Button variant="outlined" type="button" onClick={moveBack} sx={{ position: 'absolute', right: 25, top: 25 }}>
-        ← {t('BUTTON_BACK')}
-      </Button>
-    </div>
+      <div className="footer-wrapper">
+        <Footer />
+      </div>
+    </>
   );
 };
 

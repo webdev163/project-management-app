@@ -2,7 +2,9 @@
   "LOGIN_LINK": "Войти",
   "SIGNUP_LINK": "Зарегистрироваться",
   "LOGOUT_LINK": "Выйти",
-  "EDIT_PROFILE_LINK": "Редактировать профиль",
+  "EDIT_PROFILE_LINK": "Профиль",
+  "MAIN_PAGE_LINK": "На главную",
+  "WELCOME_PAGE_LINK": "О приложении",
   "BUTTON_BACK": "Назад",
   "BUTTON_SAVE": "Сохранить",
   "BUTTON_DELETE_USER": "Удалить профиль",
@@ -51,5 +53,11 @@
     "BUTTON_ADD_A_COLUMN_PLACEHOLDER": "Ввести заголовок колонки...",
     "BUTTON_ADD_A_TASK": "Добавить таску",
     "BUTTON_ADD_A_TASK_PLACEHOLDER": "Ввести заголовок таски..."
+  },
+  "WELCOME_PAGE": {
+    "SUBTITLE": "система управления проектами",
+    "DESCR": "Приложение помогает достичь поставленные задачи отдельному человеку в команде или группе разработчиков",
+    "DESCR_RS": "Приложение выполнено в рамках финального задания курса ",
+    "TEAM_TITLE": "Наша команда:"
   }
 }

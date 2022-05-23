@@ -1,6 +1,17 @@
 .wrapper {
-  background-color: #6e6e6e;
-  height: 85px;
+  background-color: #9da8c7;
+  height: 130px;
+  transition: height 0.5s ease-in-out, background-color 0.5s ease-in-out;
+  position: fixed;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 999;
+  @media screen and (max-width: 800px) {
+    height: 150px;
+  }
 }
 
 .navbar {
@@ -8,10 +19,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-}
-
-.link {
-  color: #fff;
-  font-size: 18px;
-  margin: 15px;
+  flex-wrap: wrap;
+  @media screen and (max-width: 800px) {
+    justify-content: center;
+  }
 }

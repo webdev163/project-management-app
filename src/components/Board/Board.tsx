@@ -11,6 +11,7 @@ import BoardAddItem from '../BoardAddItem';
 import BoardColumn from '../BoardColumn';
 import { ModalWindowFormOptions } from '~/types/board';
 import Button from '@mui/material/Button';
+import Footer from '~/components/Footer';
 
 import styles from './Board.module.scss';
 
@@ -92,6 +93,9 @@ const Board: FC = () => {
               );
             })}
           <BoardAddItem options={columnOptions} columnId={''} />
+        </div>
+        <div className="footer-wrapper">
+          <Footer />
         </div>
       </div>
     </DndProvider>
