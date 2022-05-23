@@ -1,10 +1,11 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
+import { useTranslation } from 'react-i18next';
 import BoardTask from '../BoardTask';
 import BoardAddItem from '../BoardAddItem';
 import { handleFocus } from '~/utils/utils';
-import { BoardColumnProps } from '~/types/board';
-import { ItemTypes, taskOptions } from '~/utils/constants';
+import { BoardColumnProps, ModalWindowFormOptions } from '~/types/board';
+import { ItemTypes } from '~/utils/constants';
 import { getAllTasks, updateTask } from '~/services/tasks';
 import { ColumnData, TaskData } from '~/types/api';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
@@ -17,6 +18,13 @@ const BoardColumn: FC<BoardColumnProps> = props => {
   const { currentBoard } = useAppSelector(state => state.currentBoard);
   const [hoveredTaskId, setHoveredTaskId] = useState('');
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+
+  const taskOptions: ModalWindowFormOptions = {
+    type: 'task',
+    btnTitle: t('BOARD.BUTTON_ADD_A_TASK'),
+    placeholderText: t('BOARD.BUTTON_ADD_A_TASK_PLACEHOLDER'),
+  };
 
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.COLUMN,
