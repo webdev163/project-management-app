@@ -10,6 +10,8 @@ import { createTask, getAllTasks } from '~/services/tasks';
 
 import styles from '../Board/Board.module.scss';
 
+Modal.setAppElement('#app');
+
 const BoardAddItem: FC<ModalWindowFormProps> = props => {
   const { currentBoard } = useAppSelector(state => state.currentBoard);
   const { userId } = useAppSelector(state => state.auth);
@@ -35,7 +37,7 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
   };
 
   const createNewColumn = async (newColumnTitle: string): Promise<ColumnData> => {
-    const data = await createColumn(currentBoard.id, newColumnTitle, (currentBoard.columns?.length as number) + 1);
+    const data = await createColumn(currentBoard.id, newColumnTitle);
     dispatch(
       setCurrentBoard({
         id: currentBoard.id,
@@ -47,16 +49,9 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
   };
 
   const createNewTask = async (newTaskTitle: string) => {
-    if (currentBoard && props.columnId) {
+    if (currentBoard.id && props.columnId) {
       const existingTasks = await getAllTasks(currentBoard.id, props.columnId);
-      const newTask = await createTask(
-        currentBoard.id,
-        props.columnId,
-        newTaskTitle,
-        (existingTasks as TaskData[]).length + 1,
-        'description',
-        userId,
-      );
+      const newTask = await createTask(currentBoard.id, props.columnId, newTaskTitle, 'description', userId);
       dispatch(
         setColumnTaskData({
           columnId: props.columnId,

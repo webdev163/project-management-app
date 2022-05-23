@@ -31,7 +31,6 @@
     "PASSWORD_REQUIRED": "required field",
     "PASSWORD_INVALID": "must be 6 characters or more"
   },
-
   "MAIN_ROUTE": {
     "CREATE_BOARD": "Create board",
     "COLUMNS_COUNT": "Columns: ",
@@ -40,16 +39,22 @@
     "CONFIRM_BUTTON": "Yes",
     "REJECT_BUTTON": "No"
   },
-
   "MODAL": {
     "CONFIRM_BUTTON": "Yes",
     "REJECT_BUTTON": "No"
   },
   "EDIT_PROFILE": {
     "TITLE": "Edit profile:",
-    "DONE": "Profile data succefully updated",
+    "DONE": "Profile data successfully updated",
     "DELETE_MSG": "Do you confirm user deletion? This action is irreversible",
     "USER_DELETED": "User successfully deleted"
+  },
+  "BOARD": {
+    "BUTTON_BACK": "Back",
+    "BUTTON_ADD_A_COLUMN": "Add a column",
+    "BUTTON_ADD_A_COLUMN_PLACEHOLDER": "Enter column title...",
+    "BUTTON_ADD_A_TASK": "Add a task",
+    "BUTTON_ADD_A_TASK_PLACEHOLDER": "Enter task title..."
   },
   "WELCOME_PAGE": {
     "SUBTITLE": "project management system",
