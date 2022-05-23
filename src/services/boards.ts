@@ -56,7 +56,8 @@ export const deleteBoard = async (id: string) => {
     const response = await axios.delete<null>(`${ENDPOINT_URL}/boards/${id}`, {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
-    return response.data;
+    console.log('response del >>>>', response);
+    return response;
   } catch (e) {
     if (e instanceof Error) {
       const error = e as AxiosError;

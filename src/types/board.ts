@@ -43,3 +43,7 @@ export interface ModalWindowProps {
   setData: SetDataType;
   handleCloseModal: CallBackProps;
 }
+
+export interface SelectCallbackProps {
+  callback: (e: string) => void;
+}

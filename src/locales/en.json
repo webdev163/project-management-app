@@ -35,7 +35,10 @@
   "MAIN_ROUTE": {
     "CREATE_BOARD": "Create board",
     "COLUMNS_COUNT": "Columns: ",
-    "TASKS_COUNT": "Tasks: "
+    "TASKS_COUNT": "Tasks: ",
+    "DELETE_MESSAGE" : "Do you confirm board deletion? This action is irreversible",
+    "CONFIRM_BUTTON": "Yes",
+    "REJECT_BUTTON": "No"
   },
 
   "MODAL": {
