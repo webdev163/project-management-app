@@ -9,11 +9,14 @@ import BoardColumn from '../BoardColumn';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Footer from '~/components/Footer';
+import { clearError } from '~/store/reducers/authSlice';
+import { ToastContainer, toast } from 'react-toastify';
 
 import styles from './Board.module.scss';
 
 const Board: FC = () => {
   const { currentBoard } = useAppSelector(state => state.currentBoard);
+  const { error } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -36,6 +39,15 @@ const Board: FC = () => {
     };
     getColumns();
   }, [currentBoard.id, currentBoard.title, dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      dispatch(clearError());
+    }
+  }, [dispatch, error]);
 
   return (
     <div className={styles.boardContainer}>
@@ -60,6 +72,7 @@ const Board: FC = () => {
       <div className="footer-wrapper">
         <Footer />
       </div>
+      <ToastContainer />
     </div>
   );
 };

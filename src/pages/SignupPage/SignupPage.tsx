@@ -34,7 +34,7 @@ const SignupPage: FC = () => {
     }
     if (!values.password) {
       errors.password = t('SIGNUP.PASSWORD_REQUIRED');
-    } else if (values.login.length < 6) {
+    } else if (values.password.length < 6) {
       errors.password = t('SIGNUP.PASSWORD_INVALID');
     }
     return errors;

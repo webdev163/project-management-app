@@ -1,6 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { LoginResponse, LoginRequest, SignUpRequest, UpdateRequest, UserData, UpdateResponse } from '~/types/api';
+import {
+  LoginResponse,
+  LoginRequest,
+  SignUpRequest,
+  UpdateRequest,
+  UserData,
+  UpdateResponse,
+  AxiosErrorData,
+} from '~/types/api';
 import { _signIn, _signUp } from '~/services/auth';
 import { _updateUser } from '~/services/users';
 
@@ -11,6 +19,7 @@ interface AuthState {
   isDeleted: boolean;
   token: string;
   login: string;
+  name: string;
   userId: string;
   isLoading: boolean;
   error: string;
@@ -23,43 +32,44 @@ const initialState: AuthState = {
   isDeleted: false,
   token: '',
   login: '',
+  name: '',
   userId: '',
   isLoading: false,
   error: '',
 };
 
-export const signIn = createAsyncThunk<LoginResponse, LoginRequest, { rejectValue: string }>(
+export const signIn = createAsyncThunk<LoginResponse, LoginRequest, { rejectValue: AxiosErrorData }>(
   'auth/signIn',
   async ({ login, password }, { rejectWithValue }) => {
     try {
       const response = await _signIn(login, password);
       return response;
     } catch (e) {
-      return rejectWithValue((e as AxiosError).message);
+      return rejectWithValue((e as AxiosError).response?.data);
     }
   },
 );
 
-export const signUp = createAsyncThunk<UserData, SignUpRequest, { rejectValue: string }>(
+export const signUp = createAsyncThunk<UserData, SignUpRequest, { rejectValue: AxiosErrorData }>(
   'auth/signUp',
   async ({ name, login, password }, { rejectWithValue }) => {
     try {
       const response = await _signUp(name, login, password);
       return response;
     } catch (e) {
-      return rejectWithValue((e as AxiosError).message);
+      return rejectWithValue((e as AxiosError).response?.data);
     }
   },
 );
 
-export const updateUser = createAsyncThunk<UpdateResponse | unknown, UpdateRequest, { rejectValue: string }>(
+export const updateUser = createAsyncThunk<UpdateResponse | unknown, UpdateRequest, { rejectValue: AxiosErrorData }>(
   'auth/update',
   async ({ id, name, login, password }, { rejectWithValue }) => {
     try {
       const response = await _updateUser(id, name, login, password);
       return response;
     } catch (e) {
-      return rejectWithValue((e as AxiosError).message);
+      return rejectWithValue(e as AxiosErrorData);
     }
   },
 );
@@ -85,6 +95,9 @@ export const authSlice = createSlice({
     setUserLogin: (state, action: PayloadAction<string>) => {
       state.login = action.payload;
     },
+    setUserName: (state, action: PayloadAction<string>) => {
+      state.name = action.payload;
+    },
     logOut: state => {
       localStorage.removeItem('token');
       state.token = '';
@@ -105,6 +118,9 @@ export const authSlice = createSlice({
     resetIsDeleted: state => {
       state.isDeleted = false;
     },
+    setError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+    },
   },
   extraReducers: builder => {
     builder.addCase(signIn.pending, state => {
@@ -118,9 +134,8 @@ export const authSlice = createSlice({
       state.token = token;
       setToken(token);
     });
-    builder.addCase(signIn.rejected, (state, action) => {
+    builder.addCase(signIn.rejected, state => {
       state.isLoading = false;
-      state.error = action.payload as string;
     });
 
     builder.addCase(signUp.pending, state => {
@@ -131,9 +146,8 @@ export const authSlice = createSlice({
       state.isRegistered = true;
       state.error = '';
     });
-    builder.addCase(signUp.rejected, (state, action) => {
+    builder.addCase(signUp.rejected, state => {
       state.isLoading = false;
-      state.error = action.payload as string;
     });
 
     builder.addCase(updateUser.pending, state => {
@@ -144,9 +158,8 @@ export const authSlice = createSlice({
       state.isUpdated = true;
       state.error = '';
     });
-    builder.addCase(updateUser.rejected, (state, action) => {
+    builder.addCase(updateUser.rejected, state => {
       state.isLoading = false;
-      state.error = action.payload as string;
     });
   },
 });
@@ -161,6 +174,8 @@ export const {
   resetIsUpdated,
   setIsDeleted,
   resetIsDeleted,
+  setUserName,
+  setError,
 } = authSlice.actions;
 
 export default authSlice.reducer;

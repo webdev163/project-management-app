@@ -19,7 +19,7 @@ const EditProfilePage: FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isLoading, error, userId, isUpdated } = useAppSelector(state => state.auth);
+  const { isLoading, error, userId, isUpdated, login, name } = useAppSelector(state => state.auth);
   const { lang } = useAppSelector(state => state.locale);
 
   const onModalClick = (response: boolean) => {
@@ -47,7 +47,7 @@ const EditProfilePage: FC = () => {
     }
     if (!values.password) {
       errors.password = t('SIGNUP.PASSWORD_REQUIRED');
-    } else if (values.login.length < 6) {
+    } else if (values.password.length < 6) {
       errors.password = t('SIGNUP.PASSWORD_INVALID');
     }
     return errors;
@@ -55,8 +55,8 @@ const EditProfilePage: FC = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      login: '',
+      name: name,
+      login: login,
       password: '',
     },
     validate,
