@@ -5,6 +5,7 @@
   "EDIT_PROFILE_LINK": "Профиль",
   "MAIN_PAGE_LINK": "На главную",
   "WELCOME_PAGE_LINK": "О приложении",
+  "CREATE_BOARD_LINK": "Создать доску",
   "BUTTON_BACK": "Назад",
   "BUTTON_SAVE": "Сохранить",
   "BUTTON_DELETE_USER": "Удалить профиль",
@@ -35,11 +36,16 @@
   "MAIN_ROUTE": {
     "CREATE_BOARD": "Создать доску",
     "COLUMNS_COUNT": "Колонок: ",
-    "TASKS_COUNT": "Задач: "
+    "TASKS_COUNT": "Задач: ",
+    "DELETE_MESSAGE" : "Подтвердите удаление доски с задачами. Это действие необратимо",
+    "CONFIRM_BUTTON": "Да",
+    "REJECT_BUTTON": "Нет"
   },
   "MODAL": {
     "CONFIRM_BUTTON": "Да",
-    "REJECT_BUTTON": "Нет"
+    "REJECT_BUTTON": "Нет",
+    "CREATE_BOARD_BUTTON": "Создать",
+    "CANCEL_BUTTON": "Отмена"
   },
   "EDIT_PROFILE": {
     "TITLE": "Редактировать профиль:",
@@ -47,10 +53,21 @@
     "DELETE_MSG": "Вы подтверждаете удаление пользователя? Это действие необратимо",
     "USER_DELETED": "Пользователь успешно удален"
   },
+  "BOARD": {
+    "BUTTON_BACK": "Назад",
+    "BUTTON_ADD_A_COLUMN": "Добавить колонку",
+    "BUTTON_ADD_A_COLUMN_PLACEHOLDER": "Ввести заголовок колонки...",
+    "BUTTON_ADD_A_TASK": "Добавить таску",
+    "BUTTON_ADD_A_TASK_PLACEHOLDER": "Ввести заголовок таски..."
+  },
   "WELCOME_PAGE": {
     "SUBTITLE": "система управления проектами",
     "DESCR": "Приложение помогает достичь поставленные задачи отдельному человеку в команде или группе разработчиков",
     "DESCR_RS": "Приложение выполнено в рамках финального задания курса ",
     "TEAM_TITLE": "Наша команда:"
+  },
+  "CREATE_BOARD": {
+    "TITLE": "Заголовок:",
+    "DESCR": "Описание:"
   }
 }

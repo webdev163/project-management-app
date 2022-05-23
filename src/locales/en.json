@@ -5,6 +5,7 @@
   "EDIT_PROFILE_LINK": "Edit profile",
   "MAIN_PAGE_LINK": "To main page",
   "WELCOME_PAGE_LINK": "To welcome page",
+  "CREATE_BOARD_LINK": "Create board",
   "BUTTON_BACK": "Back",
   "BUTTON_SAVE": "Save",
   "BUTTON_DELETE_USER": "Delete user",
@@ -31,16 +32,19 @@
     "PASSWORD_REQUIRED": "required field",
     "PASSWORD_INVALID": "must be 6 characters or more"
   },
-
   "MAIN_ROUTE": {
     "CREATE_BOARD": "Create board",
     "COLUMNS_COUNT": "Columns: ",
-    "TASKS_COUNT": "Tasks: "
-  },
-
-  "MODAL": {
+    "TASKS_COUNT": "Tasks: ",
+    "DELETE_MESSAGE" : "Do you confirm board deletion? This action is irreversible",
     "CONFIRM_BUTTON": "Yes",
     "REJECT_BUTTON": "No"
+  },
+  "MODAL": {
+    "CONFIRM_BUTTON": "Yes",
+    "REJECT_BUTTON": "No",
+    "CREATE_BOARD_BUTTON": "Create",
+    "CANCEL_BUTTON": "Cancel"
   },
   "EDIT_PROFILE": {
     "TITLE": "Edit profile:",
@@ -48,10 +52,21 @@
     "DELETE_MSG": "Do you confirm user deletion? This action is irreversible",
     "USER_DELETED": "User successfully deleted"
   },
+  "BOARD": {
+    "BUTTON_BACK": "Back",
+    "BUTTON_ADD_A_COLUMN": "Add a column",
+    "BUTTON_ADD_A_COLUMN_PLACEHOLDER": "Enter column title...",
+    "BUTTON_ADD_A_TASK": "Add a task",
+    "BUTTON_ADD_A_TASK_PLACEHOLDER": "Enter task title..."
+  },
   "WELCOME_PAGE": {
     "SUBTITLE": "project management system",
     "DESCR": "The application helps to achieve the set goals for an individual in a team or group of developers",
     "DESCR_RS": "The application was completed as the final task of the course ",
     "TEAM_TITLE": "Our team:"
+  },
+  "CREATE_BOARD": {
+    "TITLE": "Title:",
+    "DESCR": "Description:"
   }
 }
