@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { useDrag, useDrop, XYCoord } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 import { useTranslation } from 'react-i18next';
 import BoardTask from '../BoardTask';
 import BoardAddItem from '../BoardAddItem';
@@ -7,9 +7,9 @@ import { handleFocus } from '~/utils/utils';
 import { BoardColumnProps, ModalWindowFormOptions } from '~/types/board';
 import { ItemTypes } from '~/utils/constants';
 import { getAllTasks, updateTask } from '~/services/tasks';
-import { ColumnData, TaskData } from '~/types/api';
+import { TaskData } from '~/types/api';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
-import { setColumnTaskData, setCurrentBoard, setDeleteColumn } from '~/store/reducers/currentBoardSlice';
+import { setColumnTaskData, setDeleteColumn } from '~/store/reducers/currentBoardSlice';
 import { deleteColumn } from '~/services/columns';
 
 import styles from '../Board/Board.module.scss';
