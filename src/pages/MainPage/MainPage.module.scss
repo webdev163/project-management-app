@@ -1,6 +1,13 @@
 .mainPage {
-  padding: 10px 20px;
-  display: flex;  
+  display: flex; 
+  flex-wrap: wrap;
+  padding: 10px 20px;  
+  margin-top: 10px;
+  height: auto;
+  @media screen and (max-width: 700px) {
+    padding: 30px 20px; 
+    overflow-y: scroll;
+  }
 }
 
 .board {
@@ -21,18 +28,18 @@
   border-radius: 15px;
   opacity: 0.8;
   transition: 0.3s;
-  margin: 10px 0;
+  margin: 10px 0;  
 }
 
 .main_route_sidebar {
-  min-width: 330px;
+  width: 100%;
   padding: 5px;
   justify-content: center;
-  background-color: #f9f9f9;
-  border-radius: 1rem;
-  border-color: #f9f9f9;
-  border-style: solid;
-  box-shadow: 0 0 12px 0 #bcbcbc;
+  // background-color: #f9f9f9;
+  // border-radius: 1rem;
+  // border-color: #f9f9f9;
+  // border-style: solid;
+  // box-shadow: 0 0 12px 0 #bcbcbc;
 }
 
 .boardDefaulted {
@@ -49,7 +56,7 @@
 }
 
 .boardWrapper {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
@@ -61,10 +68,16 @@
   // background-color: rgba(95, 140, 137, .2);
   max-width: 300px;
   min-height: 100px;
+  margin-left: 1rem;
+  @media screen and (max-width: 800px) {
+    max-width: 230px;
+    // transform: scale(.85);
+  }
 }
 
 .deleteIcon_wrapper {
   margin-bottom: 4.5rem;
+  transform: scale(1.4);
 }
 
 .deleteIcon:not(:hover) {
@@ -86,5 +99,36 @@
   opacity: .8;
   transition: .2s;  
   transform: rotate(0deg);   
+}
+
+.search_form_wrapper {
+  width: 100%;
+  margin-left: auto;
+}
+
+.search_task {
+  max-width: 200px;
+  min-height: 20px;
+  padding: 5px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-width: 1px;
+  border-color: rgb(110, 110, 110);
+  border-style: solid;
+  box-shadow: 0 0 12px 0 rgb(110, 110, 110);
+  background-color: rgb(110, 110, 110);
+  color: white;
+  border-radius: 15px;
+  opacity: 0.8;
+  transition: 0.3s;
+  margin: 10px 0; 
+}
+
+.search_no_tasks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 

@@ -51,3 +51,9 @@ export interface ModalWindowProps {
 export interface SelectCallbackProps {
   callback: (e: string) => void;
 }
+
+export interface SearchCallbackProps {
+  searchState: boolean;
+  callback: (e: string) => void;
+  // handleResetBtn: (e: boolean) => void;
+}
