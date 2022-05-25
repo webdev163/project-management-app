@@ -111,7 +111,6 @@ const Board: FC = () => {
         </div>
       </div>
       <ToastContainer />
-    </div>
     </DndProvider>
   );
 };
