@@ -118,7 +118,7 @@ const BoardColumn: FC<BoardColumnProps> = props => {
           dispatch(
             setColumnTaskData({
               columnId: props.columnId,
-              tasks: [...props.columnTasks, draggedTask[0]],
+              tasks: [draggedTask[0], ...props.columnTasks],
             }),
           );
           handleUpdateTask(draggedTask[0], draggedTaskColumnId, columnToDropId);
@@ -139,17 +139,15 @@ const BoardColumn: FC<BoardColumnProps> = props => {
       columnToDropId,
       draggedTask.id,
       draggedTask.title,
-      draggedTask.order,
+      1,
       draggedTask.description,
       draggedTask.userId,
     );
-    const updatedTasks = ((await getAllTasks(currentBoard.id, dragColumnIndex)) as TaskData[]).filter(
-      task => task.id !== columnToDropId,
-    );
+    const updatedTasks = await getAllTasks(currentBoard.id, dragColumnIndex);
     dispatch(
       setColumnTaskData({
         columnId: dragColumnIndex,
-        tasks: updatedTasks,
+        tasks: updatedTasks as TaskData[],
       }),
     );
   };

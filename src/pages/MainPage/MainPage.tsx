@@ -138,7 +138,7 @@ const MainPage: FC = () => {
         <Loader />
       </div>
       <div className="footer-wrapper">
-        <Footer />        
+        <Footer />
       </div>
       <ToastContainer />
     </div>

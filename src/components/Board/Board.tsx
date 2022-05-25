@@ -87,7 +87,7 @@ const Board: FC = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.boardContainer}>
-        <Button variant="outlined" type="button" onClick={moveBack} sx={{ margin: '10px' }}>
+        <Button variant="outlined" type="button" className={styles.backBtn} onClick={moveBack}>
           ← {t('BOARD.BUTTON_BACK')}
         </Button>
         <div className={styles.board}>
@@ -111,7 +111,6 @@ const Board: FC = () => {
         </div>
       </div>
       <ToastContainer />
-    </div>
     </DndProvider>
   );
 };
