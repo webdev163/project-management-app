@@ -1,13 +1,16 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { TaskData } from '~/types/api';
 import { BoardTaskProps } from '~/types/board';
 import { ItemTypes } from '~/utils/constants';
 import { handleFocus } from '~/utils/utils';
+import TaskEditModal from '../TaskEditModal';
 
 import styles from '../Board/Board.module.scss';
 
 const BoardTask: FC<BoardTaskProps> = ({ title, columnId, id, setHoveredTaskId }: BoardTaskProps) => {
+  const [isModalActive, setIsModalActive] = useState(false);
+
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.TASK,
     item: {
@@ -61,6 +64,8 @@ const BoardTask: FC<BoardTaskProps> = ({ title, columnId, id, setHoveredTaskId }
         onFocus={handleFocus}
         defaultValue={title}
       ></textarea>
+      <button className={styles.editBtn} onClick={() => setIsModalActive(true)}></button>
+      <TaskEditModal isActive={isModalActive} setIsActive={setIsModalActive} columnId={columnId} taskId={id} />
     </div>
   );
 };

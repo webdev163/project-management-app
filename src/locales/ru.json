@@ -45,6 +45,7 @@
     "CONFIRM_BUTTON": "Да",
     "REJECT_BUTTON": "Нет",
     "CREATE_BOARD_BUTTON": "Создать",
+    "UPDATE_TASK_BUTTON": "Обновить",
     "CANCEL_BUTTON": "Отмена"
   },
   "EDIT_PROFILE": {
@@ -69,5 +70,10 @@
   "CREATE_BOARD": {
     "TITLE": "Заголовок:",
     "DESCR": "Описание:"
+  },
+  "UPDATE_TASK": {
+    "TITLE": "Заголовок:",
+    "DESCR": "Описание:",
+    "USER": "Ответственное лицо:"
   }
 }
