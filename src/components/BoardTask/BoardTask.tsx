@@ -5,11 +5,23 @@ import { BoardTaskProps } from '~/types/board';
 import { ItemTypes } from '~/utils/constants';
 import { handleFocus } from '~/utils/utils';
 import TaskEditModal from '../TaskEditModal';
+import { updateTask } from '~/services/tasks';
+import { useAppSelector } from '~/hooks/redux';
 
 import styles from '../Board/Board.module.scss';
 
-const BoardTask: FC<BoardTaskProps> = ({ title, columnId, id, setHoveredTaskId }: BoardTaskProps) => {
+const BoardTask: FC<BoardTaskProps> = ({
+  title,
+  columnId,
+  id,
+  order,
+  description,
+  userId,
+  setHoveredTaskId,
+}: BoardTaskProps) => {
+  const { currentBoard } = useAppSelector(state => state.currentBoard);
   const [isModalActive, setIsModalActive] = useState(false);
+  const [taskTitle, setTaskTitle] = useState(title);
 
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.TASK,
@@ -51,6 +63,15 @@ const BoardTask: FC<BoardTaskProps> = ({ title, columnId, id, setHoveredTaskId }
   const taskRef = useRef<HTMLDivElement>(null);
   drag(drop(taskRef));
 
+  const updateTaskTitle = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.preventDefault();
+    const value = e.target.value;
+    if (value) {
+      await updateTask(currentBoard.id, columnId, columnId, id, value, order, description, userId);
+      setTaskTitle(value);
+    }
+  };
+
   return (
     <div
       className={styles.tasksItem}
@@ -62,10 +83,17 @@ const BoardTask: FC<BoardTaskProps> = ({ title, columnId, id, setHoveredTaskId }
       <textarea
         className={`${styles.taskTitle} ${styles.textarea}`}
         onFocus={handleFocus}
-        defaultValue={title}
+        onChange={e => updateTaskTitle(e)}
+        value={taskTitle}
       ></textarea>
       <button className={styles.editBtn} onClick={() => setIsModalActive(true)}></button>
-      <TaskEditModal isActive={isModalActive} setIsActive={setIsModalActive} columnId={columnId} taskId={id} />
+      <TaskEditModal
+        isActive={isModalActive}
+        setIsActive={setIsModalActive}
+        setTaskTitleProp={setTaskTitle}
+        columnId={columnId}
+        taskId={id}
+      />
     </div>
   );
 };

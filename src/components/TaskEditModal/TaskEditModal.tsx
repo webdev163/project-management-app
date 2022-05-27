@@ -10,7 +10,7 @@ import { getAllUsers } from '~/services/users';
 
 import styles from './TaskEditModal.module.scss';
 
-const TaskEditModal: FC<TaskEditModalProps> = ({ isActive, setIsActive, columnId, taskId }) => {
+const TaskEditModal: FC<TaskEditModalProps> = ({ isActive, setIsActive, setTaskTitleProp, columnId, taskId }) => {
   const modalRoot = document.getElementById('modal') as HTMLElement;
 
   const [taskTitle, setTaskTitle] = useState('');
@@ -66,8 +66,9 @@ const TaskEditModal: FC<TaskEditModalProps> = ({ isActive, setIsActive, columnId
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateTask(currentBoard.id, columnId, columnId, taskId, taskTitle, taskOrder, taskDescr, taskUser);
+    await updateTask(currentBoard.id, columnId, columnId, taskId, taskTitle, taskOrder, taskDescr, taskUser);
     setIsActive(false);
+    setTaskTitleProp(taskTitle);
   };
 
   return createPortal(

@@ -6,7 +6,6 @@ export interface BoardColumnProps {
   columnId: string;
   columnOrder: number;
   columnTasks: TaskData[];
-  moveColumn: (draggedColumnId: string, hoveredColumnId: string) => void;
 }
 
 export interface BoardTaskProps {
@@ -19,8 +18,15 @@ export interface BoardTaskProps {
   boardId: string;
   columnId: string;
   setHoveredTaskId?: (setHoveredTaskId: string) => void;
-  columnToDropIdProp?: string;
-  changeTaskColumn?: (draggedTaskId: string, draggedTaskColumnId: string, columnToDropId: string) => void;
+}
+
+export interface UpdateTask {
+  id: string;
+  title: string;
+  order: number;
+  description: string;
+  userId: string;
+  columnId: string;
 }
 
 export interface ModalWindowFormOptions {
