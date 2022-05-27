@@ -35,6 +35,7 @@
 
   "MAIN_ROUTE": {
     "CREATE_BOARD": "Создать доску",
+    "BOARD_DESCR": "Описание: ",
     "COLUMNS_COUNT": "Колонок: ",
     "TASKS_COUNT": "Задач: ",
     "DELETE_MESSAGE" : "Подтвердите удаление доски с задачами. Это действие необратимо",

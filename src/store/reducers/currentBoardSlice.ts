@@ -9,6 +9,7 @@ const initialState: CurrentBoard = {
   currentBoard: {
     id: '',
     title: '',
+    description: '',
     columns: [],
   },
 };

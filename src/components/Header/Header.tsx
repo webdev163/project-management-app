@@ -54,20 +54,22 @@ const Header: FC = () => {
               <Button variant="contained" onClick={() => navigate('/logout')} sx={{ margin: 0.5 }}>
                 {t('LOGOUT_LINK')}
               </Button>
-              <Button variant="contained" onClick={() => navigate('/profile')} sx={{ margin: 0.5 }}>
-                {t('EDIT_PROFILE_LINK')}
-              </Button>
-              <Button variant="contained" onClick={() => onBoardCreate()} sx={{ margin: 0.5 }}>
-                {t('CREATE_BOARD_LINK')}
-              </Button>
               {pathname === '/welcome' ? (
                 <Button variant="contained" onClick={() => navigate('/')} sx={{ margin: 0.5 }}>
                   {t('MAIN_PAGE_LINK')}
                 </Button>
               ) : (
-                <Button variant="contained" onClick={() => navigate('/welcome')} sx={{ margin: 0.5 }}>
-                  {t('WELCOME_PAGE_LINK')}
-                </Button>
+                <>
+                  <Button variant="contained" onClick={() => navigate('/profile')} sx={{ margin: 0.5 }}>
+                    {t('EDIT_PROFILE_LINK')}
+                  </Button>
+                  <Button variant="contained" onClick={() => onBoardCreate()} sx={{ margin: 0.5 }}>
+                    {t('CREATE_BOARD_LINK')}
+                  </Button>
+                  <Button variant="contained" onClick={() => navigate('/welcome')} sx={{ margin: 0.5 }}>
+                    {t('WELCOME_PAGE_LINK')}
+                  </Button>
+                </>
               )}
             </>
           )}
