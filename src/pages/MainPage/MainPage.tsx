@@ -169,7 +169,7 @@ const MainPage: FC = () => {
               // console.log('render')
               return (
                 <ListItem key={board.id} onClick={() => openBoard(board.id)} className={styles.boardWrapper}>
-                  <NavLink to="board" className={styles.board}>
+                  <NavLink to={`board/${board.id}`} className={styles.board}>
                     {countArr && (
                       <List>
                         <ListItem>{board.title}</ListItem>

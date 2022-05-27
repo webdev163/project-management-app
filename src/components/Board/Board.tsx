@@ -14,10 +14,12 @@ import Button from '@mui/material/Button';
 import Footer from '~/components/Footer';
 import { clearError } from '~/store/reducers/authSlice';
 import { ToastContainer, toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 
 import styles from './Board.module.scss';
 
 const Board: FC = () => {
+  const { id: currentBoardId } = useParams();
   const { currentBoard } = useAppSelector(state => state.currentBoard);
   const { error } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
@@ -31,16 +33,16 @@ const Board: FC = () => {
   };
 
   const moveBack = () => {
-    navigate('/mainPage');
+    navigate('/');
   };
 
   useEffect(() => {
     const getColumns = async (): Promise<void> => {
-      if (currentBoard.id) {
-        const columns = await getAllColumns(currentBoard.id);
+      if (currentBoardId) {
+        const columns = await getAllColumns(currentBoardId);
         dispatch(
           setCurrentBoard({
-            id: currentBoard.id,
+            id: currentBoardId,
             title: currentBoard.title,
             columns: columns as ColumnData[],
           }),
@@ -48,7 +50,7 @@ const Board: FC = () => {
       }
     };
     getColumns();
-  }, [currentBoard.id, currentBoard.title, dispatch]);
+  }, [currentBoardId, currentBoard.title, dispatch]);
 
   useEffect(() => {
     if (error) {
@@ -73,7 +75,7 @@ const Board: FC = () => {
           updatedColumns[hoverItemIndex] = draggedColumn;
           dispatch(
             setCurrentBoard({
-              id: currentBoard.id,
+              id: currentBoardId as string,
               title: currentBoard.title,
               columns: updatedColumns,
             }),
@@ -81,7 +83,7 @@ const Board: FC = () => {
         }
       }
     },
-    [currentBoard.columns, currentBoard.id, currentBoard.title, dispatch],
+    [currentBoard.columns, currentBoardId, currentBoard.title, dispatch],
   );
 
   return (

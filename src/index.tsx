@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import AppRouter from './router/AppRouter';
+import App from './App';
 import { setupInterceptorsTo } from '~/utils/axiosInterceptors';
 import axios from 'axios';
 
@@ -15,7 +15,7 @@ const root = createRoot(container);
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <AppRouter />
+      <App />
     </BrowserRouter>
   </Provider>,
 );
