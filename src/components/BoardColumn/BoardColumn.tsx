@@ -220,9 +220,9 @@ const BoardColumn: FC<BoardColumnProps> = props => {
         opacity: isDragging ? 0 : 1,
       }}
     >
-      <i className={styles.deleteBtn} onClick={handleDeleteColumn}>
+      <span className={styles.deleteBtn} onClick={handleDeleteColumn}>
         ×
-      </i>
+      </span>
       <textarea
         className={`${styles.textarea} ${styles.columnTitle}`}
         defaultValue={props.columnTitle}

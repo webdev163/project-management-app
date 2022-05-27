@@ -165,8 +165,14 @@ const MainPage: FC = () => {
                     <NavLink to={`board/${board.id}`} className={styles.board}>
                       {countArr && (
                         <ul className={styles.list}>
-                          <li className={styles.listItem}>{board.title}</li>
-                          <li>
+                          <li className={styles.listItemTitle}>{board.title}</li>
+                          <li className={styles.listItemDescr}>
+                            {t('MAIN_ROUTE.BOARD_DESCR')}
+                            {board.description.length > 70
+                              ? board.description.substring(0, 67) + '...'
+                              : board.description}
+                          </li>
+                          <li className={styles.listItem}>
                             {t('MAIN_ROUTE.COLUMNS_COUNT')} {tasksCount(board).columns}
                           </li>
                           <li className={styles.listItem}>

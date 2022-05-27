@@ -44,13 +44,14 @@ const Board: FC = () => {
           setCurrentBoard({
             id: currentBoardId,
             title: currentBoard.title,
+            description: currentBoard.description,
             columns: columns as ColumnData[],
           }),
         );
       }
     };
     getColumns();
-  }, [currentBoardId, currentBoard.title, dispatch]);
+  }, [currentBoardId, currentBoard.title, dispatch, currentBoard.description]);
 
   useEffect(() => {
     if (error) {
@@ -77,21 +78,24 @@ const Board: FC = () => {
             setCurrentBoard({
               id: currentBoardId as string,
               title: currentBoard.title,
+              description: currentBoard.description,
               columns: updatedColumns,
             }),
           );
         }
       }
     },
-    [currentBoard.columns, currentBoardId, currentBoard.title, dispatch],
+    [currentBoard.columns, currentBoard.title, currentBoard.description, dispatch, currentBoardId],
   );
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.boardContainer}>
-        <Button variant="outlined" type="button" className={styles.backBtn} onClick={moveBack}>
-          ← {t('BOARD.BUTTON_BACK')}
-        </Button>
+        <div className={styles.back}>
+          <Button variant="outlined" type="button" onClick={moveBack}>
+            ← {t('BOARD.BUTTON_BACK')}
+          </Button>
+        </div>
         <div className={styles.board}>
           {currentBoard.columns &&
             currentBoard.columns?.map((column: ColumnData, index: number) => {

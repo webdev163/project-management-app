@@ -1,19 +1,19 @@
 .mainPage {
   max-width: 1920px;
   padding: 15px;
-  @media screen and (max-width: 700px) {
-    padding: 30px 20px; 
-    overflow-y: scroll;
+  @media screen and (max-width: 1170px) {
+    text-align: center;
   }
 }
 
 .board {
   max-width: 250px;
-  min-height: 50px;
-  padding: 5px 15px;
+  min-height: 160px;
+  padding: 10px 15px;
   width: 100%;
   display: flex;
-  align-items: center;
+  // justify-content: center;
+  flex-direction: column;
   border-width: 1px;
   border-color: rgb(110, 110, 110);
   border-style: solid;
@@ -51,8 +51,7 @@
   border-style: solid;
   // background-color: rgba(95, 140, 137, .2);
   max-width: 300px;
-  min-height: 100px;
-  min-width: 240px;
+  width: 100%;
   margin: 34px;
   position: relative;
   @media screen and (max-width: 800px) {
@@ -64,8 +63,8 @@
 .deleteIcon_wrapper {
   transform: scale(1.4);
   position: absolute;
-  top: 15px;
-  right: -20px;
+  top: 10px;
+  right: -10px;
 }
 
 .deleteIcon:not(:hover) {
@@ -123,10 +122,21 @@
 .list {
   list-style: none;
   padding-left: 0;
+  overflow: hidden;
 }
 
 .list-item {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 5px;
+}
+
+.list-item-title {
+  padding: 5px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.list-item-descr {
+  padding: 5px;
+  min-height: 60px;
 }
 
