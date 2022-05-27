@@ -14,10 +14,12 @@ import Button from '@mui/material/Button';
 import Footer from '~/components/Footer';
 import { clearError } from '~/store/reducers/authSlice';
 import { ToastContainer, toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 
 import styles from './Board.module.scss';
 
 const Board: FC = () => {
+  const { id: currentBoardId } = useParams();
   const { currentBoard } = useAppSelector(state => state.currentBoard);
   const { error } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
@@ -31,7 +33,7 @@ const Board: FC = () => {
   };
 
   const moveBack = () => {
-    navigate('/mainPage');
+    navigate('/');
   };
 
   useEffect(() => {
@@ -40,15 +42,16 @@ const Board: FC = () => {
         const columns = ((await getAllColumns(currentBoard.id)) as ColumnData[]).sort((a, b) => a.order - b.order);
         dispatch(
           setCurrentBoard({
-            id: currentBoard.id,
+            id: currentBoardId,
             title: currentBoard.title,
+            description: currentBoard.description,
             columns: columns as ColumnData[],
           }),
         );
       }
     };
     getColumns();
-  }, [currentBoard.id, currentBoard.title, dispatch]);
+  }, [currentBoardId, currentBoard.title, dispatch, currentBoard.description]);
 
   useEffect(() => {
     if (error) {
@@ -58,13 +61,15 @@ const Board: FC = () => {
       dispatch(clearError());
     }
   }, [dispatch, error]);
-
+  
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.boardContainer}>
-        <Button variant="outlined" type="button" className={styles.backBtn} onClick={moveBack}>
-          ← {t('BOARD.BUTTON_BACK')}
-        </Button>
+        <div className={styles.back}>
+          <Button variant="outlined" type="button" onClick={moveBack}>
+            ← {t('BOARD.BUTTON_BACK')}
+          </Button>
+        </div>
         <div className={styles.board}>
           {currentBoard.columns &&
             currentBoard.columns?.map((column: ColumnData, index: number) => {

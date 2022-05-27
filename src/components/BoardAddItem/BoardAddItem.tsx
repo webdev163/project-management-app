@@ -42,6 +42,7 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
       setCurrentBoard({
         id: currentBoard.id,
         title: currentBoard.title,
+        description: currentBoard.description,
         columns: [...(currentBoard.columns || []), data as ColumnData],
       }),
     );
@@ -79,9 +80,9 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
             handleCloseModal: handleCloseModal,
           }}
         />
-        <i className={`${styles.cancelBtn} ${styles.modalCloseBtn}`} onClick={handleCloseModal}>
+        <span className={`${styles.cancelBtn} ${styles.modalCloseBtn}`} onClick={handleCloseModal}>
           ×
-        </i>
+        </span>
       </Modal>
       {!isModalOpen && (
         <button className={styles.btn} onClick={handleOpenModal}>
