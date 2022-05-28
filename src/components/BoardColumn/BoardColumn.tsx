@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { useTranslation } from 'react-i18next';
 import BoardTask from '../BoardTask';
 import BoardAddItem from '../BoardAddItem';
@@ -7,10 +7,10 @@ import { handleFocus } from '~/utils/utils';
 import { BoardColumnProps, ModalWindowFormOptions } from '~/types/board';
 import { ItemTypes } from '~/utils/constants';
 import { getAllTasks, updateTask } from '~/services/tasks';
-import { TaskData } from '~/types/api';
+import { ColumnData, TaskData } from '~/types/api';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
-import { setColumnTaskData, setDeleteColumn } from '~/store/reducers/currentBoardSlice';
-import { deleteColumn } from '~/services/columns';
+import { setColumnTaskData, setCurrentBoard, setDeleteColumn } from '~/store/reducers/currentBoardSlice';
+import { deleteColumn, getAllColumns, updateColumn } from '~/services/columns';
 
 import styles from '../Board/Board.module.scss';
 
@@ -26,6 +26,10 @@ const BoardColumn: FC<BoardColumnProps> = props => {
     placeholderText: t('BOARD.BUTTON_ADD_A_TASK_PLACEHOLDER'),
   };
 
+  function isTask(x: ColumnData | TaskData): x is TaskData {
+    return (x as TaskData).columnId !== undefined;
+  }
+
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.COLUMN,
     collect: monitor => ({
@@ -35,63 +39,86 @@ const BoardColumn: FC<BoardColumnProps> = props => {
 
   const [, drop] = useDrop({
     accept: [ItemTypes.COLUMN, ItemTypes.TASK],
-    drop(item: TaskData) {
-      const draggedTaskId: string | undefined = item.id;
-      const draggedTaskColumnId: string | undefined = item.columnId;
-      const columnToDropId: string | undefined = props.columnId;
+    drop(item: TaskData | ColumnData) {
+      if (isTask(item)) {
+        const draggedTaskId: string | undefined = item.id;
+        const draggedTaskColumnId: string | undefined = item.columnId;
+        const columnToDropId: string | undefined = props.columnId;
 
-      if (columnToDropId) {
-        changeTaskColumn(draggedTaskId, draggedTaskColumnId, columnToDropId);
-        item.columnId = columnToDropId;
+        if (columnToDropId) {
+          changeTaskColumn(draggedTaskId, draggedTaskColumnId, columnToDropId);
+          item.columnId = columnToDropId;
+        }
+      } else {
+        if (currentBoard.columns) {
+          const draggedColumnId: string | undefined = item.id;
+          const hoveredColumnId: string | undefined = props.columnId;
+          const draggedColumn = currentBoard.columns.find(column => column.id === draggedColumnId);
+          const hoveredColumn = currentBoard.columns.find(column => column.id === hoveredColumnId);
+
+          if (draggedColumn && hoveredColumn) {
+            const handleUpdateColumn = async (
+              draggedColumnId: string,
+              draggedColumn: ColumnData,
+              hoveredColumn: ColumnData,
+            ): Promise<void> => {
+              await updateColumn(currentBoard.id, draggedColumnId, draggedColumn.title, hoveredColumn.order);
+              await updateColumn(currentBoard.id, hoveredColumnId, hoveredColumn.title, draggedColumn.order);
+              const updatedColumns = ((await getAllColumns(currentBoard.id)) as ColumnData[]).sort(
+                (a, b) => a.order - b.order,
+              );
+              updatedColumns.forEach((col: ColumnData) => {
+                const updateTasks = async () => {
+                  const updatedTasks = ((await getAllTasks(currentBoard.id, col.id)) as TaskData[]).sort(
+                    (a, b) => a.order - b.order,
+                  );
+                  dispatch(
+                    setColumnTaskData({
+                      columnId: col.id,
+                      tasks: updatedTasks,
+                    }),
+                  );
+                };
+                updateTasks();
+              });
+              dispatch(
+                setCurrentBoard({
+                  id: currentBoard.id,
+                  title: currentBoard.title,
+                  description: currentBoard.description,
+                  columns: updatedColumns as ColumnData[],
+                }),
+              );
+            };
+            handleUpdateColumn(draggedColumnId, draggedColumn, hoveredColumn);
+          }
+        }
       }
     },
-    // drop(item: ColumnData) {
-    //   if (currentBoard.columns) {
-    //     const draggedColumnId: string | undefined = item.id;
-    //     const hoveredColumnId: string | undefined = props.columnId;
-    //     const draggedColumn = currentBoard.columns.find(column => column.id === draggedColumnId);
-    //     const hoveredColumn = currentBoard.columns.find(column => column.id === hoveredColumnId);
+    hover(item: ColumnData, monitor) {
+      monitor.canDrop();
+      if (!ref.current) {
+        return;
+      }
+      const draggedColumnId: string | undefined = item.id;
+      const hoveredColumnId: string | undefined = props.columnId;
 
-    //     if (draggedColumn && hoveredColumn) {
-    //       const dragItemIndex = currentBoard.columns.indexOf(draggedColumn);
-    //       const hoverItemIndex = currentBoard.columns.indexOf(hoveredColumn);
-    //       const updatedColumns = [...currentBoard.columns];
-    //       updatedColumns[dragItemIndex] = hoveredColumn;
-    //       updatedColumns[hoverItemIndex] = draggedColumn;
-    //       dispatch(
-    //         setCurrentBoard({
-    //           id: currentBoard.id,
-    //           title: currentBoard.title,
-    //           columns: updatedColumns,
-    //         }),
-    //       );
-    //       // add columns update on api
-    //     }
-    //   }
-    // },
-    // hover(item: ColumnData, monitor) {
-    //   if (!ref.current) {
-    //     return;
-    //   }
-    //   const draggedColumnId: string | undefined = item.id;
-    //   const hoveredColumnId: string | undefined = props.columnId;
+      const hoveredRect: DOMRect | undefined = ref.current?.getBoundingClientRect();
+      if (hoveredRect) {
+        const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2;
+        const mousePosition: XYCoord | null = monitor.getClientOffset();
+        if (mousePosition) {
+          const hoverActualY: number = mousePosition?.y - hoveredRect.top;
 
-    //   const hoveredRect: DOMRect | undefined = ref.current?.getBoundingClientRect();
-    //   if (hoveredRect) {
-    //     const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2;
-    //     const mousePosition: XYCoord | null = monitor.getClientOffset();
-    //     if (mousePosition) {
-    //       const hoverActualY: number = mousePosition?.y - hoveredRect.top;
+          if (draggedColumnId < hoveredColumnId && hoverActualY < hoverMiddleY) return;
 
-    //       if (draggedColumnId < hoveredColumnId && hoverActualY < hoverMiddleY) return;
-
-    //       if (draggedColumnId > hoveredColumnId && hoverActualY < hoverMiddleY) return;
-    //     }
-    //   }
-
-    //   props.moveColumn(draggedColumnId, hoveredColumnId);
-    //   item.id = hoveredColumnId;
-    // },
+          if (draggedColumnId > hoveredColumnId && hoverActualY < hoverMiddleY) return;
+        }
+      }
+      if (!isTask(item)) {
+        item.id = hoveredColumnId;
+      }
+    },
   });
 
   const ref = useRef<HTMLDivElement>(null);
@@ -103,25 +130,29 @@ const BoardColumn: FC<BoardColumnProps> = props => {
         const draggedTask = ((await getAllTasks(currentBoard.id, draggedTaskColumnId)) as TaskData[]).filter(
           task => task.id === draggedTaskId,
         );
-        if (draggedTaskColumnId === columnToDropId && hoveredTaskId) {
-          const getOrder = async (): Promise<void> => {
-            const hoveredTask = ((await getAllTasks(currentBoard.id, draggedTaskColumnId)) as TaskData[]).find(
-              task => task.id === hoveredTaskId,
-            );
-            if (hoveredTask) {
-              swapTasks(draggedTask[0], draggedTaskColumnId, hoveredTask);
+        if (draggedTask[0]) {
+          if (draggedTaskColumnId === columnToDropId && hoveredTaskId) {
+            const getOrder = async (): Promise<void> => {
+              const hoveredTask = ((await getAllTasks(currentBoard.id, draggedTaskColumnId)) as TaskData[]).find(
+                task => task.id === hoveredTaskId,
+              );
+              if (hoveredTask) {
+                swapTasks(draggedTask[0], draggedTaskColumnId, hoveredTask);
+              }
+            };
+            getOrder();
+          } else {
+            if (draggedTask[0]) {
+              draggedTask[0].columnId = columnToDropId;
+              dispatch(
+                setColumnTaskData({
+                  columnId: props.columnId,
+                  tasks: [draggedTask[0], ...props.columnTasks],
+                }),
+              );
+              handleUpdateTask(draggedTask[0], draggedTaskColumnId, columnToDropId);
             }
-          };
-          getOrder();
-        } else {
-          draggedTask[0].columnId = columnToDropId;
-          dispatch(
-            setColumnTaskData({
-              columnId: props.columnId,
-              tasks: [draggedTask[0], ...props.columnTasks],
-            }),
-          );
-          handleUpdateTask(draggedTask[0], draggedTaskColumnId, columnToDropId);
+          }
         }
       }
     };
@@ -143,7 +174,9 @@ const BoardColumn: FC<BoardColumnProps> = props => {
       draggedTask.description,
       draggedTask.userId,
     );
-    const updatedTasks = await getAllTasks(currentBoard.id, dragColumnIndex);
+    const updatedTasks = ((await getAllTasks(currentBoard.id, dragColumnIndex)) as TaskData[]).sort(
+      (a, b) => a.order - b.order,
+    );
     dispatch(
       setColumnTaskData({
         columnId: dragColumnIndex,
@@ -152,39 +185,40 @@ const BoardColumn: FC<BoardColumnProps> = props => {
     );
   };
 
-  const swapTasks = (draggedTask: TaskData, draggedTaskColumnId: string, hoveredTask: TaskData): void => {
-    if (draggedTask && hoveredTask && currentBoard.columns) {
-      const updatedTasks = [
-        ...(currentBoard.columns.find(column => column.id === draggedTaskColumnId)?.tasks as TaskData[]),
-      ];
-      const draggedTaskIndex = updatedTasks.findIndex(el => el.id === draggedTask.id);
-      const hoveredTaskIndex = updatedTasks.findIndex(el => el.id === hoveredTask.id);
-      if (updatedTasks) {
-        updatedTasks[draggedTaskIndex] = hoveredTask;
-        updatedTasks[hoveredTaskIndex] = draggedTask;
-
-        dispatch(
-          setColumnTaskData({
-            columnId: draggedTaskColumnId,
-            tasks: updatedTasks as TaskData[],
-          }),
-        );
-      }
-
-      const updateSwappedTask = async (): Promise<void> => {
-        await updateTask(
-          currentBoard.id,
-          draggedTaskColumnId,
-          draggedTaskColumnId,
-          draggedTask.id,
-          draggedTask.title,
-          hoveredTask.order,
-          draggedTask.description,
-          draggedTask.userId,
-        );
-      };
-      updateSwappedTask();
-    }
+  const swapTasks = async (
+    draggedTask: TaskData,
+    draggedTaskColumnId: string,
+    hoveredTask: TaskData,
+  ): Promise<void> => {
+    await updateTask(
+      currentBoard.id,
+      draggedTaskColumnId,
+      draggedTaskColumnId,
+      draggedTask.id,
+      draggedTask.title,
+      hoveredTask.order,
+      draggedTask.description,
+      draggedTask.userId,
+    );
+    await updateTask(
+      currentBoard.id,
+      draggedTaskColumnId,
+      draggedTaskColumnId,
+      hoveredTask.id,
+      hoveredTask.title,
+      draggedTask.order,
+      hoveredTask.description,
+      hoveredTask.userId,
+    );
+    const updatedTasks = ((await getAllTasks(currentBoard.id, draggedTaskColumnId)) as ColumnData[]).sort(
+      (a, b) => a.order - b.order,
+    );
+    dispatch(
+      setColumnTaskData({
+        columnId: draggedTaskColumnId,
+        tasks: updatedTasks as TaskData[],
+      }),
+    );
   };
 
   const handleDeleteColumn = async (): Promise<void> => {
@@ -200,7 +234,9 @@ const BoardColumn: FC<BoardColumnProps> = props => {
   useEffect(() => {
     const getTasks = async (): Promise<void> => {
       if (currentBoard.id && props.columnId) {
-        const data = await getAllTasks(currentBoard.id, props.columnId);
+        const data = ((await getAllTasks(currentBoard.id, props.columnId)) as TaskData[]).sort(
+          (a, b) => a.order - b.order,
+        );
         dispatch(
           setColumnTaskData({
             columnId: props.columnId,

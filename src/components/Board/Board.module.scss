@@ -96,12 +96,17 @@
   border: none;
   outline: none;
   font-size: 20px;
+
+  @media screen and (max-width: 1200px) {
+    max-width: 218px;
+  }
 }
 
 .columnTitle {
   background-color: #0000;
   box-shadow: none;
   font-weight: 600;
+  margin: 10px 0;
 }
 
 .columnTitle:focus {

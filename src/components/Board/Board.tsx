@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -39,7 +39,7 @@ const Board: FC = () => {
   useEffect(() => {
     const getColumns = async (): Promise<void> => {
       if (currentBoardId) {
-        const columns = await getAllColumns(currentBoardId);
+        const columns = ((await getAllColumns(currentBoardId)) as ColumnData[]).sort((a, b) => a.order - b.order);
         dispatch(
           setCurrentBoard({
             id: currentBoardId,
@@ -61,33 +61,7 @@ const Board: FC = () => {
       dispatch(clearError());
     }
   }, [dispatch, error]);
-
-  const moveColumn = useCallback(
-    (draggedColumnId: string, hoveredColumnId: string): void => {
-      if (currentBoard.columns) {
-        const draggedColumn = currentBoard.columns.find(column => column.id === draggedColumnId);
-        const hoveredColumn = currentBoard.columns.find(column => column.id === hoveredColumnId);
-
-        if (draggedColumn && hoveredColumn) {
-          const dragItemIndex = currentBoard.columns.indexOf(draggedColumn);
-          const hoverItemIndex = currentBoard.columns.indexOf(hoveredColumn);
-          const updatedColumns = [...currentBoard.columns];
-          updatedColumns[dragItemIndex] = hoveredColumn;
-          updatedColumns[hoverItemIndex] = draggedColumn;
-          dispatch(
-            setCurrentBoard({
-              id: currentBoardId as string,
-              title: currentBoard.title,
-              description: currentBoard.description,
-              columns: updatedColumns,
-            }),
-          );
-        }
-      }
-    },
-    [currentBoard.columns, currentBoard.title, currentBoard.description, dispatch, currentBoardId],
-  );
-
+  
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.boardContainer}>
@@ -101,7 +75,6 @@ const Board: FC = () => {
             currentBoard.columns?.map((column: ColumnData, index: number) => {
               return (
                 <BoardColumn
-                  moveColumn={moveColumn}
                   key={column.id}
                   columnId={column.id}
                   columnTitle={column.title}

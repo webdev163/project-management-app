@@ -65,11 +65,18 @@ export const deleteColumn = async (boardId: string, columnId: string) => {
   }
 };
 
-export const updateColumn = async (boardId: string, columnId: string, title: string, order: number) => {
+export const updateColumn = async (
+  boardId: string,
+  columnId: string,
+  // newColumnId: string,
+  title: string,
+  order: number,
+) => {
   try {
     const response = await axios.put<ColumnData>(
       `${ENDPOINT_URL}/boards/${boardId}/columns/${columnId}`,
       {
+        // columnId: newColumnId,
         title,
         order,
       },
