@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
 import { deleteBoard, getAllBoards } from '~/services/boards';
 import { setBoards } from '~/store/reducers/boardSlice';
@@ -24,7 +24,6 @@ const MainPage: FC = () => {
   const { boards } = useAppSelector(state => state.boards);
   const { isLogged, error } = useAppSelector(state => state.auth);
   const [countArr, setCountArr] = useState<BoardData[]>([]);
-  const navigate = useNavigate();
 
   const [pageState, setPageState] = useState({
     boardsOnPage: boards,
