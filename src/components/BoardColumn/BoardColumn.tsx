@@ -13,12 +13,16 @@ import { setColumnTaskData, setCurrentBoard, setDeleteColumn } from '~/store/red
 import { deleteColumn, getAllColumns, updateColumn } from '~/services/columns';
 
 import styles from '../Board/Board.module.scss';
+import ConfirmationModal from '../ConfirmationModal';
 
 const BoardColumn: FC<BoardColumnProps> = props => {
   const { currentBoard } = useAppSelector(state => state.currentBoard);
   const [hoveredTaskId, setHoveredTaskId] = useState('');
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const [pageState, setPageState] = useState({
+    isModalActive: false,
+  });
 
   const taskOptions: ModalWindowFormOptions = {
     type: 'task',
@@ -221,14 +225,19 @@ const BoardColumn: FC<BoardColumnProps> = props => {
     );
   };
 
-  const handleDeleteColumn = async (): Promise<void> => {
-    await deleteColumn(currentBoard.id, props.columnId);
-    dispatch(
-      setDeleteColumn({
-        columnId: props.columnId,
-        tasks: props.columnTasks,
-      }),
-    );
+  const handleDeleteColumn = async (resp: boolean): Promise<void> => {
+    if (resp) {
+      await deleteColumn(currentBoard.id, props.columnId);
+      dispatch(
+        setDeleteColumn({
+          columnId: props.columnId,
+          tasks: props.columnTasks,
+        }),
+      );
+    }
+    setPageState(prev => {
+      return { ...prev, isModalActive: false };
+    });
   };
 
   useEffect(() => {
@@ -256,7 +265,14 @@ const BoardColumn: FC<BoardColumnProps> = props => {
         opacity: isDragging ? 0 : 1,
       }}
     >
-      <span className={styles.deleteBtn} onClick={handleDeleteColumn}>
+      <span
+        className={styles.deleteBtn}
+        onClick={() =>
+          setPageState(prev => {
+            return { ...prev, isModalActive: true };
+          })
+        }
+      >
         ×
       </span>
       <textarea
@@ -281,6 +297,11 @@ const BoardColumn: FC<BoardColumnProps> = props => {
           );
         })}
       <BoardAddItem options={taskOptions} columnId={props.columnId} />
+      <ConfirmationModal
+        callback={handleDeleteColumn}
+        text={t('BOARD.DELETE_MESSAGE')}
+        isActive={pageState.isModalActive}
+      />
     </div>
   );
 };
