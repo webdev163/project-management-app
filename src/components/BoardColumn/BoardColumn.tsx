@@ -11,9 +11,10 @@ import { ColumnData, TaskData } from '~/types/api';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
 import { setColumnTaskData, setCurrentBoard, setDeleteColumn } from '~/store/reducers/currentBoardSlice';
 import { deleteColumn, getAllColumns, updateColumn } from '~/services/columns';
+import ConfirmationModal from '../ConfirmationModal';
+import TextareaAutosize from 'react-textarea-autosize';
 
 import styles from '../Board/Board.module.scss';
-import ConfirmationModal from '../ConfirmationModal';
 
 const BoardColumn: FC<BoardColumnProps> = props => {
   const { currentBoard } = useAppSelector(state => state.currentBoard);
@@ -264,27 +265,29 @@ const BoardColumn: FC<BoardColumnProps> = props => {
       <span className={styles.deleteBtn} onClick={() => setIsModalActive(true)}>
         ×
       </span>
-      <textarea
+      <TextareaAutosize
         className={`${styles.textarea} ${styles.columnTitle}`}
         defaultValue={props.columnTitle}
         onFocus={handleFocus}
-      ></textarea>
-      {props.columnTasks &&
-        props.columnTasks.map((task: TaskData) => {
-          return (
-            <BoardTask
-              id={task.id}
-              key={task.id}
-              title={task.title}
-              columnId={task.columnId}
-              description={task.description}
-              order={task.order}
-              userId={task.userId}
-              boardId={task.boardId}
-              setHoveredTaskId={setHoveredTaskId}
-            />
-          );
-        })}
+      />
+      <div className={styles.tasksContainer}>
+        {props.columnTasks &&
+          props.columnTasks.map((task: TaskData) => {
+            return (
+              <BoardTask
+                id={task.id}
+                key={task.id}
+                title={task.title}
+                columnId={task.columnId}
+                description={task.description}
+                order={task.order}
+                userId={task.userId}
+                boardId={task.boardId}
+                setHoveredTaskId={setHoveredTaskId}
+              />
+            );
+          })}
+      </div>
       <BoardAddItem options={taskOptions} columnId={props.columnId} />
       <ConfirmationModal
         callback={handleDeleteColumn}

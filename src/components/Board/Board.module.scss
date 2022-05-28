@@ -13,19 +13,39 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  max-width: 300px;
+  max-width: 320px;
   width: 100%;
   min-height: 100px;
+  max-height: 570px;
   height: fit-content;
   padding: 15px;
   background-color: rgb(157, 191, 212);
   border-radius: 5px;
   gap: 10px;
+
+  @media screen and (max-width: 1200px) {
+    max-height: 480px;
+  }
+
+}
+
+.tasksContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: scroll;
+}
+
+.tasksContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .btn {
   min-width: 300px;
-  height: 45px;
+  min-height: 45px;
+  height: 100%;
   border-radius: 5px;
   opacity: 1;
   transition: 0.3s;
@@ -71,7 +91,6 @@
   opacity: .8;
   transition: .2s;  
   transform: rotate(0deg);  
-  margin-left: 10px; 
 }
 
 .deleteIcon:hover {
@@ -95,25 +114,21 @@
 .tasksItem {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .textarea {
-  max-width: 255px;
   width: 100%;
   resize: none;
   border-radius: 3px;
-  height: 20px;
   min-height: 25px;
+  height: 25px;
   max-height: 200px;
   padding: 4px 8px;
   border: none;
   outline: none;
   font-size: 20px;
-
-  @media screen and (max-width: 1200px) {
-    max-width: 245px;
-  }
+  overflow: hidden;
 }
 
 .columnTitle {
@@ -121,6 +136,12 @@
   box-shadow: none;
   font-weight: 600;
   margin: 10px 0;
+  max-width: 275px;
+
+  @media screen and (max-width: 1200px) {
+    max-width: 255px;
+  }
+
 }
 
 .columnTitle:focus {
@@ -130,6 +151,7 @@
 
 .taskTitle {
   background-color: #fff;
+  max-width: 210px;
 }
 
 .taskTitle:focus {
@@ -153,14 +175,15 @@
   padding: 25px;
   padding-bottom: 10px;
   border: none;
+
   @media screen and (max-width: 800px) {
     margin-top: 40%;
   }
+
 }
 
 .edit-btn {
   height: 30px;
-  margin-left: 10px;
   background-image: url('../assets/icons/edit.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -176,12 +199,15 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
   @media screen and (max-width: 800px) {
     margin-top: 20px;
   }
+
   @media screen and (max-width: 375px) {
     margin-top: 50px;
   }
+
 }
 
 .btn-wrapper {

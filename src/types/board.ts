@@ -63,3 +63,13 @@ export interface SearchCallbackProps {
   callback: (e: string) => void;
   // handleResetBtn: (e: boolean) => void;
 }
+
+export interface UpdateColumnTasks {
+  columnId: string;
+  tasks: TaskData[];
+}
+
+export interface DeleteTask {
+  columnId: string;
+  taskId: string;
+}

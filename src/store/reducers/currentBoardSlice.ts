@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BoardData, UpdateColumnTasks, ColumnData, UpdateTask, TaskData } from '~/types/api';
+import { BoardData, ColumnData, TaskData } from '~/types/api';
+import { UpdateColumnTasks, DeleteTask } from '~/types/board';
 
 export interface CurrentBoard {
   currentBoard: BoardData;
@@ -38,7 +39,7 @@ export const currentBoardSlice = createSlice({
       );
       allColumns?.splice(columnIndex as number, 1);
     },
-    setDeleteTask(state, action: PayloadAction<UpdateTask>) {
+    setDeleteTask(state, action: PayloadAction<DeleteTask>) {
       const allTasks = state.currentBoard?.columns?.find(column => column.id === action.payload.columnId)?.tasks;
       const taskIndex = allTasks?.indexOf(allTasks.find(task => task.id === action.payload.taskId) as TaskData);
       allTasks?.splice(taskIndex as number, 1);

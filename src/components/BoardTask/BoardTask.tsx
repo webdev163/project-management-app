@@ -1,5 +1,8 @@
 import React, { FC, useRef, useState } from 'react';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
+import { useTranslation } from 'react-i18next';
+import BackspaceIcon from '@mui/icons-material/Backspace';
+import TextareaAutosize from 'react-textarea-autosize';
 import { TaskData } from '~/types/api';
 import { BoardTaskProps } from '~/types/board';
 import { ItemTypes } from '~/utils/constants';
@@ -7,9 +10,7 @@ import { handleFocus } from '~/utils/utils';
 import TaskEditModal from '../TaskEditModal';
 import { deleteTask, updateTask } from '~/services/tasks';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
-import BackspaceIcon from '@mui/icons-material/Backspace';
 import ConfirmationModal from '../ConfirmationModal';
-import { useTranslation } from 'react-i18next';
 import { setDeleteTask } from '~/store/reducers/currentBoardSlice';
 
 import styles from '../Board/Board.module.scss';
@@ -100,12 +101,12 @@ const BoardTask: FC<BoardTaskProps> = ({
         opacity: isDragging ? 0 : 1,
       }}
     >
-      <textarea
+      <TextareaAutosize
         className={`${styles.taskTitle} ${styles.textarea}`}
         onFocus={handleFocus}
         onChange={e => updateTaskTitle(e)}
         value={taskTitle}
-      ></textarea>
+      />
       <button className={styles.editBtn} onClick={() => setIsModalActive(true)}></button>
       <BackspaceIcon color="error" className={styles.deleteIcon} onClick={() => setIsDeleteModalActive(true)} />
       <TaskEditModal
