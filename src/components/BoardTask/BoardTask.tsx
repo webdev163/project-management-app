@@ -5,8 +5,12 @@ import { BoardTaskProps } from '~/types/board';
 import { ItemTypes } from '~/utils/constants';
 import { handleFocus } from '~/utils/utils';
 import TaskEditModal from '../TaskEditModal';
-import { updateTask } from '~/services/tasks';
-import { useAppSelector } from '~/hooks/redux';
+import { deleteTask, updateTask } from '~/services/tasks';
+import { useAppDispatch, useAppSelector } from '~/hooks/redux';
+import BackspaceIcon from '@mui/icons-material/Backspace';
+import ConfirmationModal from '../ConfirmationModal';
+import { useTranslation } from 'react-i18next';
+import { setDeleteTask } from '~/store/reducers/currentBoardSlice';
 
 import styles from '../Board/Board.module.scss';
 
@@ -22,6 +26,9 @@ const BoardTask: FC<BoardTaskProps> = ({
   const { currentBoard } = useAppSelector(state => state.currentBoard);
   const [isModalActive, setIsModalActive] = useState(false);
   const [taskTitle, setTaskTitle] = useState(title);
+  const [isDeleteModalActive, setIsDeleteModalActive] = useState(false);
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.TASK,
@@ -72,6 +79,19 @@ const BoardTask: FC<BoardTaskProps> = ({
     }
   };
 
+  const handleDeleteTask = async (resp: boolean): Promise<void> => {
+    if (resp) {
+      await deleteTask(currentBoard.id, columnId, id);
+      dispatch(
+        setDeleteTask({
+          columnId: columnId,
+          taskId: id,
+        }),
+      );
+    }
+    setIsDeleteModalActive(false);
+  };
+
   return (
     <div
       className={styles.tasksItem}
@@ -87,12 +107,18 @@ const BoardTask: FC<BoardTaskProps> = ({
         value={taskTitle}
       ></textarea>
       <button className={styles.editBtn} onClick={() => setIsModalActive(true)}></button>
+      <BackspaceIcon color="error" className={styles.deleteIcon} onClick={() => setIsDeleteModalActive(true)} />
       <TaskEditModal
         isActive={isModalActive}
         setIsActive={setIsModalActive}
         setTaskTitleProp={setTaskTitle}
         columnId={columnId}
         taskId={id}
+      />
+      <ConfirmationModal
+        callback={handleDeleteTask}
+        text={t('BOARD.DELETE_TASK_MESSAGE')}
+        isActive={isDeleteModalActive}
       />
     </div>
   );

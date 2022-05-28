@@ -63,6 +63,11 @@ export interface UpdateColumnTasks {
   tasks: TaskData[];
 }
 
+export interface UpdateTask {
+  columnId: string;
+  taskId: string;
+}
+
 export interface DecodedTokenData {
   userId: string;
   login: string;

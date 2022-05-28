@@ -20,9 +20,7 @@ const BoardColumn: FC<BoardColumnProps> = props => {
   const [hoveredTaskId, setHoveredTaskId] = useState('');
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const [pageState, setPageState] = useState({
-    isModalActive: false,
-  });
+  const [isModalActive, setIsModalActive] = useState(false);
 
   const taskOptions: ModalWindowFormOptions = {
     type: 'task',
@@ -235,9 +233,7 @@ const BoardColumn: FC<BoardColumnProps> = props => {
         }),
       );
     }
-    setPageState(prev => {
-      return { ...prev, isModalActive: false };
-    });
+    setIsModalActive(false);
   };
 
   useEffect(() => {
@@ -265,14 +261,7 @@ const BoardColumn: FC<BoardColumnProps> = props => {
         opacity: isDragging ? 0 : 1,
       }}
     >
-      <span
-        className={styles.deleteBtn}
-        onClick={() =>
-          setPageState(prev => {
-            return { ...prev, isModalActive: true };
-          })
-        }
-      >
+      <span className={styles.deleteBtn} onClick={() => setIsModalActive(true)}>
         ×
       </span>
       <textarea
@@ -299,8 +288,8 @@ const BoardColumn: FC<BoardColumnProps> = props => {
       <BoardAddItem options={taskOptions} columnId={props.columnId} />
       <ConfirmationModal
         callback={handleDeleteColumn}
-        text={t('BOARD.DELETE_MESSAGE')}
-        isActive={pageState.isModalActive}
+        text={t('BOARD.DELETE_COLUMN_MESSAGE')}
+        isActive={isModalActive}
       />
     </div>
   );
