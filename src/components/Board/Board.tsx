@@ -38,8 +38,8 @@ const Board: FC = () => {
 
   useEffect(() => {
     const getColumns = async (): Promise<void> => {
-      if (currentBoard.id) {
-        const columns = ((await getAllColumns(currentBoard.id)) as ColumnData[]).sort((a, b) => a.order - b.order);
+      if (currentBoardId) {
+        const columns = ((await getAllColumns(currentBoardId)) as ColumnData[]).sort((a, b) => a.order - b.order);
         dispatch(
           setCurrentBoard({
             id: currentBoardId,
