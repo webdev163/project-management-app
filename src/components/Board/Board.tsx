@@ -72,13 +72,13 @@ const Board: FC = () => {
         </div>
         <div className={styles.board}>
           {currentBoard.columns &&
-            currentBoard.columns?.map((column: ColumnData, index: number) => {
+            currentBoard.columns?.map((column: ColumnData) => {
               return (
                 <BoardColumn
                   key={column.id}
                   columnId={column.id}
                   columnTitle={column.title}
-                  columnOrder={index}
+                  columnOrder={column.order}
                   columnTasks={column.tasks as TaskData[]}
                 />
               );
