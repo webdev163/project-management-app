@@ -1,16 +1,17 @@
-import React, { FC, Suspense, lazy } from 'react';
+import React, { FC, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Logout from '~/components/Logout';
 import { useAppSelector } from '~/hooks/redux';
 import ErrorBoundary from '~/components/ErrorBoundary';
 import Loader from '~/components/Loader';
+import { lazyLoadDelay } from '~/utils/lazyLoadDelay';
 
-const LoginPage = lazy(() => import('~/pages/LoginPage'));
-const SignupPage = lazy(() => import('~/pages/SignupPage'));
-const EditProfilePage = lazy(() => import('~/pages/EditProfilePage'));
-const Board = lazy(() => import('~/components/Board'));
-const MainPage = lazy(() => import('~/pages/MainPage'));
-const WelcomePage = lazy(() => import('~/pages/WelcomePage'));
+const LoginPage = lazyLoadDelay(() => import('~/pages/LoginPage'), 1000);
+const SignupPage = lazyLoadDelay(() => import('~/pages/SignupPage'), 1000);
+const EditProfilePage = lazyLoadDelay(() => import('~/pages/EditProfilePage'), 1000);
+const Board = lazyLoadDelay(() => import('~/components/Board'), 1000);
+const MainPage = lazyLoadDelay(() => import('~/pages/MainPage'), 1000);
+const WelcomePage = lazyLoadDelay(() => import('~/pages/WelcomePage'), 1000);
 
 const AppRouter: FC = () => {
   const { isLogged } = useAppSelector(state => state.auth);
@@ -49,7 +50,7 @@ const AppRouter: FC = () => {
           {!isLogged && (
             <>
               <Route index element={<WelcomePage />} />
-              <Route path="login" element={<LoginPage />} />
+              <Route path="signin" element={<LoginPage />} />
               <Route path="signup" element={<SignupPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </>

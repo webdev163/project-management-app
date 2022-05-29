@@ -60,6 +60,33 @@
   }
 }
 
+.tasksWrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  border-radius: 15px;
+  border-width: 1px;
+  border-color: transparent;
+  border-style: solid;
+  // background-color: rgba(95, 140, 137, .2);
+  max-width: 80%;
+  width: 100%;
+  margin: 34px;
+  position: relative;
+  @media screen and (max-width: 800px) {
+    max-width: 230px;
+    // transform: scale(.85);
+  }
+}
+
+.backBtn_wrapper {
+  margin-right: 42px;
+}
+
+
+
 .deleteIcon_wrapper {
   transform: scale(1.4);
   position: absolute;
@@ -94,10 +121,11 @@
 }
 
 .search_task {
-  max-width: 200px;
+  max-width: 220px;
   min-height: 20px;
+  margin-left: 1rem;
   padding: 5px; 
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   border-width: 1px;
@@ -114,6 +142,7 @@
 
 .search_no_tasks {
   display: flex;
+  flex-wrap: wrap ;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -140,3 +169,26 @@
   min-height: 60px;
 }
 
+.edit-btn {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: 22px;
+  right: 18px;
+  background-image: url('../assets/icons/edit.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  filter: invert(100%);
+  border: none;
+  background-color: transparent;
+  transition: filter .3s;
+  &:hover {
+    filter: invert(87%) sepia(36%) saturate(5700%) hue-rotate(0deg) brightness(99%) contrast(111%);
+  }
+}
+
+.no-boards-text {
+  font-size: 20px;
+  margin: 25px;
+}
