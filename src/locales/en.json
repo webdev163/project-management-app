@@ -1,9 +1,9 @@
 {
-  "LOGIN_LINK": "Log in",
+  "LOGIN_LINK": "Sign in",
   "SIGNUP_LINK": "Sign up",
-  "LOGOUT_LINK": "Log out",
+  "LOGOUT_LINK": "Sign out",
   "EDIT_PROFILE_LINK": "Edit profile",
-  "MAIN_PAGE_LINK": "To main page",
+  "MAIN_PAGE_LINK": "Go to main page",
   "WELCOME_PAGE_LINK": "To welcome page",
   "CREATE_BOARD_LINK": "Create board",
   "BUTTON_BACK": "Back",
@@ -42,7 +42,8 @@
     "DELETE_MESSAGE" : "Do you confirm board deletion? This action is irreversible",
     "NO_TASKS_FOUND": "There are no tasks with such params...",
     "CONFIRM_BUTTON": "Yes",
-    "REJECT_BUTTON": "No"
+    "REJECT_BUTTON": "No",
+    "NO_BOARDS_TEXT": "No boards have been created yet"
   },
   "SEARCH_SELECT_OPTIONS": {
     "CATEGORY": "Category",
@@ -56,6 +57,7 @@
     "REJECT_BUTTON": "No",
     "CREATE_BOARD_BUTTON": "Create",
     "UPDATE_TASK_BUTTON": "Update",
+    "UPDATE_BOARD_BUTTON": "Update",
     "CANCEL_BUTTON": "Cancel"
   },
   "EDIT_PROFILE": {
@@ -85,5 +87,9 @@
     "TITLE": "Title:",
     "DESCR": "Description:",
     "USER": "Person in charge:"
+  },
+  "UPDATE_BOARD": {
+    "TITLE": "Title:",
+    "DESCR": "Description:"
   }
 }

@@ -7,7 +7,7 @@ const Footer: FC = () => {
     <div className={styles.wrapper}>
       <div className={styles.wrapperInner}>
         <div className={styles.rsWrapper}>
-          <a href="https://rs.school/js/" target="__blank">
+          <a href="https://rs.school/react/" target="__blank">
             <img width="119" height="35" src="/assets/img/rs_school.svg" alt="" />
           </a>
         </div>
