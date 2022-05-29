@@ -37,9 +37,19 @@
     "BOARD_DESCR": "Description: ",
     "COLUMNS_COUNT": "Columns: ",
     "TASKS_COUNT": "Tasks: ",
+    "TASK_TITLE": "Task title: ",
+    "BOARD_TITLE": "Board title: ",
     "DELETE_MESSAGE" : "Do you confirm board deletion? This action is irreversible",
+    "NO_TASKS_FOUND": "There are no tasks with such params...",
     "CONFIRM_BUTTON": "Yes",
     "REJECT_BUTTON": "No"
+  },
+  "SEARCH_SELECT_OPTIONS": {
+    "CATEGORY": "Category",
+    "SELECT_TITLE": "Task title",
+    "SELECT_DESCRIPTION": "Task description",
+    "SELECT_USER": "User in task",
+    "USER_SELECT": "Users"
   },
   "MODAL": {
     "CONFIRM_BUTTON": "Yes",

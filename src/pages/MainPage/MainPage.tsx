@@ -6,17 +6,18 @@ import { setBoards } from '~/store/reducers/boardSlice';
 import { getBoard } from '~/services/boards';
 import { setCurrentBoard } from '~/store/reducers/currentBoardSlice';
 import { BoardData } from '~/types/api';
-import { TaskData } from '~/types/api';
-import { getAllTasks } from '~/services/tasks';
-import { ColumnData } from '~/types/api';
-import { getAllColumns } from '~/services/columns';
+import { SearchTasksProps } from '~/types/mainRoute';
+import { searchAllTasks } from '~/services/tasks';
 import BackspaceIcon from '@mui/icons-material/Backspace';
 import { useTranslation } from 'react-i18next';
 import ConfirmationModal from '~/components/ConfirmationModal';
 import Footer from '~/components/Footer';
+import Button from '@mui/material/Button';
 import { clearError } from '~/store/reducers/authSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import SearchForm from '~/components/SearchForm/SearchForm';
+import { searchCategory } from '~/utils/constants';
+import Loader from '~/components/Loader';
 import styles from './MainPage.module.scss';
 
 const MainPage: FC = () => {
@@ -28,21 +29,33 @@ const MainPage: FC = () => {
     boardsOnPage: boards,
     state: false,
     boardOnDelete: '',
-    isLoading: false,
+    isSearching: false,
     searchFlag: false,
-    searchTasks: [] as TaskData[],
+    searchTasks: [] as SearchTasksProps[],
   });
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
+  const resetSearch = () => {
+    setPageState(prev => {
+      return {
+        ...prev,
+        state: false,
+        boardOnDelete: '',
+        isSearching: false,
+        searchFlag: false,
+        searchTasks: [] as SearchTasksProps[],
+      };
+    });
+  };
+
   const onModalClick = async (resp: boolean) => {
     setPageState(prev => {
-      return { ...prev, isLoading: true };
+      return { ...prev, isSearching: true };
     });
     if (resp) {
       const boardId = pageState.boardOnDelete;
       const deleteResp = await deleteBoard(boardId);
-      // console.log('deleteResp >>>', deleteResp);
       if (deleteResp?.status === 204 || deleteResp?.status === 200) {
         dispatch(setBoards(boards.filter(board => board.id !== boardId)));
       } else {
@@ -50,7 +63,7 @@ const MainPage: FC = () => {
       }
     }
     setPageState(prev => {
-      return { ...prev, state: false, boardOnDelete: '', isLoading: false };
+      return { ...prev, state: false, boardOnDelete: '', isSearching: false };
     });
   };
 
@@ -72,57 +85,39 @@ const MainPage: FC = () => {
     return { columns, tasksNumber };
   };
 
-  // const handleResetBtn = () => {
-  //   setPageState(prev => {
-  //     return { ...prev, searchFlag: false, searchTasks: [] };
-  //   });
-  // };
+  const searchFilter = (category: string, searchVal: string, tasksArray: SearchTasksProps[]) => {
+    switch (category) {
+      case searchCategory.TITLE:
+        return tasksArray.filter(task => task.title.includes(searchVal));
+      case searchCategory.DESCRIPTION:
+        console.log('search descr', category, searchVal);
+        return tasksArray.filter(task => task.description.includes(searchVal));
+      case searchCategory.USER:
+        return tasksArray.filter(task => task.userId.includes(searchVal));
+      default:
+        return tasksArray.filter(task => task.title.includes(searchVal));
+    }
+  };
 
-  const handleSearch = async (searchVal: string) => {
-    // console.log('handleSearch', searchVal);
-    // console.log('search', boards);
+  const handleSearch = async (searchCategory: string, searchVal: string) => {
     setPageState(prev => {
-      return { ...prev, searchTasks: [], searchFlag: false };
+      return { ...prev, searchTasks: [], searchFlag: false, isSearching: true };
     });
-    const columns = await Promise.all(
-      boards.map(async item => {
-        const col = await getAllColumns(item.id);
-        return { boardId: item.id, columns: col };
-      }),
-    );
-    // console.log('handleSearch', columns);
-    const columnsFilter = columns.filter(item => {
-      if ((item.columns as ColumnData[]).length) {
-        return item;
-      }
-    });
-    // console.log('handleSearch columnsFilter', columnsFilter);
-    const simpleColumnsObj = columnsFilter
-      .map(item => {
-        if ((item.columns as ColumnData[]).length === 1) {
-          return { boardId: item.boardId, column: (item.columns as ColumnData[])[0] };
-        } else {
-          const arrObj = (item.columns as ColumnData[]).map(value => {
-            return { boardId: item.boardId, column: value };
-          });
-          return arrObj;
-        }
-      })
-      .flat();
-    // console.log('handleSearch simpleColumnsObj', simpleColumnsObj);
-    const tasksArr = (
-      await Promise.all(simpleColumnsObj.map(async item => await getAllTasks(item.boardId, item.column.id)))
-    ).flat();
-    // console.log('handleSearch tasksArr', tasksArr);
-    const tasksArrFilter = tasksArr.filter(task => (task as TaskData).title.indexOf(searchVal) !== -1) as TaskData[];
-    // console.log('handleSearch tasksArrFilter', tasksArrFilter);
-    if (tasksArrFilter.length) {
+    const tasksArr = await searchAllTasks();
+    console.log('handleSearch tasksArr', tasksArr);
+    if (Array.isArray(tasksArr?.data)) {
+      const tasksModify = (tasksArr?.data as SearchTasksProps[]).map(task => {
+        const boardTitle = boards.find(board => board.id === task.boardId);
+        return { ...task, boardTitle: boardTitle?.title as string };
+      });
+      const tasksFilter = searchFilter(searchCategory, searchVal, tasksModify);
+
       setPageState(prev => {
-        return { ...prev, searchFlag: true, searchTasks: [...tasksArrFilter] };
+        return { ...prev, searchFlag: true, searchTasks: [...tasksFilter], isSearching: false };
       });
     } else {
       setPageState(prev => {
-        return { ...prev, searchFlag: true };
+        return { ...prev, searchFlag: true, isSearching: false };
       });
     }
   };
@@ -143,7 +138,6 @@ const MainPage: FC = () => {
         if (Array.isArray(data)) {
           dispatch(setBoards(data as BoardData[]));
           const arr = await Promise.all(data.map(async item => await getBoard(item.id)));
-          // const tasksData = await Promise.all(data.map(async item => await getBoard(item.id)));
           const arrFilter = arr.filter(item => item !== undefined) as BoardData[];
           setCountArr(arrFilter ? [...arrFilter] : []);
         }
@@ -157,7 +151,8 @@ const MainPage: FC = () => {
       <div className={styles.mainPage}>
         <div className={styles.main_route_sidebar}>
           <SearchForm callback={handleSearch} searchState={pageState.searchFlag} />
-          {Array.isArray(boards) && !pageState.searchFlag && (
+          {pageState.isSearching && <Loader />}
+          {Array.isArray(boards) && !pageState.isSearching && !pageState.searchFlag && (
             <ul className={styles.list}>
               {boards.map((board: BoardData) => {
                 return (
@@ -197,18 +192,41 @@ const MainPage: FC = () => {
               })}
             </ul>
           )}
+
           {pageState.searchFlag && pageState.searchTasks.length !== 0 && (
-            <li className={styles.listItem}>
-              {pageState.searchTasks.map((value, index) => (
-                <NavLink to="board" className={styles.search_task} key={`${value.title + index}`}>
-                  <li onClick={() => openBoard(value.boardId)}>Task title: {value.title}</li>
-                </NavLink>
-              ))}
-            </li>
+            <>
+              <ul className={styles.tasksWrapper}>
+                {pageState.searchTasks.map((value, index) => {
+                  return (
+                    <NavLink
+                      to={`board/${value.boardId}`}
+                      key={value.boardId + index * 11}
+                      className={styles.search_task}
+                    >
+                      {t('MAIN_ROUTE.BOARD_TITLE')}
+                      {value.boardTitle}
+                      <br />
+                      {t('MAIN_ROUTE.TASK_TITLE')}
+                      {value.title}
+                    </NavLink>
+                  );
+                })}
+              </ul>
+              <div className={styles.backBtn_wrapper}>
+                <Button variant="outlined" type="button" onClick={resetSearch}>
+                  ← {t('BOARD.BUTTON_BACK')}
+                </Button>
+              </div>
+            </>
           )}
           {pageState.searchFlag && pageState.searchTasks.length === 0 && (
             <div className={styles.search_no_tasks}>
-              <div>There are no tasks with such title...</div>
+              <div style={{ width: '100%', margin: '2rem 0 2rem 0' }}>{t('MAIN_ROUTE.NO_TASKS_FOUND')}</div>
+              <div className={styles.back}>
+                <Button variant="outlined" type="button" onClick={resetSearch}>
+                  ← {t('BOARD.BUTTON_BACK')}
+                </Button>
+              </div>
             </div>
           )}
         </div>

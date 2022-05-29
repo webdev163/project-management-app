@@ -38,9 +38,19 @@
     "BOARD_DESCR": "Описание: ",
     "COLUMNS_COUNT": "Колонок: ",
     "TASKS_COUNT": "Задач: ",
+    "TASK_TITLE": "Название задачи: ",
+    "BOARD_TITLE": "Название доски: ",
+    "NO_TASKS_FOUND": "Не найдено задач с такими параметрами...",
     "DELETE_MESSAGE" : "Подтвердите удаление доски с задачами. Это действие необратимо",
     "CONFIRM_BUTTON": "Да",
     "REJECT_BUTTON": "Нет"
+  },
+  "SEARCH_SELECT_OPTIONS": {
+    "CATEGORY": "Категория",
+    "SELECT_TITLE": "Название задачи",
+    "SELECT_DESCRIPTION": "Описание задачи",
+    "SELECT_USER": "Пользователь",
+    "USER_SELECT": "Пользователи"
   },
   "MODAL": {
     "CONFIRM_BUTTON": "Да",

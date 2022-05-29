@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { ENDPOINT_URL } from '~/utils/constants';
 import { getToken } from '~/utils/getToken';
 import { TaskData } from '~/types/api';
+import { SearchTasksProps } from '~/types/mainRoute';
 
 export const getAllTasks = async (boardId: string, columnId: string) => {
   try {
@@ -11,6 +12,22 @@ export const getAllTasks = async (boardId: string, columnId: string) => {
       },
     });
     return response.data;
+  } catch (e) {
+    if (e instanceof Error) {
+      const error = e as AxiosError;
+      return error.response;
+    }
+  }
+};
+
+export const searchAllTasks = async () => {
+  try {
+    const response = await axios.get<SearchTasksProps[]>(`${ENDPOINT_URL}/search/tasks`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+    return response;
   } catch (e) {
     if (e instanceof Error) {
       const error = e as AxiosError;

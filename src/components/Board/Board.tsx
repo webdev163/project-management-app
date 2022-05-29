@@ -61,7 +61,7 @@ const Board: FC = () => {
       dispatch(clearError());
     }
   }, [dispatch, error]);
-  
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.boardContainer}>
