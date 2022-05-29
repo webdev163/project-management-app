@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { useTranslation } from 'react-i18next';
+import TextareaAutosize from 'react-textarea-autosize';
 import BoardTask from '../BoardTask';
 import BoardAddItem from '../BoardAddItem';
 import { handleFocus } from '~/utils/utils';
@@ -12,7 +13,6 @@ import { useAppDispatch, useAppSelector } from '~/hooks/redux';
 import { setColumn, setColumnTaskData, setCurrentBoard, setDeleteColumn } from '~/store/reducers/currentBoardSlice';
 import { deleteColumn, getAllColumns, updateColumn } from '~/services/columns';
 import ConfirmationModal from '../ConfirmationModal';
-import TextareaAutosize from 'react-textarea-autosize';
 
 import styles from '../Board/Board.module.scss';
 

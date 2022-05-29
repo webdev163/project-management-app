@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import { useAppSelector, useAppDispatch } from '~/hooks/redux';
 import { getAllColumns } from '~/services/columns';
 import { setCurrentBoard } from '~/store/reducers/currentBoardSlice';
@@ -10,11 +13,8 @@ import { ColumnData, TaskData } from '~/types/api';
 import BoardAddItem from '../BoardAddItem';
 import BoardColumn from '../BoardColumn';
 import { ModalWindowFormOptions } from '~/types/board';
-import Button from '@mui/material/Button';
 import Footer from '~/components/Footer';
 import { clearError } from '~/store/reducers/authSlice';
-import { ToastContainer, toast } from 'react-toastify';
-import { useParams } from 'react-router-dom';
 
 import styles from './Board.module.scss';
 
