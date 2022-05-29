@@ -58,11 +58,6 @@ export interface TaskData {
   files?: unknown;
 }
 
-export interface UpdateColumnTasks {
-  columnId: string;
-  tasks: TaskData[];
-}
-
 export interface DecodedTokenData {
   userId: string;
   login: string;

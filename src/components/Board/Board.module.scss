@@ -5,7 +5,7 @@
 }
 
 .board {
-  gap: 20px;
+  gap: 40px;
   display: flex;
 }
 
@@ -13,19 +13,39 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  max-width: 275px;
+  max-width: 320px;
   width: 100%;
   min-height: 100px;
+  max-height: 570px;
   height: fit-content;
   padding: 15px;
   background-color: rgb(157, 191, 212);
   border-radius: 5px;
   gap: 10px;
+
+  @media screen and (max-width: 1200px) {
+    max-height: 480px;
+  }
+
+}
+
+.tasksContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: scroll;
+}
+
+.tasksContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .btn {
-  min-width: 250px;
-  height: 45px;
+  min-width: 300px;
+  min-height: 45px;
+  height: 100%;
   border-radius: 5px;
   opacity: 1;
   transition: 0.3s;
@@ -63,7 +83,20 @@
   right: 10px;
   top: 5px;
   transition: 0.3s;
-  font-size: 40px;
+  font-size: 45px;
+}
+
+.deleteIcon {
+  cursor: pointer;
+  opacity: .8;
+  transition: .2s;  
+  transform: rotate(0deg);  
+}
+
+.deleteIcon:hover {
+  transform: scale(1.1);
+  transition: .2s; 
+  opacity: 1;  
 }
 
 .input {
@@ -81,25 +114,21 @@
 .tasksItem {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .textarea {
-  max-width: 240px;
   width: 100%;
   resize: none;
   border-radius: 3px;
-  height: 20px;
   min-height: 25px;
+  height: 25px;
   max-height: 200px;
   padding: 4px 8px;
   border: none;
   outline: none;
   font-size: 20px;
-
-  @media screen and (max-width: 1200px) {
-    max-width: 218px;
-  }
+  overflow: hidden;
 }
 
 .columnTitle {
@@ -107,6 +136,39 @@
   box-shadow: none;
   font-weight: 600;
   margin: 10px 0;
+  max-width: 275px;
+  width: 100%;
+
+  @media screen and (max-width: 1200px) {
+    max-width: 255px;
+  }
+
+}
+
+.columnTitleInputContainer {
+  margin: 40px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.columnTitleInput {
+  height: 30px;
+  outline: none;
+  border: 2px solid #484848;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 0 7px;
+  font-size: 17px;
+  max-width: 205px;
+  width: 100%;
+  font-weight: 600;
+
+  @media screen and (max-width: 1200px) {
+    max-width: 185px;
+  }
+
 }
 
 .columnTitle:focus {
@@ -114,8 +176,31 @@
   box-shadow: inset 0 0 0 2px rgb(129, 50, 129);
 }
 
+.columnTitleInputBtnsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 55px;
+}
+
+.columnTitleInputBtnsContainer button {
+  border-radius: 5px;
+  opacity: 1;
+  transition: 0.3s;
+  background-color: #8871bd;
+  border: none;
+  font-size: 17px;
+  padding: 2px 7px;
+}
+
+.columnTitleInputBtnsContainer button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .taskTitle {
   background-color: #fff;
+  max-width: 210px;
 }
 
 .taskTitle:focus {
@@ -139,14 +224,15 @@
   padding: 25px;
   padding-bottom: 10px;
   border: none;
+
   @media screen and (max-width: 800px) {
     margin-top: 40%;
   }
+
 }
 
 .edit-btn {
   height: 30px;
-  margin-left: 10px;
   background-image: url('../assets/icons/edit.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -162,12 +248,15 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
   @media screen and (max-width: 800px) {
     margin-top: 20px;
   }
+
   @media screen and (max-width: 375px) {
     margin-top: 50px;
   }
+
 }
 
 .btn-wrapper {

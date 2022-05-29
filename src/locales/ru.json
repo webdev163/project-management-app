@@ -72,7 +72,9 @@
     "BUTTON_ADD_A_COLUMN": "Добавить колонку",
     "BUTTON_ADD_A_COLUMN_PLACEHOLDER": "Ввести заголовок колонки...",
     "BUTTON_ADD_A_TASK": "Добавить таску",
-    "BUTTON_ADD_A_TASK_PLACEHOLDER": "Ввести заголовок таски..."
+    "BUTTON_ADD_A_TASK_PLACEHOLDER": "Ввести заголовок таски...",
+    "DELETE_COLUMN_MESSAGE": "Вы подтверждаете удаление колонки? Это действие необратимо",
+    "DELETE_TASK_MESSAGE": "Вы подтверждаете удаление таски? Это действие необратимо"
   },
   "WELCOME_PAGE": {
     "SUBTITLE": "система управления проектами",

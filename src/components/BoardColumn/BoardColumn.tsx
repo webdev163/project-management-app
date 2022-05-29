@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { useTranslation } from 'react-i18next';
+import TextareaAutosize from 'react-textarea-autosize';
 import BoardTask from '../BoardTask';
 import BoardAddItem from '../BoardAddItem';
 import { handleFocus } from '~/utils/utils';
@@ -9,8 +10,9 @@ import { ItemTypes } from '~/utils/constants';
 import { getAllTasks, updateTask } from '~/services/tasks';
 import { ColumnData, TaskData } from '~/types/api';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
-import { setColumnTaskData, setCurrentBoard, setDeleteColumn } from '~/store/reducers/currentBoardSlice';
+import { setColumn, setColumnTaskData, setCurrentBoard, setDeleteColumn } from '~/store/reducers/currentBoardSlice';
 import { deleteColumn, getAllColumns, updateColumn } from '~/services/columns';
+import ConfirmationModal from '../ConfirmationModal';
 
 import styles from '../Board/Board.module.scss';
 
@@ -19,6 +21,10 @@ const BoardColumn: FC<BoardColumnProps> = props => {
   const [hoveredTaskId, setHoveredTaskId] = useState('');
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const [isModalActive, setIsModalActive] = useState(false);
+  const [isTitleOnClick, setIsTitleOnClick] = useState(false);
+  const [newColumnTitle, setNewColumnTitle] = useState(props.columnTitle);
+  const columnTitleInputContainerRef = React.useRef<HTMLDivElement>(null);
 
   const taskOptions: ModalWindowFormOptions = {
     type: 'task',
@@ -221,15 +227,50 @@ const BoardColumn: FC<BoardColumnProps> = props => {
     );
   };
 
-  const handleDeleteColumn = async (): Promise<void> => {
-    await deleteColumn(currentBoard.id, props.columnId);
-    dispatch(
-      setDeleteColumn({
-        columnId: props.columnId,
-        tasks: props.columnTasks,
-      }),
-    );
+  const handleDeleteColumn = async (resp: boolean): Promise<void> => {
+    if (resp) {
+      await deleteColumn(currentBoard.id, props.columnId);
+      dispatch(
+        setDeleteColumn({
+          columnId: props.columnId,
+          tasks: props.columnTasks,
+        }),
+      );
+    }
+    setIsModalActive(false);
   };
+
+  const updateColumnTitle = async () => {
+    if (newColumnTitle && newColumnTitle !== props.columnTitle) {
+      await updateColumn(currentBoard.id, props.columnId, newColumnTitle, props.columnOrder);
+      dispatch(
+        setColumn({
+          columnId: props.columnId,
+          title: newColumnTitle,
+        }),
+      );
+    }
+    setIsTitleOnClick(false);
+  };
+
+  const useOutsideAlerter = () => {
+    useEffect(() => {
+      function handleClickOutside(event: MouseEvent) {
+        if (
+          columnTitleInputContainerRef.current &&
+          !columnTitleInputContainerRef.current.contains(event.target as Node)
+        ) {
+          setIsTitleOnClick(false);
+        }
+      }
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []);
+  };
+
+  useOutsideAlerter();
 
   useEffect(() => {
     const getTasks = async (): Promise<void> => {
@@ -256,31 +297,61 @@ const BoardColumn: FC<BoardColumnProps> = props => {
         opacity: isDragging ? 0 : 1,
       }}
     >
-      <span className={styles.deleteBtn} onClick={handleDeleteColumn}>
+      <span className={styles.deleteBtn} onClick={() => setIsModalActive(true)}>
         ×
       </span>
-      <textarea
-        className={`${styles.textarea} ${styles.columnTitle}`}
-        defaultValue={props.columnTitle}
-        onFocus={handleFocus}
-      ></textarea>
-      {props.columnTasks &&
-        props.columnTasks.map((task: TaskData) => {
-          return (
-            <BoardTask
-              id={task.id}
-              key={task.id}
-              title={task.title}
-              columnId={task.columnId}
-              description={task.description}
-              order={task.order}
-              userId={task.userId}
-              boardId={task.boardId}
-              setHoveredTaskId={setHoveredTaskId}
-            />
-          );
-        })}
+      {isTitleOnClick ? (
+        <div className={styles.columnTitleInputContainer} ref={columnTitleInputContainerRef}>
+          <div className={styles.columnTitleInputBtnsContainer}>
+            <button
+              onClick={() => {
+                updateColumnTitle();
+              }}
+            >
+              Submit
+            </button>
+            <button onClick={() => setIsTitleOnClick(false)}>Cancel</button>
+          </div>
+          <input
+            type="text"
+            className={styles.columnTitleInput}
+            defaultValue={props.columnTitle}
+            autoFocus
+            onChange={e => setNewColumnTitle(e.target.value)}
+          />
+        </div>
+      ) : (
+        <TextareaAutosize
+          className={`${styles.textarea} ${styles.columnTitle}`}
+          defaultValue={props.columnTitle}
+          onFocus={handleFocus}
+          onClick={() => setIsTitleOnClick(true)}
+        />
+      )}
+      <div className={styles.tasksContainer}>
+        {props.columnTasks &&
+          props.columnTasks.map((task: TaskData) => {
+            return (
+              <BoardTask
+                id={task.id}
+                key={task.id}
+                title={task.title}
+                columnId={task.columnId}
+                description={task.description}
+                order={task.order}
+                userId={task.userId}
+                boardId={task.boardId}
+                setHoveredTaskId={setHoveredTaskId}
+              />
+            );
+          })}
+      </div>
       <BoardAddItem options={taskOptions} columnId={props.columnId} />
+      <ConfirmationModal
+        callback={handleDeleteColumn}
+        text={t('BOARD.DELETE_COLUMN_MESSAGE')}
+        isActive={isModalActive}
+      />
     </div>
   );
 };

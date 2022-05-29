@@ -71,7 +71,9 @@
     "BUTTON_ADD_A_COLUMN": "Add a column",
     "BUTTON_ADD_A_COLUMN_PLACEHOLDER": "Enter column title...",
     "BUTTON_ADD_A_TASK": "Add a task",
-    "BUTTON_ADD_A_TASK_PLACEHOLDER": "Enter task title..."
+    "BUTTON_ADD_A_TASK_PLACEHOLDER": "Enter task title...",
+    "DELETE_COLUMN_MESSAGE": "Do you confirm column deletion? This action is irreversible",
+    "DELETE_TASK_MESSAGE": "Do you confirm task deletion? This action is irreversible"
   },
   "WELCOME_PAGE": {
     "SUBTITLE": "project management system",

@@ -20,15 +20,6 @@ export interface BoardTaskProps {
   setHoveredTaskId?: (setHoveredTaskId: string) => void;
 }
 
-export interface UpdateTask {
-  id: string;
-  title: string;
-  order: number;
-  description: string;
-  userId: string;
-  columnId: string;
-}
-
 export interface ModalWindowFormOptions {
   type: string;
   btnTitle: string;
@@ -52,4 +43,19 @@ export interface ModalWindowProps {
   options: ModalWindowFormProps;
   setData: SetDataType;
   handleCloseModal: CallBackProps;
+}
+
+export interface UpdateColumnTasks {
+  columnId: string;
+  tasks: TaskData[];
+}
+
+export interface DeleteTask {
+  columnId: string;
+  taskId: string;
+}
+
+export interface UpdateColumn {
+  title: string;
+  columnId: string;
 }
