@@ -8,9 +8,10 @@ import { useFormik } from 'formik';
 import { SignUpRequest } from '~/types/api';
 import { useTranslation } from 'react-i18next';
 import ConfirmationModal from '~/components/ConfirmationModal';
-import { clearError, resetIsUpdated, updateUser, logOut, setIsDeleted } from '~/store/reducers/authSlice';
+import { clearError, resetIsUpdated, updateUser, logOut, setIsDeleted, setUserName } from '~/store/reducers/authSlice';
 import { deleteUser } from '~/services/users';
 import Footer from '~/components/Footer';
+import { getUserName } from '~/utils/getUserName';
 
 import styles from './EditProfilePage.module.scss';
 
@@ -73,15 +74,23 @@ const EditProfilePage: FC = () => {
     },
   });
 
+  const updateUsername = async () => {
+    const username = await getUserName(userId);
+    dispatch(setUserName(username));
+  };
+
   useEffect(() => {
-    isUpdated &&
+    if (isUpdated) {
       toast.success(t('EDIT_PROFILE.DONE'), {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
+      updateUsername();
+    }
     return () => {
       dispatch(resetIsUpdated());
     };
-  }, [dispatch, isUpdated, t]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUpdated]);
 
   useEffect(() => {
     if (error) {

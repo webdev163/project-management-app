@@ -43,7 +43,8 @@
     "NO_TASKS_FOUND": "Не найдено задач с такими параметрами...",
     "DELETE_MESSAGE" : "Подтвердите удаление доски с задачами. Это действие необратимо",
     "CONFIRM_BUTTON": "Да",
-    "REJECT_BUTTON": "Нет"
+    "REJECT_BUTTON": "Нет",
+    "NO_BOARDS_TEXT": "Ни одной доски еще не создано"
   },
   "SEARCH_SELECT_OPTIONS": {
     "CATEGORY": "Категория",
@@ -57,6 +58,7 @@
     "REJECT_BUTTON": "Нет",
     "CREATE_BOARD_BUTTON": "Создать",
     "UPDATE_TASK_BUTTON": "Обновить",
+    "UPDATE_BOARD_BUTTON": "Обновить",
     "CANCEL_BUTTON": "Отмена"
   },
   "EDIT_PROFILE": {
@@ -86,5 +88,9 @@
     "TITLE": "Заголовок:",
     "DESCR": "Описание:",
     "USER": "Ответственное лицо:"
+  },
+  "UPDATE_BOARD": {
+    "TITLE": "Заголовок:",
+    "DESCR": "Описание:"
   }
 }

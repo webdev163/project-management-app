@@ -19,6 +19,11 @@ const Header: FC = () => {
 
   const [isSticky, setIsSticky] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
+  const [greeting, setGreeting] = useState('');
+
+  const composeGreeting = (name: string) => {
+    setGreeting(`${getGreeting()}, ${name}`);
+  };
 
   useEffect(() => {
     window.onscroll = () => {
@@ -30,6 +35,11 @@ const Header: FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const newName = name;
+    composeGreeting(newName);
+  }, [name]);
+
   const onBoardCreate = () => {
     setIsModalActive(true);
   };
@@ -40,7 +50,7 @@ const Header: FC = () => {
         <div className={styles.navbar}>
           {!isLogged && (
             <>
-              <Button variant="contained" onClick={() => navigate('/login')} sx={{ margin: 0.5 }}>
+              <Button variant="contained" onClick={() => navigate('/signin')} sx={{ margin: 0.5 }}>
                 {t('LOGIN_LINK')}
               </Button>
               <Button variant="contained" onClick={() => navigate('/signup')} sx={{ margin: 0.5 }}>
@@ -50,7 +60,7 @@ const Header: FC = () => {
           )}
           {isLogged && (
             <>
-              <p className={styles.greeting}>{`${getGreeting()}, ${name}`}</p>
+              <p className={styles.greeting}>{greeting}</p>
               <Button variant="contained" onClick={() => navigate('/logout')} sx={{ margin: 0.5 }}>
                 {t('LOGOUT_LINK')}
               </Button>

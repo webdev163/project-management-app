@@ -67,12 +67,13 @@ export const deleteBoard = async (id: string) => {
   }
 };
 
-export const updateBoard = async (id: string, title: string) => {
+export const updateBoard = async (id: string, title: string, description: string) => {
   try {
     const response = await axios.put<BoardData>(
       `${ENDPOINT_URL}/boards/${id}`,
       {
         title,
+        description,
       },
       {
         headers: { Authorization: `Bearer ${getToken()}` },

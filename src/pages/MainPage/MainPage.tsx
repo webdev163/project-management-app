@@ -18,12 +18,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import SearchForm from '~/components/SearchForm/SearchForm';
 import { searchCategory } from '~/utils/constants';
 import Loader from '~/components/Loader';
+import BoardEditModal from '~/components/BoardEditModal';
+
 import styles from './MainPage.module.scss';
 
 const MainPage: FC = () => {
   const { boards } = useAppSelector(state => state.boards);
   const { isLogged, error } = useAppSelector(state => state.auth);
   const [countArr, setCountArr] = useState<BoardData[]>([]);
+  const [isModalActive, setIsModalActive] = useState(false);
+  const [isEdited, setIsEdited] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentBoardId, setCurrentBoardId] = useState('');
 
   const [pageState, setPageState] = useState({
     boardsOnPage: boards,
@@ -133,6 +139,7 @@ const MainPage: FC = () => {
 
   useEffect(() => {
     if (isLogged) {
+      setIsLoading(true);
       const getBoards = async (): Promise<void> => {
         const data = await getAllBoards();
         if (Array.isArray(data)) {
@@ -141,10 +148,11 @@ const MainPage: FC = () => {
           const arrFilter = arr.filter(item => item !== undefined) as BoardData[];
           setCountArr(arrFilter ? [...arrFilter] : []);
         }
+        setIsLoading(false);
       };
       getBoards();
     }
-  }, [dispatch, isLogged]);
+  }, [dispatch, isLogged, isEdited]);
 
   return (
     <div className="container">
@@ -152,6 +160,23 @@ const MainPage: FC = () => {
         <div className={styles.main_route_sidebar}>
           <SearchForm callback={handleSearch} searchState={pageState.searchFlag} />
           {pageState.isSearching && <Loader />}
+          {isLoading && (
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Loader />
+            </div>
+          )}
+          {!isLoading && boards.length === 0 && <p className={styles.noBoardsText}>{t('MAIN_ROUTE.NO_BOARDS_TEXT')}</p>}
           {Array.isArray(boards) && !pageState.isSearching && !pageState.searchFlag && (
             <ul className={styles.list}>
               {boards.map((board: BoardData) => {
@@ -187,6 +212,13 @@ const MainPage: FC = () => {
                         }
                       />
                     </div>
+                    <button
+                      className={styles.editBtn}
+                      onClick={() => {
+                        setIsModalActive(true);
+                        setCurrentBoardId(board.id);
+                      }}
+                    ></button>
                   </li>
                 );
               })}
@@ -237,6 +269,12 @@ const MainPage: FC = () => {
         </div>
         <div style={{ height: '110px' }}></div>
         <ToastContainer />
+        <BoardEditModal
+          isActive={isModalActive}
+          setIsActive={setIsModalActive}
+          boardId={currentBoardId}
+          setIsEdited={setIsEdited}
+        />
       </div>
     </div>
   );
