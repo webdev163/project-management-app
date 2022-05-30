@@ -1,0 +1,220 @@
+.mainPage {
+  max-width: 1920px;
+  padding: 15px;
+  @media screen and (max-width: 1170px) {
+    text-align: center;
+  }
+}
+
+.board {
+  max-width: 250px;
+  min-height: 160px;
+  padding: 10px 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-width: 1px;
+  border-color: rgb(110, 110, 110);
+  border-style: solid;
+  box-shadow: 0 0 12px 0 rgb(110, 110, 110);
+  background-color: rgb(110, 110, 110);
+  color: white;
+  border-radius: 15px;
+  opacity: 0.8;
+  transition: 0.3s;
+  margin: 10px 0;  
+}
+
+.main_route_sidebar {
+  padding: 5px;
+}
+
+.board:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.boardWrapper {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  border-radius: 15px;
+  border-width: 1px;
+  border-color: transparent;
+  border-style: solid;
+  max-width: 300px;
+  width: 100%;
+  margin: 34px;
+  position: relative;
+  @media screen and (max-width: 375px) {
+    margin: 5px;
+    max-width: 250px;
+  }
+}
+
+.tasksWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  border-radius: 15px;
+  border-width: 1px;
+  border-color: transparent;
+  border-style: solid;
+  margin: 34px;
+  position: relative;
+  padding-left: 0;
+}
+
+.task-item {
+  list-style: none;
+  padding-left: 0;
+  padding: 10px;
+  width: 260px;
+  text-align: center;
+  min-height: 134px;
+  @media screen and (max-width: 670px) {
+    width: 100%;
+  }
+}
+
+.back {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+
+  @media screen and (max-width: 800px) {
+    margin-top: 20px;
+  }
+
+  @media screen and (max-width: 375px) {
+    margin-top: 20px;
+  }
+}
+
+.deleteIcon_wrapper {
+  transform: scale(1.4);
+  position: absolute;
+  top: 10px;
+  right: -10px;
+}
+
+.deleteIcon:not(:hover) {
+  cursor: pointer;
+  opacity: .8;
+  transition: .2s;  
+  transform: rotate(0deg);   
+}
+
+.deleteIcon:hover {
+  cursor: pointer;
+  transition: .2s; 
+  opacity: 1;  
+  transform: rotate(-45deg);
+}
+
+.deleteIcon:not(:hover) {
+  cursor: pointer;
+  opacity: .8;
+  transition: .2s;  
+  transform: rotate(0deg);   
+}
+
+.search_form_wrapper {
+  width: 100%;
+  margin-left: auto;
+}
+
+.search_task {
+  min-height: 20px;
+  padding: 5px 15px; 
+  display: block;
+  justify-content: center;
+  align-items: center;
+  border-width: 1px;
+  border-color: rgb(110, 110, 110);
+  border-style: solid;
+  box-shadow: 0 0 12px 0 rgb(110, 110, 110);
+  background-color: rgb(110, 110, 110);
+  color: white;
+  border-radius: 15px;
+  opacity: 0.8;
+  transition: 0.3s;
+  margin: 10px 0; 
+  text-align: left;
+}
+
+.search_no_tasks {
+  display: flex;
+  flex-wrap: wrap ;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.list {
+  list-style: none;
+  padding-left: 0;
+  overflow: hidden;
+}
+
+.list-item {
+  padding: 5px;
+}
+
+.list-item-title {
+  padding: 5px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.list-item-descr {
+  padding: 5px;
+  min-height: 60px;
+}
+
+.edit-btn {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: 22px;
+  right: 18px;
+  background-image: url('../assets/icons/edit.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  filter: invert(100%);
+  border: none;
+  background-color: transparent;
+  transition: filter .3s;
+  &:hover {
+    filter: invert(87%) sepia(36%) saturate(5700%) hue-rotate(0deg) brightness(99%) contrast(111%);
+  }
+}
+
+.no-boards-text {
+  font-size: 20px;
+  margin: 25px;
+}
+
+.search-result-wrapper {
+  margin: 15px 0;
+}
+
+.search-result-title {
+  margin: 5px 0;
+}
+
+.search-result-text {
+  overflow-x: hidden;
+  margin: 5px 0;
+}
+
+.no-tasks-text {
+  font-size: 18px;
+  width: 100%;
+}

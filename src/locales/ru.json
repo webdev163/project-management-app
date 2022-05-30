@@ -1,0 +1,100 @@
+{
+  "LOGIN_LINK": "Войти",
+  "SIGNUP_LINK": "Зарегистрироваться",
+  "LOGOUT_LINK": "Выйти",
+  "EDIT_PROFILE_LINK": "Профиль",
+  "MAIN_PAGE_LINK": "На главную",
+  "WELCOME_PAGE_LINK": "О приложении",
+  "CREATE_BOARD_LINK": "Создать доску",
+  "BUTTON_BACK": "Назад",
+  "BUTTON_SAVE": "Сохранить",
+  "BUTTON_DELETE_USER": "Удалить профиль",
+  "LOGIN": {
+    "LOGIN_LABEL": "Логин:",
+    "PASSWORD_LABEL": "Пароль:",
+    "BUTTON_LABEL": "Войти",
+    "BUTTON_BACK": "Назад",
+    "LOGIN_REQUIRED": "обязательное поле",
+    "PASSWORD_REQUIRED": "обязательное поле"
+  },
+  "LOGOUT": {
+    "MESSAGE": "Выходим..."
+  },
+  "SIGNUP": {
+    "NAME_LABEL": "Имя:",
+    "LOGIN_LABEL": "Логин:",
+    "PASSWORD_LABEL": "Пароль:",
+    "BUTTON_LABEL": "Зарегистрироваться",
+    "NAME_REQUIRED": "обязательное поле",
+    "NAME_INVALID": "должно быть от 2 символов и более",
+    "LOGIN_REQUIRED": "обязательное поле",
+    "LOGIN_INVALID": "должно быть от 4 символов и более",
+    "PASSWORD_REQUIRED": "обязательное поле",
+    "PASSWORD_INVALID": "должно быть от 6 символов и более"
+  },
+
+  "MAIN_ROUTE": {
+    "CREATE_BOARD": "Создать доску",
+    "BOARD_DESCR": "Описание: ",
+    "COLUMNS_COUNT": "Колонок: ",
+    "TASKS_COUNT": "Задач: ",
+    "TASK_TITLE": "Название задачи: ",
+    "BOARD_TITLE": "Название доски: ",
+    "NO_TASKS_FOUND": "Не найдено задач с такими параметрами...",
+    "DELETE_MESSAGE" : "Подтвердите удаление доски с задачами. Это действие необратимо",
+    "CONFIRM_BUTTON": "Да",
+    "REJECT_BUTTON": "Нет",
+    "NO_BOARDS_TEXT": "Ни одной доски еще не создано",
+    "SEARCH_PLACEHOLDER": "Введите поисковый запрос",
+    "SEARCH_BUTTON": "Поиск"
+  },
+  "SEARCH_SELECT_OPTIONS": {
+    "CATEGORY": "Категория",
+    "SELECT_TITLE": "Название задачи",
+    "SELECT_DESCRIPTION": "Описание задачи",
+    "SELECT_USER": "Пользователь",
+    "USER_SELECT": "Выберите пользователя"
+  },
+  "MODAL": {
+    "CONFIRM_BUTTON": "Да",
+    "REJECT_BUTTON": "Нет",
+    "CREATE_BOARD_BUTTON": "Создать",
+    "UPDATE_TASK_BUTTON": "Обновить",
+    "UPDATE_BOARD_BUTTON": "Обновить",
+    "CANCEL_BUTTON": "Отмена"
+  },
+  "EDIT_PROFILE": {
+    "TITLE": "Редактировать профиль:",
+    "DONE": "Данные профиля успешно обновлены",
+    "DELETE_MSG": "Вы подтверждаете удаление пользователя? Это действие необратимо",
+    "USER_DELETED": "Пользователь успешно удален"
+  },
+  "BOARD": {
+    "BUTTON_BACK": "Назад",
+    "BUTTON_ADD_A_COLUMN": "Добавить колонку",
+    "BUTTON_ADD_A_COLUMN_PLACEHOLDER": "Ввести заголовок колонки...",
+    "BUTTON_ADD_A_TASK": "Добавить таску",
+    "BUTTON_ADD_A_TASK_PLACEHOLDER": "Ввести заголовок таски...",
+    "DELETE_COLUMN_MESSAGE": "Вы подтверждаете удаление колонки? Это действие необратимо",
+    "DELETE_TASK_MESSAGE": "Вы подтверждаете удаление таски? Это действие необратимо"
+  },
+  "WELCOME_PAGE": {
+    "SUBTITLE": "система управления проектами",
+    "DESCR": "Приложение помогает достичь поставленные задачи отдельному человеку в команде или группе разработчиков",
+    "DESCR_RS": "Приложение выполнено в рамках финального задания курса ",
+    "TEAM_TITLE": "Наша команда:"
+  },
+  "CREATE_BOARD": {
+    "TITLE": "Заголовок:",
+    "DESCR": "Описание:"
+  },
+  "UPDATE_TASK": {
+    "TITLE": "Заголовок:",
+    "DESCR": "Описание:",
+    "USER": "Ответственное лицо:"
+  },
+  "UPDATE_BOARD": {
+    "TITLE": "Заголовок:",
+    "DESCR": "Описание:"
+  }
+}

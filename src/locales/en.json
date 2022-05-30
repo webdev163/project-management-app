@@ -1,0 +1,99 @@
+{
+  "LOGIN_LINK": "Sign in",
+  "SIGNUP_LINK": "Sign up",
+  "LOGOUT_LINK": "Sign out",
+  "EDIT_PROFILE_LINK": "Edit profile",
+  "MAIN_PAGE_LINK": "Go to main page",
+  "WELCOME_PAGE_LINK": "To welcome page",
+  "CREATE_BOARD_LINK": "Create board",
+  "BUTTON_BACK": "Back",
+  "BUTTON_SAVE": "Save",
+  "BUTTON_DELETE_USER": "Delete user",
+  "LOGIN": {
+    "LOGIN_LABEL": "Login:",
+    "PASSWORD_LABEL": "Password:",
+    "BUTTON_LABEL": "Enter",
+    "BUTTON_BACK": "Back",
+    "LOGIN_REQUIRED": "required field",
+    "PASSWORD_REQUIRED": "required field"
+  },
+  "LOGOUT": {
+    "MESSAGE": "Logging out..."
+  },
+  "SIGNUP": {
+    "NAME_LABEL": "Name:",
+    "LOGIN_LABEL": "Login:",
+    "PASSWORD_LABEL": "Password:",
+    "BUTTON_LABEL": "Register",
+    "NAME_REQUIRED": "required field",
+    "NAME_INVALID": "must be 2 characters or more",
+    "LOGIN_REQUIRED": "required field",
+    "LOGIN_INVALID": "must be 4 characters or more",
+    "PASSWORD_REQUIRED": "required field",
+    "PASSWORD_INVALID": "must be 6 characters or more"
+  },
+  "MAIN_ROUTE": {
+    "CREATE_BOARD": "Create board",
+    "BOARD_DESCR": "Description: ",
+    "COLUMNS_COUNT": "Columns: ",
+    "TASKS_COUNT": "Tasks: ",
+    "TASK_TITLE": "Task title: ",
+    "BOARD_TITLE": "Board title: ",
+    "DELETE_MESSAGE" : "Do you confirm board deletion? This action is irreversible",
+    "NO_TASKS_FOUND": "There are no tasks with such params...",
+    "CONFIRM_BUTTON": "Yes",
+    "REJECT_BUTTON": "No",
+    "NO_BOARDS_TEXT": "No boards have been created yet",
+    "SEARCH_PLACEHOLDER": "Enter search query",
+    "SEARCH_BUTTON": "Search"
+  },
+  "SEARCH_SELECT_OPTIONS": {
+    "CATEGORY": "Category",
+    "SELECT_TITLE": "Task title",
+    "SELECT_DESCRIPTION": "Task description",
+    "SELECT_USER": "User in task",
+    "USER_SELECT": "Choose user"
+  },
+  "MODAL": {
+    "CONFIRM_BUTTON": "Yes",
+    "REJECT_BUTTON": "No",
+    "CREATE_BOARD_BUTTON": "Create",
+    "UPDATE_TASK_BUTTON": "Update",
+    "UPDATE_BOARD_BUTTON": "Update",
+    "CANCEL_BUTTON": "Cancel"
+  },
+  "EDIT_PROFILE": {
+    "TITLE": "Edit profile:",
+    "DONE": "Profile data successfully updated",
+    "DELETE_MSG": "Do you confirm user deletion? This action is irreversible",
+    "USER_DELETED": "User successfully deleted"
+  },
+  "BOARD": {
+    "BUTTON_BACK": "Back",
+    "BUTTON_ADD_A_COLUMN": "Add a column",
+    "BUTTON_ADD_A_COLUMN_PLACEHOLDER": "Enter column title...",
+    "BUTTON_ADD_A_TASK": "Add a task",
+    "BUTTON_ADD_A_TASK_PLACEHOLDER": "Enter task title...",
+    "DELETE_COLUMN_MESSAGE": "Do you confirm column deletion? This action is irreversible",
+    "DELETE_TASK_MESSAGE": "Do you confirm task deletion? This action is irreversible"
+  },
+  "WELCOME_PAGE": {
+    "SUBTITLE": "project management system",
+    "DESCR": "The application helps to achieve the set goals for an individual in a team or group of developers",
+    "DESCR_RS": "The application was completed as the final task of the course ",
+    "TEAM_TITLE": "Our team:"
+  },
+  "CREATE_BOARD": {
+    "TITLE": "Title:",
+    "DESCR": "Description:"
+  },
+  "UPDATE_TASK": {
+    "TITLE": "Title:",
+    "DESCR": "Description:",
+    "USER": "Person in charge:"
+  },
+  "UPDATE_BOARD": {
+    "TITLE": "Title:",
+    "DESCR": "Description:"
+  }
+}

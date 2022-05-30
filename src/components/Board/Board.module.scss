@@ -1,0 +1,305 @@
+.boardContainer {
+  height: calc(100vh - 170px);
+  overflow-x: scroll;
+  padding: 10px;
+}
+
+.board {
+  gap: 40px;
+  display: flex;
+  overflow-x: scroll;
+  height: calc(100% - 114px);
+  @media screen and (max-width: 1000px) {
+    height: calc(100% - 200px);
+  }
+  @media screen and (max-width: 800px) {
+    height: calc(100% - 220px);
+  }
+  @media screen and (max-width: 500px) {
+    height: calc(100% - 260px);
+  }
+  @media screen and (max-width: 375px) {
+    height: calc(100% - 290px);
+  }
+}
+
+.boardItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  width: 100%;
+  min-height: 100px;
+  max-height: calc(100% - 50px);
+  height: fit-content;
+  padding: 15px;
+  background-color: rgb(157, 191, 212);
+  border-radius: 5px;
+  gap: 10px;
+
+  &:hover {
+    cursor: move;
+  }
+
+  @media screen and (max-width: 800px) {
+    max-height: calc(100% - 90px);
+  }
+
+}
+
+.tasksContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 300px;
+    background-clip: content-box;
+    background-color: #727272;
+  }
+}
+
+.btn {
+  min-width: 300px;
+  min-height: 45px;
+  border-radius: 5px;
+  opacity: 1;
+  transition: 0.3s;
+  background-color: #8871bd;
+  border: none;
+  font-size: 20px;
+  align-self: flex-start;
+}
+
+.btn::before {
+  content: "+ ";
+}
+
+.btn:hover,
+.cancelBtn:hover,
+.deleteBtn:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.cancelBtn {
+  border-radius: 5px;
+  opacity: 1;
+  transition: 0.3s;
+  padding: 0;
+  background-color: transparent;
+  font-size: 55px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  color: #484848;
+}
+
+.deleteBtn {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  transition: 0.3s;
+  font-size: 45px;
+}
+
+.deleteIcon {
+  cursor: pointer;
+  opacity: .8;
+  transition: .2s;  
+  transform: rotate(0deg);  
+}
+
+.deleteIcon:hover {
+  transform: scale(1.1);
+  transition: .2s; 
+  opacity: 1;  
+}
+
+.input {
+  height: 40px;
+  outline: none;
+  border: 1px solid #e7e7e7;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 15px 0;
+  padding: 0 7px;
+  font-size: 17px;
+  width: 100%;
+}
+
+.tasksItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.textarea {
+  width: 100%;
+  resize: none;
+  border-radius: 3px;
+  min-height: 25px;
+  height: 25px;
+  max-height: 200px;
+  padding: 4px 8px;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  overflow: hidden;
+}
+
+.columnTitle {
+  background-color: #0000;
+  box-shadow: none;
+  font-weight: 600;
+  margin: 10px 0;
+  max-width: 275px;
+  width: 100%;
+
+  @media screen and (max-width: 1200px) {
+    max-width: 255px;
+  }
+
+}
+
+.columnTitleInputContainer {
+  margin: 40px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.columnTitleInput {
+  height: 30px;
+  outline: none;
+  border: 2px solid #484848;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 0 7px;
+  font-size: 17px;
+  max-width: 205px;
+  width: 100%;
+  font-weight: 600;
+
+  @media screen and (max-width: 1200px) {
+    max-width: 185px;
+  }
+
+}
+
+.columnTitle:focus {
+  background-color: #fff;
+  box-shadow: inset 0 0 0 2px rgb(129, 50, 129);
+}
+
+.columnTitleInputBtnsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 55px;
+  margin-left: 5px;
+}
+
+.columnTitleInputBtnsContainer button {
+  border-radius: 5px;
+  opacity: 1;
+  transition: 0.3s;
+  background-color: #8871bd;
+  border: none;
+  font-size: 17px;
+  padding: 2px 7px;
+}
+
+.columnTitleInputBtnsContainer button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.taskTitle {
+  background-color: #fff;
+  max-width: 210px;
+}
+
+.taskTitle:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.modalForm {
+  height: 150px;
+  max-width: 300px;
+  width: 100%;
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 10px;
+  font-size: 18px;
+  box-shadow: 0 20px 25px rgba(153, 153, 153, 0.1);
+  padding: 25px;
+  padding-bottom: 10px;
+  border: none;
+
+  @media screen and (max-width: 800px) {
+    margin-top: 40%;
+  }
+
+}
+
+.edit-btn {
+  height: 30px;
+  background-image: url('../assets/icons/edit.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 30px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  margin-bottom: 5px;
+  transition: filter .3s;
+  &:hover {
+    filter: invert(87%) sepia(36%) saturate(5700%) hue-rotate(0deg) brightness(99%) contrast(111%);
+  }
+}
+
+.back {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @media screen and (max-width: 800px) {
+    margin-top: 20px;
+  }
+
+  @media screen and (max-width: 375px) {
+    margin-top: 50px;
+  }
+
+}
+
+.btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.modal-inner {
+  width: 100%;
+}

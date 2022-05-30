@@ -1,0 +1,27 @@
+.modal {
+  width: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -180px;
+  margin-top: -100px;
+  border-radius: 10px;
+  padding: 20px 30px;
+  background-color: #fff;
+  @media screen and (max-width: 500px) {
+    width: 250px;
+    margin-left: -150px;
+  }
+}
+
+.text {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;;
+}
