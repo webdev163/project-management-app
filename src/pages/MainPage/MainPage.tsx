@@ -64,8 +64,6 @@ const MainPage: FC = () => {
       const deleteResp = await deleteBoard(boardId);
       if (deleteResp?.status === 204 || deleteResp?.status === 200) {
         dispatch(setBoards(boards.filter(board => board.id !== boardId)));
-      } else {
-        alert('Something went wrong');
       }
     }
     setPageState(prev => {
@@ -96,10 +94,9 @@ const MainPage: FC = () => {
       case searchCategory.TITLE:
         return tasksArray.filter(task => task.title.includes(searchVal));
       case searchCategory.DESCRIPTION:
-        console.log('search descr', category, searchVal);
-        return tasksArray.filter(task => task.description.includes(searchVal));
+        return tasksArray.filter(task => task.description?.includes(searchVal));
       case searchCategory.USER:
-        return tasksArray.filter(task => task.userId.includes(searchVal));
+        return tasksArray.filter(task => task.userId?.includes(searchVal));
       default:
         return tasksArray.filter(task => task.title.includes(searchVal));
     }
@@ -110,7 +107,7 @@ const MainPage: FC = () => {
       return { ...prev, searchTasks: [], searchFlag: false, isSearching: true };
     });
     const tasksArr = await searchAllTasks();
-    console.log('handleSearch tasksArr', tasksArr);
+
     if (Array.isArray(tasksArr?.data)) {
       const tasksModify = (tasksArr?.data as SearchTasksProps[]).map(task => {
         const boardTitle = boards.find(board => board.id === task.boardId);
