@@ -92,13 +92,13 @@ const MainPage: FC = () => {
   const searchFilter = (category: string, searchVal: string, tasksArray: SearchTasksProps[]) => {
     switch (category) {
       case searchCategory.TITLE:
-        return tasksArray.filter(task => task.title.includes(searchVal));
+        return tasksArray.filter(task => task.title?.toLowerCase().includes(searchVal.toLowerCase()));
       case searchCategory.DESCRIPTION:
-        return tasksArray.filter(task => task.description?.includes(searchVal));
+        return tasksArray.filter(task => task.description?.toLowerCase().includes(searchVal.toLowerCase()));
       case searchCategory.USER:
         return tasksArray.filter(task => task.userId?.includes(searchVal));
       default:
-        return tasksArray.filter(task => task.title.includes(searchVal));
+        return tasksArray.filter(task => task.title?.toLowerCase().includes(searchVal.toLowerCase()));
     }
   };
 
@@ -107,7 +107,6 @@ const MainPage: FC = () => {
       return { ...prev, searchTasks: [], searchFlag: false, isSearching: true };
     });
     const tasksArr = await searchAllTasks();
-
     if (Array.isArray(tasksArr?.data)) {
       const tasksModify = (tasksArr?.data as SearchTasksProps[]).map(task => {
         const boardTitle = boards.find(board => board.id === task.boardId);
@@ -182,7 +181,9 @@ const MainPage: FC = () => {
                     <NavLink to={`board/${board.id}`} className={styles.board}>
                       {countArr && (
                         <ul className={styles.list}>
-                          <li className={styles.listItemTitle}>{board.title}</li>
+                          <li className={styles.listItemTitle}>
+                            {board.title.length > 23 ? board.title.substring(0, 20) + '...' : board.title}
+                          </li>
                           <li className={styles.listItemDescr}>
                             {t('MAIN_ROUTE.BOARD_DESCR')}
                             {board.description.length > 70
@@ -224,38 +225,51 @@ const MainPage: FC = () => {
 
           {pageState.searchFlag && pageState.searchTasks.length !== 0 && (
             <>
-              <ul className={styles.tasksWrapper}>
-                {pageState.searchTasks.map((value, index) => {
-                  return (
-                    <NavLink
-                      to={`board/${value.boardId}`}
-                      key={value.boardId + index * 11}
-                      className={styles.search_task}
-                    >
-                      {t('MAIN_ROUTE.BOARD_TITLE')}
-                      {value.boardTitle}
-                      <br />
-                      {t('MAIN_ROUTE.TASK_TITLE')}
-                      {value.title}
-                    </NavLink>
-                  );
-                })}
-              </ul>
-              <div className={styles.backBtn_wrapper}>
-                <Button variant="outlined" type="button" onClick={resetSearch}>
-                  ← {t('BOARD.BUTTON_BACK')}
-                </Button>
-              </div>
-            </>
-          )}
-          {pageState.searchFlag && pageState.searchTasks.length === 0 && (
-            <div className={styles.search_no_tasks}>
-              <div style={{ width: '100%', margin: '2rem 0 2rem 0' }}>{t('MAIN_ROUTE.NO_TASKS_FOUND')}</div>
               <div className={styles.back}>
                 <Button variant="outlined" type="button" onClick={resetSearch}>
                   ← {t('BOARD.BUTTON_BACK')}
                 </Button>
               </div>
+              <ul className={styles.tasksWrapper}>
+                {pageState.searchTasks.map((value, index) => {
+                  return (
+                    <li
+                      key={value.boardId + index * 11}
+                      className={styles.taskItem}
+                      onClick={() => openBoard(value.boardId)}
+                    >
+                      <NavLink to={`/board/${value.boardId}`} className={styles.search_task}>
+                        <div className={styles.searchResultWrapper}>
+                          <p className={styles.searchResultTitle}>{t('MAIN_ROUTE.BOARD_TITLE')}</p>
+                          <p className={styles.searchResultText}>
+                            {value.boardTitle && value.boardTitle.length > 26
+                              ? value?.boardTitle?.substring(0, 23) + '...'
+                              : value.boardTitle}
+                          </p>
+                        </div>
+                        <div className={styles.searchResultWrapper}>
+                          <p className={styles.searchResultTitle}>{t('MAIN_ROUTE.TASK_TITLE')}</p>
+                          <p className={styles.searchResultText}>
+                            {value.title && value.title.length > 26
+                              ? value?.title?.substring(0, 23) + '...'
+                              : value.title}
+                          </p>
+                        </div>
+                      </NavLink>
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          )}
+          {pageState.searchFlag && pageState.searchTasks.length === 0 && (
+            <div className={styles.search_no_tasks}>
+              <div className={styles.back}>
+                <Button variant="outlined" type="button" onClick={resetSearch}>
+                  ← {t('BOARD.BUTTON_BACK')}
+                </Button>
+              </div>
+              <p className={styles.noTasksText}>{t('MAIN_ROUTE.NO_TASKS_FOUND')}</p>
             </div>
           )}
         </div>

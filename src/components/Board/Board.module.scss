@@ -7,6 +7,20 @@
 .board {
   gap: 40px;
   display: flex;
+  overflow-x: scroll;
+  height: calc(100% - 114px);
+  @media screen and (max-width: 1000px) {
+    height: calc(100% - 200px);
+  }
+  @media screen and (max-width: 800px) {
+    height: calc(100% - 220px);
+  }
+  @media screen and (max-width: 500px) {
+    height: calc(100% - 260px);
+  }
+  @media screen and (max-width: 375px) {
+    height: calc(100% - 290px);
+  }
 }
 
 .boardItem {
@@ -16,15 +30,19 @@
   max-width: 320px;
   width: 100%;
   min-height: 100px;
-  max-height: 570px;
+  max-height: calc(100% - 50px);
   height: fit-content;
   padding: 15px;
   background-color: rgb(157, 191, 212);
   border-radius: 5px;
   gap: 10px;
 
-  @media screen and (max-width: 1200px) {
-    max-height: 480px;
+  &:hover {
+    cursor: move;
+  }
+
+  @media screen and (max-width: 800px) {
+    max-height: calc(100% - 90px);
   }
 
 }
@@ -35,23 +53,33 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  overflow-y: scroll;
-}
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
 
-.tasksContainer::-webkit-scrollbar {
-  display: none;
+  &::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 300px;
+    background-clip: content-box;
+    background-color: #727272;
+  }
 }
 
 .btn {
   min-width: 300px;
   min-height: 45px;
-  height: 100%;
   border-radius: 5px;
   opacity: 1;
   transition: 0.3s;
   background-color: #8871bd;
   border: none;
   font-size: 20px;
+  align-self: flex-start;
 }
 
 .btn::before {
@@ -181,6 +209,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 55px;
+  margin-left: 5px;
 }
 
 .columnTitleInputBtnsContainer button {
@@ -241,6 +270,11 @@
   border: none;
   cursor: pointer;
   background-color: transparent;
+  margin-bottom: 5px;
+  transition: filter .3s;
+  &:hover {
+    filter: invert(87%) sepia(36%) saturate(5700%) hue-rotate(0deg) brightness(99%) contrast(111%);
+  }
 }
 
 .back {

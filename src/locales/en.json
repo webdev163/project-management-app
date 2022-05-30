@@ -43,14 +43,16 @@
     "NO_TASKS_FOUND": "There are no tasks with such params...",
     "CONFIRM_BUTTON": "Yes",
     "REJECT_BUTTON": "No",
-    "NO_BOARDS_TEXT": "No boards have been created yet"
+    "NO_BOARDS_TEXT": "No boards have been created yet",
+    "SEARCH_PLACEHOLDER": "Enter search query",
+    "SEARCH_BUTTON": "Search"
   },
   "SEARCH_SELECT_OPTIONS": {
     "CATEGORY": "Category",
     "SELECT_TITLE": "Task title",
     "SELECT_DESCRIPTION": "Task description",
     "SELECT_USER": "User in task",
-    "USER_SELECT": "Users"
+    "USER_SELECT": "Choose user"
   },
   "MODAL": {
     "CONFIRM_BUTTON": "Yes",

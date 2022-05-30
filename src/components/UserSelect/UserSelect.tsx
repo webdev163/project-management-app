@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { UserCallbackProps } from '~/types/mainRoute';
@@ -17,20 +16,16 @@ const UserSelect: FC<UserCallbackProps> = props => {
   const { t } = useTranslation();
 
   return (
-    <Box sx={{ minWidth: 200 }}>
+    <Box sx={{ minWidth: 200, marginRight: 1 }}>
       <FormControl fullWidth size="small" sx={{ marginRight: '5px' }}>
-        <InputLabel id="demo-simple-select-label">{t('SEARCH_SELECT_OPTIONS.USER_SELECT')}</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={category}
-          label="Category"
-          onChange={handleChange}
-        >
+        <Select value={category} sx={{ width: '250px' }} onChange={handleChange} displayEmpty>
+          <MenuItem value="" disabled>
+            {t('SEARCH_SELECT_OPTIONS.USER_SELECT')}
+          </MenuItem>
           {props.userArray.length &&
             props.userArray.map(user => (
               <MenuItem value={user.id} key={user.id}>
-                {user.name}
+                {user.login}
               </MenuItem>
             ))}
         </Select>

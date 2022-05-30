@@ -1,17 +1,15 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { useTranslation } from 'react-i18next';
-import TextareaAutosize from 'react-textarea-autosize';
 import BoardTask from '../BoardTask';
 import BoardAddItem from '../BoardAddItem';
-import { handleFocus } from '~/utils/utils';
 import { BoardColumnProps, ModalWindowFormOptions } from '~/types/board';
 import { ItemTypes } from '~/utils/constants';
 import { getAllTasks, updateTask } from '~/services/tasks';
 import { ColumnData, TaskData } from '~/types/api';
 import { useAppDispatch, useAppSelector } from '~/hooks/redux';
 import { setColumn, setColumnTaskData, setCurrentBoard, setDeleteColumn } from '~/store/reducers/currentBoardSlice';
-import { deleteColumn, getAllColumns, updateColumn } from '~/services/columns';
+import { deleteColumn, getAllColumns, updateColumn, getColumn } from '~/services/columns';
 import ConfirmationModal from '../ConfirmationModal';
 
 import styles from '../Board/Board.module.scss';
@@ -153,7 +151,7 @@ const BoardColumn: FC<BoardColumnProps> = props => {
               dispatch(
                 setColumnTaskData({
                   columnId: props.columnId,
-                  tasks: [draggedTask[0], ...props.columnTasks],
+                  tasks: [...props.columnTasks, draggedTask[0]],
                 }),
               );
               handleUpdateTask(draggedTask[0], draggedTaskColumnId, columnToDropId);
@@ -170,13 +168,15 @@ const BoardColumn: FC<BoardColumnProps> = props => {
     dragColumnIndex: string,
     columnToDropId: string,
   ): Promise<void> => {
+    const targetColumnData = (await getColumn(currentBoard.id, columnToDropId)) as ColumnData;
+    const order = (targetColumnData?.tasks?.length as number) + 1;
     await updateTask(
       currentBoard.id,
       dragColumnIndex,
       columnToDropId,
       draggedTask.id,
       draggedTask.title,
-      1,
+      order,
       draggedTask.description,
       draggedTask.userId,
     );
@@ -302,6 +302,13 @@ const BoardColumn: FC<BoardColumnProps> = props => {
       </span>
       {isTitleOnClick ? (
         <div className={styles.columnTitleInputContainer} ref={columnTitleInputContainerRef}>
+          <input
+            type="text"
+            className={styles.columnTitleInput}
+            defaultValue={props.columnTitle}
+            autoFocus
+            onChange={e => setNewColumnTitle(e.target.value)}
+          />
           <div className={styles.columnTitleInputBtnsContainer}>
             <button
               onClick={() => {
@@ -312,21 +319,11 @@ const BoardColumn: FC<BoardColumnProps> = props => {
             </button>
             <button onClick={() => setIsTitleOnClick(false)}>Cancel</button>
           </div>
-          <input
-            type="text"
-            className={styles.columnTitleInput}
-            defaultValue={props.columnTitle}
-            autoFocus
-            onChange={e => setNewColumnTitle(e.target.value)}
-          />
         </div>
       ) : (
-        <TextareaAutosize
-          className={`${styles.textarea} ${styles.columnTitle}`}
-          defaultValue={props.columnTitle}
-          onFocus={handleFocus}
-          onClick={() => setIsTitleOnClick(true)}
-        />
+        <div className={`${styles.textarea} ${styles.columnTitle}`} onClick={() => setIsTitleOnClick(true)}>
+          {props.columnTitle}
+        </div>
       )}
       <div className={styles.tasksContainer}>
         {props.columnTasks &&

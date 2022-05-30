@@ -12,7 +12,6 @@
   padding: 10px 15px;
   width: 100%;
   display: flex;
-  // justify-content: center;
   flex-direction: column;
   border-width: 1px;
   border-color: rgb(110, 110, 110);
@@ -28,11 +27,6 @@
 
 .main_route_sidebar {
   padding: 5px;
-  // background-color: #f9f9f9;
-  // border-radius: 1rem;
-  // border-color: #f9f9f9;
-  // border-style: solid;
-  // box-shadow: 0 0 12px 0 #bcbcbc;
 }
 
 .board:hover {
@@ -49,20 +43,19 @@
   border-width: 1px;
   border-color: transparent;
   border-style: solid;
-  // background-color: rgba(95, 140, 137, .2);
   max-width: 300px;
   width: 100%;
   margin: 34px;
   position: relative;
-  @media screen and (max-width: 800px) {
-    max-width: 230px;
-    // transform: scale(.85);
+  @media screen and (max-width: 375px) {
+    margin: 5px;
+    max-width: 250px;
   }
 }
 
 .tasksWrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   margin: 10px 0;
@@ -70,22 +63,38 @@
   border-width: 1px;
   border-color: transparent;
   border-style: solid;
-  // background-color: rgba(95, 140, 137, .2);
-  max-width: 80%;
-  width: 100%;
   margin: 34px;
   position: relative;
-  @media screen and (max-width: 800px) {
-    max-width: 230px;
-    // transform: scale(.85);
+  padding-left: 0;
+}
+
+.task-item {
+  list-style: none;
+  padding-left: 0;
+  padding: 10px;
+  width: 260px;
+  text-align: center;
+  min-height: 134px;
+  @media screen and (max-width: 670px) {
+    width: 100%;
   }
 }
 
-.backBtn_wrapper {
-  margin-right: 42px;
+.back {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+
+  @media screen and (max-width: 800px) {
+    margin-top: 20px;
+  }
+
+  @media screen and (max-width: 375px) {
+    margin-top: 20px;
+  }
 }
-
-
 
 .deleteIcon_wrapper {
   transform: scale(1.4);
@@ -121,11 +130,9 @@
 }
 
 .search_task {
-  max-width: 220px;
   min-height: 20px;
-  margin-left: 1rem;
-  padding: 5px; 
-  display: inline-flex;
+  padding: 5px 15px; 
+  display: block;
   justify-content: center;
   align-items: center;
   border-width: 1px;
@@ -138,6 +145,7 @@
   opacity: 0.8;
   transition: 0.3s;
   margin: 10px 0; 
+  text-align: left;
 }
 
 .search_no_tasks {
@@ -191,4 +199,22 @@
 .no-boards-text {
   font-size: 20px;
   margin: 25px;
+}
+
+.search-result-wrapper {
+  margin: 15px 0;
+}
+
+.search-result-title {
+  margin: 5px 0;
+}
+
+.search-result-text {
+  overflow-x: hidden;
+  margin: 5px 0;
+}
+
+.no-tasks-text {
+  font-size: 18px;
+  width: 100%;
 }
