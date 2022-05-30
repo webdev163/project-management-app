@@ -7,10 +7,15 @@ import { SearchCallbackProps } from '~/types/mainRoute';
 import { getAllUsers } from '~/services/users';
 import UserSelect from '../UserSelect/UserSelect';
 import { UserData } from '~/types/api';
+import { useTranslation } from 'react-i18next';
+
 import styles from './SearchForm.module.scss';
 
 const SearchForm: FC<SearchCallbackProps> = props => {
   const htmlForm = useRef<HTMLFormElement>(null);
+
+  const { t } = useTranslation();
+
   const [formState, setFormState] = useState<{
     value: string;
     users: UserData[];
@@ -24,7 +29,6 @@ const SearchForm: FC<SearchCallbackProps> = props => {
   });
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     props.callback(formState.category, formState.value);
   };
 
@@ -59,11 +63,10 @@ const SearchForm: FC<SearchCallbackProps> = props => {
         <UserSelect userArray={formState.users} callback={handleUserChange} />
       ) : (
         <TextField
-          label="Task"
-          placeholder="Enter task text"
+          placeholder={t('MAIN_ROUTE.SEARCH_PLACEHOLDER')}
           variant="outlined"
           size="small"
-          sx={{ marginRight: '5px' }}
+          sx={{ marginRight: '5px', width: '250px' }}
           onChange={handleInputChange}
         ></TextField>
       )}
@@ -74,7 +77,7 @@ const SearchForm: FC<SearchCallbackProps> = props => {
         sx={{ height: '40px', marginLeft: '5px' }}
         disabled={formState.category.length ? false : true}
       >
-        Search
+        {t('MAIN_ROUTE.SEARCH_BUTTON')}
       </Button>
     </form>
   );

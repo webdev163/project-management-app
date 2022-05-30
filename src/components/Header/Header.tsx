@@ -38,7 +38,7 @@ const Header: FC = () => {
   useEffect(() => {
     const newName = name;
     composeGreeting(newName);
-  }, [name]);
+  }, [name, t]);
 
   const onBoardCreate = () => {
     setIsModalActive(true);

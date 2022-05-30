@@ -44,14 +44,16 @@
     "DELETE_MESSAGE" : "Подтвердите удаление доски с задачами. Это действие необратимо",
     "CONFIRM_BUTTON": "Да",
     "REJECT_BUTTON": "Нет",
-    "NO_BOARDS_TEXT": "Ни одной доски еще не создано"
+    "NO_BOARDS_TEXT": "Ни одной доски еще не создано",
+    "SEARCH_PLACEHOLDER": "Введите поисковый запрос",
+    "SEARCH_BUTTON": "Поиск"
   },
   "SEARCH_SELECT_OPTIONS": {
     "CATEGORY": "Категория",
     "SELECT_TITLE": "Название задачи",
     "SELECT_DESCRIPTION": "Описание задачи",
     "SELECT_USER": "Пользователь",
-    "USER_SELECT": "Пользователи"
+    "USER_SELECT": "Выберите пользователя"
   },
   "MODAL": {
     "CONFIRM_BUTTON": "Да",

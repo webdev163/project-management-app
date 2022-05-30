@@ -84,11 +84,9 @@ const BoardAddItem: FC<ModalWindowFormProps> = props => {
           ×
         </span>
       </Modal>
-      {!isModalOpen && (
-        <button className={styles.btn} onClick={handleOpenModal}>
-          {props.options.btnTitle}
-        </button>
-      )}
+      <button className={styles.btn} onClick={handleOpenModal}>
+        {props.options.btnTitle}
+      </button>
     </>
   );
 };

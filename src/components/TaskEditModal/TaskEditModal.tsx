@@ -66,7 +66,8 @@ const TaskEditModal: FC<TaskEditModalProps> = ({ isActive, setIsActive, setTaskT
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await updateTask(currentBoard.id, columnId, columnId, taskId, taskTitle, taskOrder, taskDescr, taskUser);
+    const description = taskDescr === '' ? 'description' : taskDescr;
+    await updateTask(currentBoard.id, columnId, columnId, taskId, taskTitle, taskOrder, description, taskUser);
     setIsActive(false);
     setTaskTitleProp(taskTitle);
   };
@@ -95,7 +96,6 @@ const TaskEditModal: FC<TaskEditModalProps> = ({ isActive, setIsActive, setTaskT
                 onChange={e => updateDescr(e)}
                 value={taskDescr}
                 rows={5}
-                required
               ></textarea>
             </label>
             <label className={styles.label}>

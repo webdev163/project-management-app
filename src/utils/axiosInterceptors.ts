@@ -19,6 +19,9 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 const onResponseError = (error: AxiosError): Promise<AxiosError> => {
   const errData = error.response?.data;
   const lang = getLang();
+  if (errData?.statusCode === 400) {
+    store.dispatch(setError(lang === 'en' ? ServerResponseEn.UNKNOWN_ERROR : ServerResponseRu.UNKNOWN_ERROR));
+  }
   if (error && error?.response?.status === 401) {
     store.dispatch(setError(lang === 'en' ? ServerResponseEn.TOKEN_EXPIRED : ServerResponseRu.TOKEN_EXPIRED));
     store.dispatch(logOut());
