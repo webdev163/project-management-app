@@ -24,7 +24,7 @@ const SearchForm: FC<SearchCallbackProps> = props => {
   });
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formState);
+
     props.callback(formState.category, formState.value);
   };
 
@@ -35,7 +35,6 @@ const SearchForm: FC<SearchCallbackProps> = props => {
   };
 
   const handleSelectChange = async (e: string) => {
-    console.log(e);
     if (e === searchCategory.USER) {
       const users = (await getAllUsers()) as UserData[];
       setFormState(prev => {
